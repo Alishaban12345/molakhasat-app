@@ -3,48 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ملخصات 3 إعدادي - لوحة الطالب</title>
+    <title>منصة ملخصات 3 إعدادي - لوحة التحكم</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: #0b0b13;
+            color: #e2e8f0;
             display: flex;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* القائمة الجانبية (Sidebar) */
+        /* القائمة الجانبية الفخمة */
         .sidebar {
-            width: 260px;
-            background-color: #1a1a1a;
-            border-left: 1px solid #2c2c2c;
+            width: 280px;
+            background: rgba(18, 18, 26, 0.95);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 20px;
+            padding: 25px 20px;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.5);
+            z-index: 10;
         }
 
         .sidebar-header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
 
         .sidebar-header h2 {
-            color: #4facfe;
-            font-size: 20px;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 22px;
+            font-weight: 900;
             margin-bottom: 5px;
         }
 
         .sidebar-header p {
-            fornt-size: 13px;
-            color: #888;
+            color: #64748b;
+            font-size: 13px;
         }
 
         .sidebar-menu {
@@ -53,111 +60,139 @@
         }
 
         .sidebar-menu li {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .sidebar-menu a {
             display: flex;
             align-items: center;
-            gap: 10px;
-            padding: 12px 15px;
-            color: #ccc;
+            gap: 12px;
+            padding: 14px 18px;
+            color: #94a3b8;
             text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s;
+            border-radius: 12px;
+            transition: all 0.3s ease;
             font-size: 15px;
+            font-weight: 600;
         }
 
         .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: #2a2a2a;
-            color: #4facfe;
+            background: linear-gradient(135deg, rgba(0, 242, 254, 0.15), rgba(79, 172, 254, 0.15));
+            color: #00f2fe;
+            border-right: 4px solid #00f2fe;
         }
 
         .sidebar-footer {
-            border-top: 1px solid #2c2c2c;
-            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 20px;
         }
 
         .logout-btn {
-            background-color: #ff4757;
-            color: white;
-            border: none;
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.2);
             width: 100%;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 12px;
+            border-radius: 12px;
             cursor: pointer;
             font-size: 15px;
-            font-weight: bold;
-            transition: 0.3s;
+            font-weight: 700;
+            transition: all 0.3s ease;
         }
 
         .logout-btn:hover {
-            background-color: #ff6b81;
+            background: #ef4444;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.4);
         }
 
         /* المحتوى الرئيسي */
         .main-content {
             flex-grow: 1;
-            padding: 30px;
+            padding: 40px;
             overflow-y: auto;
-            background-color: #121212;
+            background: radial-gradient(circle at top right, #151522 0%, #0b0b13 70%);
         }
 
         .tab-content {
             display: none;
+            animation: fadeIn 0.4s ease-in-out;
         }
 
         .tab-content.active {
             display: block;
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .card {
-            background-color: #1a1a1a;
-            border: 1px solid #262626;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            background: rgba(26, 26, 36, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .card h3 {
             color: #00f2fe;
-            margin-bottom: 15px;
-            font-size: 18px;
-            border-bottom: 2px solid #2c2c2c;
-            padding-bottom: 8px;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 12px;
         }
 
-        /* تنسيق قسم التواصل */
+        .info-item {
+            margin-bottom: 15px;
+            font-size: 16px;
+            color: #cbd5e1;
+        }
+
+        .info-item strong {
+            color: #fff;
+        }
+
+        /* تنسيق قسم التواصل الفخم */
         .contact-box {
-            background: #121212;
-            border: 1px solid #333;
-            padding: 20px;
-            border-radius: 8px;
+            background: rgba(15, 15, 20, 0.8);
+            border: 1px solid rgba(0, 242, 254, 0.2);
+            padding: 30px;
+            border-radius: 14px;
             text-align: center;
-            margin-top: 15px;
+            margin-top: 20px;
+            box-shadow: inset 0 0 15px rgba(0, 242, 254, 0.05);
         }
 
         .phone-number {
-            font-size: 22px;
-            color: #4facfe;
-            font-weight: bold;
-            margin: 10px 0;
+            font-size: 26px;
+            color: #00f2fe;
+            font-weight: 900;
+            margin: 15px 0;
             display: inline-block;
             direction: ltr;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
         }
 
-        /* التجاوب مع الموبايل */
+        /* التجاوب مع الهواتف المحمولة */
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
                 height: auto;
+                overflow: auto;
             }
             .sidebar {
                 width: 100%;
                 height: auto;
+                padding: 15px;
             }
             .main-content {
+                padding: 20px;
                 height: auto;
             }
         }
@@ -165,17 +200,17 @@
 </head>
 <body>
 
-    <!-- القائمة الجانبية -->
+    <!-- القائمة الجانبية (تظهر بعد الدخول) -->
     <div class="sidebar">
         <div>
             <div class="sidebar-header">
-                <h2>🎓 منصة 3 إعدادي</h2>
-                <p>لوحة الطالب التعليمية</p>
+                <h2>🎓 ملخصات 3 إعدادي</h2>
+                <p>لوحة تحكم الطالب</p>
             </div>
             <ul class="sidebar-menu">
                 <li><a href="#" class="active" onclick="switchTab(event, 'home-tab')">🏠 الرئيسية والدروس</a></li>
                 <li><a href="#" onclick="switchTab(event, 'profile-tab')">👤 الحساب الخاص</a></li>
-                <li><a href="#" onclick="switchTab(event, 'support-tab')">📩 تواصل معنا</a></li>
+                <li><a href="#" onclick="switchTab(event, 'support-tab')">📞 تواصل معنا والدعم</a></li>
             </ul>
         </div>
         <div class="sidebar-footer">
@@ -183,15 +218,15 @@
         </div>
     </div>
 
-    <!-- محتوى الصفحات -->
+    <!-- المحتوى الرئيسي -->
     <div class="main-content">
         
-        <!-- صفحة الرئيسية -->
+        <!-- صفحة الرئيسية والدروس -->
         <div id="home-tab" class="tab-content active">
             <div class="card">
-                <h3>📌 أحدث الملخصات والدروس</h3>
+                <h3>📌 أحدث الملخصات والدروس التعليمية</h3>
                 <div id="dynamic-content">
-                    <p style="color: #888;">جاري جلب المحتوى والامتحانات...</p>
+                    <p style="color: #64748b;">جاري تحديث ونشر الملخصات والامتحانات القادمة...</p>
                 </div>
             </div>
         </div>
@@ -199,20 +234,20 @@
         <!-- صفحة الحساب الخاص -->
         <div id="profile-tab" class="tab-content">
             <div class="card">
-                <h3>👤 معلومات الحساب</h3>
-                <p><strong>اسم الطالب:</strong> <span id="student-name">علي</span></p>
-                <p><strong>الصف الدراسي:</strong> <span id="student-grade">الثالث الإعدادي</span></p>
-                <p><strong>الحالة:</strong> <span style="color: #2ed573;">نشط ومفعل ✓</span></p>
+                <h3>👤 معلومات حساب الطالب</h3>
+                <div class="info-item">اسم الطالب: <strong id="display-name">علي</strong></div>
+                <div class="info-item">الصف الدراسي: <strong>الثالث الإعدادي</strong></div>
+                <div class="info-item">حالة الحساب: <strong style="color: #22c55e;">نشط ومفعل ✓</strong></div>
             </div>
         </div>
 
-        <!-- صفحة التواصل -->
+        <!-- صفحة التواصل والدعم -->
         <div id="support-tab" class="tab-content">
             <div class="card">
-                <h3>📩 خدمة العملاء والتواصل</h3>
-                <p style="color: #aaa; font-size: 14px; margin-bottom: 15px;">لو عندك أي استفسار أو مشكلة، تقدر تتواصل معنا مباشرة عبر الرقم التالي:</p>
+                <h3>📞 خدمة العملاء والدعم الفني</h3>
+                <p style="color: #94a3b8; font-size: 14px; line-height: 1.6;">لو واجهتك أي مشكلة أو كان لديك استفسار دراسي، يسعدنا تواصلك معنا مباشرة عبر الرقم المخصص:</p>
                 <div class="contact-box">
-                    <p style="color: #888; font-size: 13px;">رقم التواصل:</p>
+                    <p style="color: #64748b; font-size: 13px;">رقم الاتصال المباشر:</p>
                     <div class="phone-number">01097991640</div>
                 </div>
             </div>
@@ -221,7 +256,15 @@
     </div>
 
     <script>
-        // دالة التنقل بين القوائم
+        // إظهار اسم الطالب المسجل تلقائياً إذا وُجد
+        window.onload = function() {
+            const savedName = localStorage.getItem('student_name');
+            if(savedName) {
+                document.getElementById('display-name').innerText = savedName;
+            }
+        };
+
+        // دالة التنقل الفخم بين التبويبات
         function switchTab(event, tabId) {
             event.preventDefault();
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
@@ -231,11 +274,11 @@
             event.currentTarget.classList.add('active');
         }
 
-        // دالة تسجيل الخروج
+        // دالة تسجيل الخروج والرجوع لصفحة الدخول
         function logout() {
             if(confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                alert('تم تسجيل الخروج بنجاح.');
-                window.location.reload();
+                localStorage.removeItem('student_name');
+                window.location.href = 'home.html';
             }
         }
     </script>
