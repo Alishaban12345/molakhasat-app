@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الرئيسية - ملخصات 3 إعدادي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Cairo', sans-serif; background-color: #020617; }</style>
+</head>
+<body class="min-h-screen text-slate-100 flex items-center justify-center p-4">
+
+    <div class="w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
+        <div class="text-center mb-8">
+            <h1 id="welcome-msg" class="text-2xl font-black text-white">أهلاً بك يا بطل!</h1>
+            <p class="text-xs text-slate-400 mt-1">اختر القسم المطلوب لتصفح محتوى المنصة</p>
+        </div>
+
+        <div class="space-y-4">
+            <!-- قسم الملخصات والشروحات -->
+            <a href="subjects_summaries.html" class="block bg-slate-800 hover:bg-slate-750 border border-slate-700 p-5 rounded-2xl transition flex items-center justify-between group">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <span class="text-3xl">📚</span>
+                    <div>
+                        <h3 class="font-bold text-base group-hover:text-sky-400 transition">قسم الملخصات والشروحات</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">ملخصات جميع مواد الصف الثالث الإعدادي</p>
+                    </div>
+                </div>
+                <span class="text-sky-400 font-bold">←</span>
+            </a>
+
+            <!-- قسم الامتحانات الإلكترونية -->
+            <a href="subjects_exams.html" class="block bg-slate-800 hover:bg-slate-750 border border-slate-700 p-5 rounded-2xl transition flex items-center justify-between group">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <span class="text-3xl">📝</span>
+                    <div>
+                        <h3 class="font-bold text-base group-hover:text-sky-400 transition">قسم الامتحانات الإلكترونية</h3>
+                        <p class="text-xs text-slate-400 mt-0.5">اختبر نفسك في كل مادة واحصل على النتيجة</p>
+                    </div>
+                </div>
+                <span class="text-sky-400 font-bold">←</span>
+            </a>
+
+            <!-- قسم الكورسات (قريباً) -->
+            <div class="block bg-slate-800/60 border border-slate-700/60 p-5 rounded-2xl opacity-80 flex items-center justify-between">
+                <div class="flex items-center space-x-4 space-x-reverse">
+                    <span class="text-3xl">🎯</span>
+                    <div>
+                        <h3 class="font-bold text-base text-slate-300">قسم الكورسات والشروحات المرئية</h3>
+                        <p class="text-xs text-slate-500 mt-0.5">فيديوهات شرح مبسطة للمنهج بالكامل</p>
+                    </div>
+                </div>
+                <span class="bg-amber-500/10 text-amber-400 border border-amber-500/20 px-3 py-1.5 rounded-xl text-xs font-bold">
+                    قريباً ⏳
+                </span>
+            </div>
+        </div>
+
+        <div class="mt-8 text-center text-xs text-slate-500 border-t border-slate-800/80 pt-4">
+            إشراف قناة ملخصات 3 إعدادي © 2026
+        </div>
+    </div>
+
+    <script>
+        // سحب اسم الطالب المخزن مؤقتاً لعرضه في الترحيب
+        let studentName = localStorage.getItem("student_name") || "طالب مميز";
+        document.getElementById("welcome-msg").innerText = `أهلاً بك يا ${studentName}! 🎓`;
+    </script>
+</body>
+</html>
