@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ملخصات 3 إعدادي - لوحة الطالب</title>
+    <title>منصة ملخصات 3 إعدادي - تسجيل الدخول</title>
     <style>
         * {
             box-sizing: border-box;
@@ -16,249 +16,125 @@
             background-color: #121212;
             color: #e0e0e0;
             display: flex;
+            justify-content: center;
+            align-items: center;
             height: 100vh;
             overflow: hidden;
         }
 
-        /* القائمة الجانبية (Sidebar) */
-        .sidebar {
-            width: 260px;
+        .login-card {
             background-color: #1a1a1a;
-            border-left: 1px solid #2c2c2c;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px;
+            border: 1px solid #262626;
+            border-radius: 16px;
+            padding: 40px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            text-align: center;
         }
 
-        .sidebar-header {
-            text-align: center;
+        .login-header h1 {
+            color: #4facfe;
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .login-header p {
+            color: #888;
+            font-size: 14px;
             margin-bottom: 30px;
         }
 
-        .sidebar-header h2 {
-            color: #4facfe;
-            font-size: 20px;
-            margin-bottom: 5px;
-        }
-
-        .sidebar-header p {
-            color: #888;
-            font-size: 13px;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            flex-grow: 1;
-        }
-
-        .sidebar-menu li {
-            margin-bottom: 10px;
-        }
-
-        .sidebar-menu a {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 15px;
-            color: #ccc;
-            text-decoration: none;
-            border-radius: 8px;
-            transition: 0.3s;
-            font-size: 15px;
-        }
-
-        .sidebar-menu a:hover, .sidebar-menu a.active {
-            background-color: #2a2a2a;
-            color: #4facfe;
-        }
-
-        .sidebar-footer {
-            border-top: 1px solid #2c2c2c;
-            padding-top: 15px;
-        }
-
-        .logout-btn {
-            background-color: #ff4757;
-            color: white;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .logout-btn:hover {
-            background-color: #ff6b81;
-        }
-
-        /* المحتوى الرئيسي */
-        .main-content {
-            flex-grow: 1;
-            padding: 30px;
-            overflow-y: auto;
-            background-color: #121212;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .card {
-            background-color: #1a1a1a;
-            border: 1px solid #262626;
-            border-radius: 12px;
-            padding: 25px;
+        .input-group {
             margin-bottom: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            text-align: right;
         }
 
-        .card h3 {
-            color: #00f2fe;
-            margin-bottom: 15px;
-            font-size: 18px;
-            border-bottom: 2px solid #2c2c2c;
-            padding-bottom: 8px;
+        .input-group label {
+            display: block;
+            color: #ccc;
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
-        /* تنسيق نموذج الشكاوي */
-        textarea {
+        .input-group input {
             width: 100%;
-            padding: 12px;
+            padding: 12px 15px;
             background-color: #121212;
             border: 1px solid #333;
             border-radius: 8px;
             color: #fff;
-            resize: none;
-            height: 100px;
-            margin-bottom: 10px;
-        }
-
-        textarea:focus {
-            border-color: #4facfe;
-            outline: none;
-        }
-
-        .submit-btn {
-            background-color: #4facfe;
-            color: #121212;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
+            font-size: 15px;
             transition: 0.3s;
         }
 
-        .submit-btn:hover {
-            background-color: #00f2fe;
+        .input-group input:focus {
+            border-color: #4facfe;
+            outline: none;
+            box-shadow: 0 0 5px rgba(79, 172, 254, 0.3);
         }
 
-        /* التجاوب مع الموبايل */
-        @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-                height: auto;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-            }
-            .main-content {
-                height: auto;
-            }
+        .login-btn {
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            color: #121212;
+            border: none;
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
         }
     </style>
 </head>
 <body>
 
-    <!-- القائمة الجانبية -->
-    <div class="sidebar">
-        <div>
-            <div class="sidebar-header">
-                <h2>🎓 منصة 3 إعدادي</h2>
-                <p>لوحة الطالب التعليمية</p>
-            </div>
-            <ul class="sidebar-menu">
-                <li><a href="#" class="active" onclick="switchTab(event, 'home-tab')">🏠 الرئيسية والدروس</a></li>
-                <li><a href="#" onclick="switchTab(event, 'profile-tab')">👤 الحساب الخاص</a></li>
-                <li><a href="#" onclick="switchTab(event, 'support-tab')">📩 الشكاوي والاستفسارات</a></li>
-            </ul>
+    <div class="login-card">
+        <div class="login-header">
+            <h1>🎓 منصة 3 إعدادي</h1>
+            <p>سجل دخولك للوصول إلى الملخصات والامتحانات</p>
         </div>
-        <div class="sidebar-footer">
-            <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
-        </div>
-    </div>
-
-    <!-- محتوى الصفحات -->
-    <div class="main-content">
         
-        <!-- صفحة الرئيسية -->
-        <div id="home-tab" class="tab-content active">
-            <div class="card">
-                <h3>📌 أحدث الملخصات والدروس</h3>
-                <div id="dynamic-content">
-                    <p style="color: #888;">جاري جلب المحتوى والامتحانات من لوحة التحكم...</p>
-                </div>
+        <form onsubmit="handleLogin(event)">
+            <div class="input-group">
+                <label for="username">اسم الطالب أو البريد:</label>
+                <input type="text" id="username" placeholder="اكتب اسمك هنا..." required>
             </div>
-        </div>
-
-        <!-- صفحة الحساب الخاص -->
-        <div id="profile-tab" class="tab-content">
-            <div class="card">
-                <h3>👤 معلومات الحساب</h3>
-                <p><strong>اسم الطالب:</strong> <span id="student-name">جارِ التحميل...</span></p>
-                <p><strong>رقم الهاتف:</strong> <span id="student-phone">جارِ التحميل...</span></p>
-                <p><strong>الحالة:</strong> <span style="color: #2ed573;">نشط ومفعل ✓</span></p>
+            
+            <div class="input-group">
+                <label for="password">كلمة المرور / كود الدخول:</label>
+                <input type="password" id="password" placeholder="••••••••" required>
             </div>
-        </div>
 
-        <!-- صفحة الشكاوي والاستفسارات -->
-        <div id="support-tab" class="tab-content">
-            <div class="card">
-                <h3>📩 إرسال شكوى أو استفسار للأدمن</h3>
-                <p style="color: #aaa; font-size: 14px; margin-bottom: 15px;">اكتب استفسارك وسيقوم الأدمن بمراجعته والرد عليك.</p>
-                <textarea id="complaint-text" placeholder="اكتب رسالتك هنا..."></textarea>
-                <button class="submit-btn" onclick="sendComplaint()">إرسال الرسالة</button>
-            </div>
-        </div>
+            <button type="submit" class="login-btn">دخول للمنصة</button>
+        </form>
 
+        <div class="footer-note">
+            جميع الحقوق محفوظة للمنصة التعليمية © 2026
+        </div>
     </div>
 
     <script>
-        // دالة التنقل بين القوائم
-        function switchTab(event, tabId) {
+        function handleLogin(event) {
             event.preventDefault();
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.sidebar-menu a').forEach(link => link.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        }
-
-        // دالة إرسال الشكوى
-        function sendComplaint() {
-            const text = document.getElementById('complaint-text').value;
-            if(!text.trim()) {
-                alert('الرجاء كتابة الرسالة أولاً!');
-                return;
-            }
-            alert('✅ تم إرسال شكواك بنجاح إلى الأدمن وستم الرد قريباً!');
-            document.getElementById('complaint-text').value = '';
-        }
-
-        // دالة تسجيل الخروج
-        function logout() {
-            if(confirm('هل أنت متأكد من تسجيل الخروج؟')) {
-                alert('تم تسجيل الخروج بنجاح.');
-                window.location.reload();
+            const username = document.getElementById('username').value;
+            if(username.trim()) {
+                alert('أهلاً بك يا ' + username + '! جاري توجيهك إلى لوحة التحكم...');
+                // يتم تحويل الطالب لملف index.html بعد تسجيل الدخول
+                window.location.href = 'index.html';
             }
         }
     </script>
