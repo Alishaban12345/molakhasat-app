@@ -43,8 +43,8 @@
         }
 
         .sidebar-header p {
+            fornt-size: 13px;
             color: #888;
-            font-size: 13px;
         }
 
         .sidebar-menu {
@@ -128,37 +128,23 @@
             padding-bottom: 8px;
         }
 
-        /* تنسيق نموذج الشكاوي */
-        textarea {
-            width: 100%;
-            padding: 12px;
-            background-color: #121212;
+        /* تنسيق قسم التواصل */
+        .contact-box {
+            background: #121212;
             border: 1px solid #333;
+            padding: 20px;
             border-radius: 8px;
-            color: #fff;
-            resize: none;
-            height: 100px;
-            margin-bottom: 10px;
+            text-align: center;
+            margin-top: 15px;
         }
 
-        textarea:focus {
-            border-color: #4facfe;
-            outline: none;
-        }
-
-        .submit-btn {
-            background-color: #4facfe;
-            color: #121212;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 8px;
+        .phone-number {
+            font-size: 22px;
+            color: #4facfe;
             font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .submit-btn:hover {
-            background-color: #00f2fe;
+            margin: 10px 0;
+            display: inline-block;
+            direction: ltr;
         }
 
         /* التجاوب مع الموبايل */
@@ -189,7 +175,7 @@
             <ul class="sidebar-menu">
                 <li><a href="#" class="active" onclick="switchTab(event, 'home-tab')">🏠 الرئيسية والدروس</a></li>
                 <li><a href="#" onclick="switchTab(event, 'profile-tab')">👤 الحساب الخاص</a></li>
-                <li><a href="#" onclick="switchTab(event, 'support-tab')">📩 الشكاوي والاستفسارات</a></li>
+                <li><a href="#" onclick="switchTab(event, 'support-tab')">📩 تواصل معنا</a></li>
             </ul>
         </div>
         <div class="sidebar-footer">
@@ -205,7 +191,7 @@
             <div class="card">
                 <h3>📌 أحدث الملخصات والدروس</h3>
                 <div id="dynamic-content">
-                    <p style="color: #888;">جاري جلب المحتوى والامتحانات من لوحة التحكم...</p>
+                    <p style="color: #888;">جاري جلب المحتوى والامتحانات...</p>
                 </div>
             </div>
         </div>
@@ -220,13 +206,15 @@
             </div>
         </div>
 
-        <!-- صفحة الشكاوي والاستفسارات -->
+        <!-- صفحة التواصل -->
         <div id="support-tab" class="tab-content">
             <div class="card">
-                <h3>📩 إرسال شكوى أو استفسار للأدمن</h3>
-                <p style="color: #aaa; font-size: 14px; margin-bottom: 15px;">اكتب استفسارك وسيقوم الأدمن بمراجعته والرد عليك.</p>
-                <textarea id="complaint-text" placeholder="اكتب رسالتك هنا..."></textarea>
-                <button class="submit-btn" onclick="sendComplaint()">إرسال الرسالة</button>
+                <h3>📩 خدمة العملاء والتواصل</h3>
+                <p style="color: #aaa; font-size: 14px; margin-bottom: 15px;">لو عندك أي استفسار أو مشكلة، تقدر تتواصل معنا مباشرة عبر الرقم التالي:</p>
+                <div class="contact-box">
+                    <p style="color: #888; font-size: 13px;">رقم التواصل:</p>
+                    <div class="phone-number">01097991640</div>
+                </div>
             </div>
         </div>
 
@@ -241,17 +229,6 @@
             
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
-        }
-
-        // دالة إرسال الشكوى
-        function sendComplaint() {
-            const text = document.getElementById('complaint-text').value;
-            if(!text.trim()) {
-                alert('الرجاء كتابة الرسالة أولاً!');
-                return;
-            }
-            alert('✅ تم إرسال شكواك بنجاح إلى الأدمن وستتم مراجعتها!');
-            document.getElementById('complaint-text').value = '';
         }
 
         // دالة تسجيل الخروج
