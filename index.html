@@ -3,70 +3,265 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول - ملخصات 3 إعدادي</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Cairo', sans-serif; background-color: #020617; }</style>
+    <title>منصة ملخصات 3 إعدادي - لوحة الطالب</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* القائمة الجانبية (Sidebar) */
+        .sidebar {
+            width: 260px;
+            background-color: #1a1a1a;
+            border-left: 1px solid #2c2c2c;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .sidebar-header h2 {
+            color: #4facfe;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+
+        .sidebar-header p {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            flex-grow: 1;
+        }
+
+        .sidebar-menu li {
+            margin-bottom: 10px;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            color: #ccc;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: #2a2a2a;
+            color: #4facfe;
+        }
+
+        .sidebar-footer {
+            border-top: 1px solid #2c2c2c;
+            padding-top: 15px;
+        }
+
+        .logout-btn {
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #ff6b81;
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            overflow-y: auto;
+            background-color: #121212;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card {
+            background-color: #1a1a1a;
+            border: 1px solid #262626;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .card h3 {
+            color: #00f2fe;
+            margin-bottom: 15px;
+            font-size: 18px;
+            border-bottom: 2px solid #2c2c2c;
+            padding-bottom: 8px;
+        }
+
+        /* تنسيق نموذج الشكاوي */
+        textarea {
+            width: 100%;
+            padding: 12px;
+            background-color: #121212;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #fff;
+            resize: none;
+            height: 100px;
+            margin-bottom: 10px;
+        }
+
+        textarea:focus {
+            border-color: #4facfe;
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: #4facfe;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #00f2fe;
+        }
+
+        /* التجاوب مع الموبايل */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+                height: auto;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+            }
+            .main-content {
+                height: auto;
+            }
+        }
+    </style>
 </head>
-<body class="min-h-screen text-slate-100 flex items-center justify-center p-4">
+<body>
 
-    <div class="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl">
-        <div class="text-center mb-8">
-            <span class="bg-sky-500/10 text-sky-400 px-4 py-1.5 rounded-full text-xs font-bold">منصة أبطال 3 إعدادي</span>
-            <h1 class="text-2xl font-black mt-3">تسجيل دخول الطالب</h1>
-            <p class="text-xs text-slate-400 mt-1">أدخل بياناتك لفتح التطبيق (لأول مرة فقط)</p>
+    <!-- القائمة الجانبية -->
+    <div class="sidebar">
+        <div>
+            <div class="sidebar-header">
+                <h2>🎓 منصة 3 إعدادي</h2>
+                <p>لوحة الطالب التعليمية</p>
+            </div>
+            <ul class="sidebar-menu">
+                <li><a href="#" class="active" onclick="switchTab(event, 'home-tab')">🏠 الرئيسية والدروس</a></li>
+                <li><a href="#" onclick="switchTab(event, 'profile-tab')">👤 الحساب الخاص</a></li>
+                <li><a href="#" onclick="switchTab(event, 'support-tab')">📩 الشكاوي والاستفسارات</a></li>
+            </ul>
         </div>
-
-        <div class="space-y-4">
-            <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">اسم الطالب الثلاثي *</label>
-                <input type="text" id="login-name" placeholder="اكتب اسمك هنا..." class="w-full p-4 bg-slate-800 border border-slate-700 rounded-2xl text-sm focus:outline-none focus:border-sky-500">
-            </div>
-            <div>
-                <label class="block text-xs font-bold text-slate-400 mb-1">رقم الهاتف / الواتساب *</label>
-                <input type="text" id="login-phone" placeholder="مثال: 010xxxxxxxx" class="w-full p-4 bg-slate-800 border border-slate-700 rounded-2xl text-sm focus:outline-none focus:border-sky-500">
-            </div>
-
-            <button onclick="loginUser()" class="w-full py-4 bg-sky-600 hover:bg-sky-500 rounded-2xl font-bold text-sm shadow-xl shadow-sky-500/20 transition">
-                دخول المنصة 🚀
-            </button>
+        <div class="sidebar-footer">
+            <button class="logout-btn" onclick="logout()">تسجيل خروج</button>
         </div>
     </div>
 
+    <!-- محتوى الصفحات -->
+    <div class="main-content">
+        
+        <!-- صفحة الرئيسية -->
+        <div id="home-tab" class="tab-content active">
+            <div class="card">
+                <h3>📌 أحدث الملخصات والدروس</h3>
+                <div id="dynamic-content">
+                    <p style="color: #888;">جاري جلب المحتوى والامتحانات من لوحة التحكم...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحة الحساب الخاص -->
+        <div id="profile-tab" class="tab-content">
+            <div class="card">
+                <h3>👤 معلومات الحساب</h3>
+                <p><strong>اسم الطالب:</strong> <span id="student-name">علي</span></p>
+                <p><strong>الصف الدراسي:</strong> <span id="student-grade">الثالث الإعدادي</span></p>
+                <p><strong>الحالة:</strong> <span style="color: #2ed573;">نشط ومفعل ✓</span></p>
+            </div>
+        </div>
+
+        <!-- صفحة الشكاوي والاستفسارات -->
+        <div id="support-tab" class="tab-content">
+            <div class="card">
+                <h3>📩 إرسال شكوى أو استفسار للأدمن</h3>
+                <p style="color: #aaa; font-size: 14px; margin-bottom: 15px;">اكتب استفسارك وسيقوم الأدمن بمراجعته والرد عليك.</p>
+                <textarea id="complaint-text" placeholder="اكتب رسالتك هنا..."></textarea>
+                <button class="submit-btn" onclick="sendComplaint()">إرسال الرسالة</button>
+            </div>
+        </div>
+
+    </div>
+
     <script>
-        // ضع توكن بوت تيليجرام الخاص بتسجيل الدخول والـ Chat ID هنا
-        const LOGIN_BOT_TOKEN = "YOUR_LOGIN_BOT_TOKEN";
-        const LOGIN_CHAT_ID = "YOUR_LOGIN_CHAT_ID";
+        // دالة التنقل بين القوائم
+        function switchTab(event, tabId) {
+            event.preventDefault();
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.sidebar-menu a').forEach(link => link.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
 
-        async function loginUser() {
-            let name = document.getElementById("login-name").value.trim();
-            let phone = document.getElementById("login-phone").value.trim();
-
-            if(!name || !phone) {
-                alert("يرجى إدخال الاسم ورقم الهاتف!");
+        // دالة إرسال الشكوى
+        function sendComplaint() {
+            const text = document.getElementById('complaint-text').value;
+            if(!text.trim()) {
+                alert('الرجاء كتابة الرسالة أولاً!');
                 return;
             }
+            alert('✅ تم إرسال شكواك بنجاح إلى الأدمن وستتم مراجعتها!');
+            document.getElementById('complaint-text').value = '';
+        }
 
-            // حفظ بيانات الطالب في ذاكرة الموبايل
-            localStorage.setItem("student_name", name);
-            localStorage.setItem("student_phone", phone);
-
-            // إرسال بيانات الدخول لبوت التيليجرام
-            try {
-                await fetch(`https://api.telegram.org/bot${LOGIN_BOT_TOKEN}/sendMessage`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        chat_id: LOGIN_CHAT_ID,
-                        text: `🔔 *طالب جديد سجل دخوله للتطبيق!*\n\n👤 *الاسم:* ${name}\n📱 *الهاتف:* ${phone}`,
-                        parse_mode: "Markdown"
-                    })
-                });
-            } catch(e) { console.error(e); }
-
-            // التحويل للرئيسية
-            window.location.href = "home.html";
+        // دالة تسجيل الخروج
+        function logout() {
+            if(confirm('هل أنت متأكد من تسجيل الخروج؟')) {
+                alert('تم تسجيل الخروج بنجاح.');
+                window.location.reload();
+            }
         }
     </script>
+
 </body>
 </html>
