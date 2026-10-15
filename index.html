@@ -506,6 +506,226 @@
                 const response = await fetch('data.json?' + new Date().getTime());
                 if (response.ok) {
                     globalData = await response.json();
+                } else {
+                    globalData = [];
+                }
+            } catch (e) {
+                globalData = [];
+            }
+            buildUI();
+        }
+
+        function buildUI() {
+            const container = document.getElementById('platformContent');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const categories = [
+                { id: 'courses', title: '🎥 الكورسات والدروس التعليمية', filter: item => item.type && (item.type.includes('كورس') || item.type.includes('درس')) },
+                { id: 'summaries', title: '📚 الملخصات والمذكرات', filter: item => item.type && item.type.includes('ملخص') },
+                { id: 'exams', title: '📝 الامتحانات والمراجعات', filter: item => item.type && item.type.includes('امتحان') }
+            ];
+
+            categories.forEach(cat => {
+                const catItems = globalData.filter(cat.filter);
+
+                const catDiv = document.createElement('div');
+                catDiv.innerHTML = `
+                    <button class="category-btn" onclick="toggleCategory('${cat.id}')">
+                        <span>${cat.title}</span>
+                        <span>▼</span>
+                    </button>
+                    <div class="category-content" id="cat-${cat.id}">
+                        ${subjectsList.map(subject => {
+                            const subItems = catItems.filter(item => item.subject === subject);
+                            const subId = `${cat.id}-${subject.replace(/\s+/g, '-')}`;
+                            
+                            let bodyHtml = '';
+                            if (subItems.length === 0) {
+                                bodyHtml = `<div class="empty-text">📭 لسا منزلش</div>`;
+                            } else {
+                                bodyHtml = subItems.map(item => `
+                                    <div class="item-card">
+                                        <span style="font-weight: 700;">${item.type}</span>
+                                        <a href="${item.link}" target="_blank" class="btn-open">فتح المحتوى 🚀</a>
+                                    </div>
+                                `).join('');
+                            }
+
+                            return `
+                                <div class="subject-accordion">
+                                    <div class="subject-header" onclick="toggleSubject('${subId}')">
+                                        <span>📌 ${subject}</span>
+                                        <span>▼</span>
+                                    </div>
+                                    <div class="subject-body" id="sub-${subId}">
+                                        ${bodyHtml}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+                container.appendChild(catDiv);
+            });
+        }
+
+        function toggleCategory(catId) {
+            const el = document.getElementById(`cat-${catId}`);
+            if (el) el.classList.toggle('open');
+        }
+
+        function toggleSubject(subId) {
+            const el = document.getElementById(`sub-${subId}`);
+            if (el) el.classList.toggle('open');
+        }
+
+        checkLogin();
+    </script>
+</body>
+</html>
+   .footer-whatsapp {
+            color: var(--whatsapp-color);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 211, 102, 0.1);
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- نافذة تسجيل الدخول -->
+    <div class="login-overlay" id="loginModal">
+        <div class="login-box">
+            <h2>تسجيل الدخول للمنصة 🎓</h2>
+            <p>أدخل اسمك ورقم تليفونك لمتابعة الدروس والملخصات</p>
+
+            <div class="input-group">
+                <label>الاسم بالكامل:</label>
+                <input type="text" id="studentName" placeholder="مثال: علي شعبان">
+            </div>
+            <div class="input-group">
+                <label>رقم الهاتف:</label>
+                <input type="tel" id="studentPhone" placeholder="01xxxxxxxxxx" maxlength="11">
+            </div>
+            <button type="button" class="btn-login" onclick="loginUser()">دخول المنصة 🚀</button>
+        </div>
+    </div>
+
+    <!-- الهيدر العلوي -->
+    <div class="navbar">
+        <div class="nav-brand">
+            <span>🎓 منصة 3 إعدادي</span>
+            <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="nav-whatsapp-icon" title="قناة الواتساب">💬</a>
+        </div>
+        <button class="dots-btn" onclick="toggleMenu()">⋮</button>
+    </div>
+
+    <!-- القائمة الجانبية -->
+    <div class="overlay-bg" id="overlayBg" onclick="toggleMenu()"></div>
+    <div class="menu-drawer" id="menuDrawer">
+        <div class="menu-header">
+            <span style="font-weight: 900; color: #60a5fa;" id="drawerStudentName">حساب الطالب</span>
+            <button class="close-btn" onclick="toggleMenu()">✕</button>
+        </div>
+        <a href="#" class="menu-item">🏠 الرئيسية والدروس</a>
+        <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="menu-item menu-whatsapp">💬 انضم لقناة الواتساب</a>
+        <a href="#" class="menu-item">👤 الحساب الخاص</a>
+        <a href="#" class="menu-item">📞 تواصل معنا والدعم</a>
+        <button class="menu-item" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3); width: 100%; cursor: pointer;" onclick="logout()">🚪 تسجيل الخروج</button>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <main class="main-container" id="platformContent"></main>
+
+    <footer>
+        <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="footer-whatsapp">
+            💬 تابع قناة ملخصات 3 اعدادي على الواتساب
+        </a>
+        <div>جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓</div>
+    </footer>
+
+    <script>
+        const subjectsList = ["دراسات اجتماعية", "علوم", "لغة عربية", "لغة إنجليزية", "رياضيات"];
+        let globalData = [];
+
+        // بيانات بوت التليجرام الخاص بك
+        const BOT_TOKEN = '8881340409:AAHzEVxNE02jzovmFuzsI_yljR8UTvrACAE';
+        const CHAT_ID = '5531994675';
+
+        async function sendTelegramNotification(name, phone) {
+            const message = `🚨 طالب جديد سجل في المنصة!\n\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n⏰ التوقيت: ${new Date().toLocaleString('ar-EG')}`;
+            const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}`;
+            
+            try {
+                await fetch(url);
+            } catch (e) {
+                console.log('Error sending to telegram', e);
+            }
+        }
+
+        function toggleMenu() {
+            document.getElementById('menuDrawer').classList.toggle('open');
+            document.getElementById('overlayBg').classList.toggle('show');
+        }
+
+        function checkLogin() {
+            const name = localStorage.getItem('student_name');
+            const phone = localStorage.getItem('student_phone');
+            const modal = document.getElementById('loginModal');
+
+            if (name && phone) {
+                modal.style.display = 'none';
+                document.getElementById('drawerStudentName').innerText = `👤 ${name} (${phone})`;
+                loadData();
+            } else {
+                modal.style.display = 'flex';
+            }
+        }
+
+        function loginUser() {
+            const nameInput = document.getElementById('studentName').value.trim();
+            const phoneInput = document.getElementById('studentPhone').value.trim();
+
+            if (!nameInput) {
+                alert('من فضلك اكتب اسمك بالكامل!');
+                return;
+            }
+
+            const phoneRegex = /^01[0125][0-9]{8}$/;
+            if (!phoneRegex.test(phoneInput)) {
+                alert('من فضلك اكتب رقم هاتف مصري صحيح يتكون من 11 رقم ويبدأ بـ 01 (مثل: 01012345678)');
+                return;
+            }
+
+            // إرسال الإشعار لبوت التليجرام
+            sendTelegramNotification(nameInput, phoneInput);
+
+            localStorage.setItem('student_name', nameInput);
+            localStorage.setItem('student_phone', phoneInput);
+
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('drawerStudentName').innerText = `👤 ${nameInput} (${phoneInput})`;
+            loadData();
+        }
+
+        function logout() {
+            localStorage.removeItem('student_name');
+            localStorage.removeItem('student_phone');
+            location.reload();
+        }
+
+        async function loadData() {
+            try {
+                const response = await fetch('data.json?' + new Date().getTime());
+                if (response.ok) {
+                    globalData = await response.json();
                 }
             } catch (e) {
                 globalData = [];
