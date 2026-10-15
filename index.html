@@ -18,6 +18,9 @@
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
+        /* منع ظهور أي حاجة في الصفحة نهائياً لحد ما الجافاسكربت يقرر */
+        html { visibility: hidden; }
+
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--bg-main);
@@ -27,14 +30,13 @@
             flex-direction: column;
         }
 
-        /* نافذة تسجيل الدخول - مخفية تماماً بالكود المباشر لمنع أي ومضة */
         .auth-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.85);
+            background: rgba(15, 23, 42, 0.88);
             backdrop-filter: blur(8px);
-            display: none; 
+            display: flex; 
             justify-content: center;
             align-items: center;
             z-index: 99999;
@@ -49,13 +51,7 @@
             width: 100%;
             max-width: 400px;
             text-align: center;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            animation: slideUp 0.4s ease-out;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
         }
 
         .auth-box h2 {
@@ -96,7 +92,6 @@
             outline: none;
             font-size: 1rem;
             font-weight: 600;
-            transition: all 0.3s ease;
         }
 
         .input-group input:focus {
@@ -117,12 +112,10 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
-            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .btn-auth:hover {
             background: var(--primary-dark);
-            transform: translateY(-1px);
         }
 
         .navbar {
@@ -132,7 +125,6 @@
             padding: 18px 30px;
             background-color: var(--card-bg);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
         }
 
         .nav-brand {
@@ -151,11 +143,6 @@
             font-family: 'Cairo';
             font-weight: 700;
             font-size: 0.9rem;
-            transition: background 0.2s;
-        }
-
-        .btn-logout:hover {
-            background: #fecaca;
         }
 
         .main-container {
@@ -172,7 +159,6 @@
             padding: 25px;
             text-align: center;
             margin-bottom: 20px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
         }
 
         .welcome-card h3 {
@@ -199,14 +185,6 @@
             align-items: center;
             font-weight: 700;
             color: var(--text-main);
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
-        }
-
-        .subject-box:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.05);
-            border-color: #cbd5e1;
         }
 
         .badge {
@@ -229,12 +207,6 @@
             font-weight: 600;
         }
     </style>
-    <script>
-        // التحقق الحاسم: لو مفيش اسم مسجل، بنخلي شاشة الدخول تظهر فوراً قبل تحميل الصفحة
-        if (!localStorage.getItem('student_name')) {
-            document.write('<style>.auth-overlay { display: flex !important; }</style>');
-        }
-    </script>
 </head>
 <body>
 
@@ -301,8 +273,26 @@
         const NOTIF_BOT_TOKEN = '8881340409:AAHzEVxNE02jzovmFuzsI_yljR8UTvrACAE'; 
         const NOTIF_CHAT_ID = '5531994675';
 
+        // فحص فوري وسريع قبل إظهار أي بكسل للمستخدم
+        const savedName = localStorage.getItem('student_name');
+        
+        if (savedName) {
+            // لو مسجل: أخفِ شاشة الدخول تماماً واظهر المنصة من غير أي ومضة
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById('authOverlay').style.display = 'none';
+                document.getElementById('userWelcome').innerText = 'أهلاً بك يا ' + savedName + ' 👋';
+                document.documentElement.style.visibility = 'visible';
+            });
+        } else {
+            // لو مش مسجل: اظهر شاشة تسجيل الدخول فوراً
+            document.addEventListener("DOMContentLoaded", function() {
+                document.getElementById('authOverlay').style.display = 'flex';
+                document.documentElement.style.visibility = 'visible';
+            });
+        }
+
+        // إرسال إشعار الزيارة لبوت الإشعارات مرة واحدة
         window.onload = function() {
-            // إرسال إشعار الزيارة بالوقت والتاريخ لبوت الإشعارات
             const now = new Date();
             const dateStr = now.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
             const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -311,10 +301,42 @@
 
             fetch(`https://api.telegram.org/bot${NOTIF_BOT_TOKEN}/sendMessage?chat_id=${NOTIF_CHAT_ID}&text=${encodeURIComponent(visitMsg)}`)
                 .catch(err => console.log(err));
+        };
 
-            const savedName = localStorage.getItem('student_name');
-            if (savedName) {
-                document.getElementById('userWelcome').innerText = 'أهلاً بك يا ' + savedName + ' 👋';
+        function submitAuth() {
+            const name = document.getElementById('authName').value.trim();
+            const phone = document.getElementById('authPhone').value.trim();
+            const pass = document.getElementById('authPass').value;
+
+            if (!name || !phone || !pass) {
+                alert('من فضلك ادخل جميع البيانات (الاسم، الهاتف، وكلمة المرور)!');
+                return;
+            }
+
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+            const loginMsg = `طالب جديد أنشأ حساباً:\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n🔑 الباسورد: ${pass}\n📅 التاريخ: ${dateStr}\n⏰ الوقت: ${timeStr}`;
+
+            fetch(`https://api.telegram.org/bot${LOGIN_BOT_TOKEN}/sendMessage?chat_id=${LOGIN_CHAT_ID}&text=${encodeURIComponent(loginMsg)}`)
+                .catch(err => console.log(err));
+
+            localStorage.setItem('student_name', name);
+            localStorage.setItem('student_phone', phone);
+
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('userWelcome').innerText = 'أهلاً بك يا ' + name + ' 👋';
+        }
+
+        function logout() {
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+</body>
+</html>
+tById('userWelcome').innerText = 'أهلاً بك يا ' + savedName + ' 👋';
             }
         };
 
