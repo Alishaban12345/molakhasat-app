@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -12,6 +12,7 @@
             --card-border: #1f293d;
             --primary: #3b82f6;
             --primary-glow: rgba(59, 130, 246, 0.35);
+            --whatsapp-color: #25d366;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
         }
@@ -31,7 +32,7 @@
             flex-direction: column;
         }
 
-        /* شاشة تسجيل الدخول */
+        /* شاشة تسجيل الدخول السينمائية */
         .login-overlay {
             position: fixed;
             top: 0;
@@ -56,6 +57,12 @@
             max-width: 420px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
             text-align: center;
+            animation: fadeInScale 0.4s ease-out;
+        }
+
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .login-box h2 {
@@ -96,10 +103,12 @@
             font-family: 'Cairo', sans-serif;
             font-size: 0.95rem;
             outline: none;
+            transition: 0.3s;
         }
 
         .input-group input:focus {
             border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
         }
 
         .btn-login {
@@ -114,9 +123,15 @@
             font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
+            transition: 0.3s;
         }
 
-        /* الهيدر والقائمة الجانبية */
+        .btn-login:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* الهيدر العلوي */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -135,6 +150,25 @@
             background: linear-gradient(to left, #60a5fa, #c084fc);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-whatsapp-icon {
+            color: var(--whatsapp-color);
+            font-size: 1.2rem;
+            text-decoration: none;
+            background: rgba(37, 211, 102, 0.1);
+            padding: 6px 10px;
+            border-radius: 10px;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            transition: 0.3s;
+        }
+
+        .nav-whatsapp-icon:hover {
+            background: rgba(37, 211, 102, 0.2);
+            box-shadow: 0 0 10px rgba(37, 211, 102, 0.3);
         }
 
         .dots-btn {
@@ -149,8 +183,15 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            transition: 0.3s;
         }
 
+        .dots-btn:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        /* القائمة الجانبية */
         .menu-drawer {
             position: fixed;
             top: 0;
@@ -161,7 +202,7 @@
             border-left: 1px solid var(--card-border);
             z-index: 2000;
             padding: 25px 20px;
-            transition: right 0.3s ease;
+            transition: right 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             gap: 15px;
@@ -190,6 +231,7 @@
         .menu-item {
             display: flex;
             align-items: center;
+            gap: 10px;
             padding: 12px 15px;
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -198,6 +240,18 @@
             text-decoration: none;
             font-weight: 700;
             font-size: 0.95rem;
+            transition: 0.2s;
+        }
+
+        .menu-item:hover {
+            border-color: var(--primary);
+            color: #60a5fa;
+        }
+
+        .menu-whatsapp {
+            background: rgba(37, 211, 102, 0.1);
+            border-color: rgba(37, 211, 102, 0.3);
+            color: #25d366 !important;
         }
 
         .overlay-bg {
@@ -215,109 +269,189 @@
             display: block;
         }
 
-        /* الأقسام بالترتيب المطلوب */
+        /* المحتوى الرئيسي */
         .main-container {
-            max-width: 1100px;
+            max-width: 900px;
             margin: 30px auto;
             padding: 0 20px;
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 40px;
-        }
-
-        .section-block {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 900;
-            border-bottom: 2px solid var(--card-border);
-            padding-bottom: 8px;
-        }
-
-        .section-title.courses { color: #8b5cf6; }
-        .section-title.summaries { color: #10b981; }
-        .section-title.exams { color: #ef4444; }
-
-        /* حاوية المواد لكل قسم */
-        .subjects-container {
-            display: flex;
-            flex-direction: column;
             gap: 20px;
         }
 
-        .subject-group {
+        /* أزرار الأقسام الرئيسية */
+        .category-btn {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 18px;
-        }
-
-        .subject-name {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #60a5fa;
-            margin-bottom: 12px;
+            padding: 20px;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: var(--text-main);
+            cursor: pointer;
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 8px;
+            transition: all 0.3s ease;
         }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 15px;
+        .category-btn:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: translateY(-2px);
         }
 
-        .card {
-            background: #090d16;
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 15px;
+        .category-btn .arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .category-btn.active .arrow {
+            transform: rotate(180deg);
+        }
+
+        /* محتوى الأقسام */
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
             gap: 12px;
+            padding: 0 5px;
         }
 
-        .card-title {
-            font-size: 0.95rem;
+        .category-content.open {
+            max-height: 2000px;
+            padding: 10px 5px 20px 5px;
+        }
+
+        /* زر المادة الواحدة */
+        .subject-accordion {
+            background: #131c2e;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.2s;
+        }
+
+        .subject-header {
+            padding: 15px 20px;
+            font-size: 1.05rem;
             font-weight: 700;
+            color: #60a5fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.2s;
+        }
+
+        .subject-header:hover {
+            background: rgba(59, 130, 246, 0.08);
+        }
+
+        .subject-header .arrow-sub {
+            transition: transform 0.3s ease;
+        }
+
+        .subject-header.active .arrow-sub {
+            transform: rotate(180deg);
+        }
+
+        /* محتوى المادة */
+        .subject-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
+            background: #0d1320;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 0 20px;
+        }
+
+        .subject-body.open {
+            max-height: 1000px;
+            padding: 15px 20px;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .item-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 12px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: fadeInItem 0.4s ease forwards;
+        }
+
+        @keyframes fadeInItem {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .btn-open {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             text-align: center;
-            padding: 8px;
+            padding: 6px 14px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 0.88rem;
+            font-size: 0.85rem;
+            transition: 0.2s;
         }
 
-        .empty-box {
+        .btn-open:hover {
+            opacity: 0.9;
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .empty-text {
             color: var(--text-muted);
-            font-size: 0.9rem;
-            padding: 12px;
-            background: #090d16;
-            border: 1px dashed var(--card-border);
-            border-radius: 10px;
+            font-size: 0.95rem;
             text-align: center;
+            padding: 12px;
+            border: 1px dashed var(--card-border);
+            border-radius: 8px;
+            background: #090d16;
         }
 
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 25px 20px;
             border-top: 1px solid var(--card-border);
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             margin-top: auto;
             background: #070a10;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .footer-whatsapp {
+            color: var(--whatsapp-color);
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37, 211, 102, 0.1);
+            padding: 8px 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            transition: 0.3s;
+        }
+
+        .footer-whatsapp:hover {
+            background: rgba(37, 211, 102, 0.2);
+            box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
         }
     </style>
 </head>
@@ -343,7 +477,10 @@
 
     <!-- الهيدر العلوي -->
     <div class="navbar">
-        <div class="nav-brand">🎓 منصة 3 إعدادي</div>
+        <div class="nav-brand">
+            <span>🎓 منصة 3 إعدادي</span>
+            <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="nav-whatsapp-icon" title="قناة الواتساب">💬</a>
+        </div>
         <button class="dots-btn" onclick="toggleMenu()">⋮</button>
     </div>
 
@@ -355,42 +492,22 @@
             <button class="close-btn" onclick="toggleMenu()">✕</button>
         </div>
         <a href="#" class="menu-item">🏠 الرئيسية والدروس</a>
+        <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="menu-item menu-whatsapp">💬 انضم لقناة الواتساب</a>
         <a href="#" class="menu-item">👤 الحساب الخاص</a>
         <a href="#" class="menu-item">📞 تواصل معنا والدعم</a>
         <button class="menu-item" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3); width: 100%; cursor: pointer;" onclick="logout()">🚪 تسجيل الخروج</button>
     </div>
 
-    <!-- المحتوى والأقسام بالترتيب المطلوب -->
-    <main class="main-container">
-
-        <!-- 1️⃣ كورسات ودروس -->
-        <section class="section-block">
-            <h2 class="section-title courses">🎥 الكورسات والدروس التعليمية</h2>
-            <div class="subjects-container" id="courses-section">
-                <!-- يتم تعبئتها تلقائياً -->
-            </div>
-        </section>
-
-        <!-- 2️⃣ ملخصات ومذكرات -->
-        <section class="section-block">
-            <h2 class="section-title summaries">📚 الملخصات والمذكرات</h2>
-            <div class="subjects-container" id="summaries-section">
-                <!-- يتم تعبئتها تلقائياً -->
-            </div>
-        </section>
-
-        <!-- 3️⃣ امتحانات ومراجعات -->
-        <section class="section-block">
-            <h2 class="section-title exams">📝 الامتحانات والمراجعات</h2>
-            <div class="subjects-container" id="exams-section">
-                <!-- يتم تعبئتها تلقائياً -->
-            </div>
-        </section>
-
+    <!-- المحتوى الرئيسي -->
+    <main class="main-container" id="platformContent">
+        <!-- يتم التوليد تلقائياً -->
     </main>
 
     <footer>
-        جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓
+        <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="footer-whatsapp">
+            💬 تابع قناة ملخصات 3 اعدادي على الواتساب
+        </a>
+        <div>جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓</div>
     </footer>
 
     <script>
@@ -402,6 +519,8 @@
             "رياضيات"
         ];
 
+        let globalData = [];
+
         function toggleMenu() {
             document.getElementById('menuDrawer').classList.toggle('open');
             document.getElementById('overlayBg').classList.toggle('show');
@@ -445,182 +564,64 @@
         }
 
         async function loadData() {
-            let allData = [];
             try {
                 const response = await fetch('data.json?' + new Date().getTime());
                 if (response.ok) {
-                    allData = await response.json();
+                    globalData = await response.json();
                 }
             } catch (e) {
-                // لو مفيش ملف أو خطأ
+                globalData = [];
             }
-            renderPlatform(allData);
+            buildUI();
         }
 
-        function renderPlatform(data) {
-            // تقسيم البيانات حسب النوع الرئيسي
-            const coursesData = data.filter(item => item.type && (item.type.includes('كورس') || item.type.includes('درس')));
-            const summariesData = data.filter(item => item.type && item.type.includes('ملخص'));
-            const examsData = data.filter(item => item.type && item.type.includes('امتحان'));
-
-            buildCategorySection('courses-section', coursesData);
-            buildCategorySection('summaries-section', summariesData);
-            buildCategorySection('exams-section', examsData);
-        }
-
-        function buildCategorySection(containerId, categoryItems) {
-            const container = document.getElementById(containerId);
+        function buildUI() {
+            const container = document.getElementById('platformContent');
             container.innerHTML = '';
 
-            subjectsList.forEach(subject => {
-                // تصفية العناصر الخاصة بهذه المادة داخل هذا القسم
-                const matchedItems = categoryItems.filter(item => item.subject === subject);
+            const categories = [
+                { id: 'courses', title: '🎥 الكورسات والدروس التعليمية', filter: item => item.type && (item.type.includes('كورس') || item.type.includes('درس')) },
+                { id: 'summaries', title: '📚 الملخصات والمذكرات', filter: item => item.type && item.type.includes('ملخص') },
+                { id: 'exams', title: '📝 الامتحانات والمراجعات', filter: item => item.type && item.type.includes('امتحان') }
+            ];
 
-                const subGroup = document.createElement('div');
-                subGroup.className = 'subject-group';
+            categories.forEach(cat => {
+                const catItems = globalData.filter(cat.filter);
 
-                let contentHtml = '';
-                if (matchedItems.length === 0) {
-                    contentHtml = `<div class="empty-box">📭 لسا منزلش</div>`;
-                } else {
-                    contentHtml = `<div class="cards-grid">` + matchedItems.map(item => `
-                        <div class="card">
-                            <div class="card-title">${item.type}</div>
-                            <a href="${item.link}" target="_blank" class="btn-open">فتح المحتوى 🚀</a>
-                        </div>
-                    `).join('') + `</div>`;
-                }
+                const catDiv = document.createElement('div');
+                catDiv.innerHTML = `
+                    <button class="category-btn" id="btn-cat-${cat.id}" onclick="toggleCategory('${cat.id}')">
+                        <span>${cat.title}</span>
+                        <span class="arrow">▼</span>
+                    </button>
+                    <div class="category-content" id="cat-${cat.id}">
+                        ${subjectsList.map(subject => {
+                            const subItems = catItems.filter(item => item.subject === subject);
+                            const subId = `${cat.id}-${subject.replace(/\s+/g, '-')}`;
+                            
+                            let bodyHtml = '';
+                            if (subItems.length === 0) {
+                                bodyHtml = `<div class="empty-text">📭 لسا منزلش</div>`;
+                            } else {
+                                bodyHtml = subItems.map(item => `
+                                    <div class="item-card">
+                                        <span style="font-weight: 700;">${item.type}</span>
+                                        <a href="${item.link}" target="_blank" class="btn-open">فتح المحتوى 🚀</a>
+                                    </div>
+                                `).join('');
+                            }
 
-                subGroup.innerHTML = `
-                    <div class="subject-name">📌 ${subject}</div>
-                    ${contentHtml}
-                `;
-
-                container.appendChild(subGroup);
-            });
-        }
-
-        checkLogin();
-    </script>
-</body>
-</html>
-">🚪 تسجيل الخروج</button>
-    </div>
-
-    <!-- الأقسام الرئيسية -->
-    <main class="main-container">
-        <section class="section-block">
-            <div class="section-header">
-                <h2 class="section-title courses">🎥 الكورسات والدروس التعليمية</h2>
-            </div>
-            <div class="cards-grid" id="courses-grid">
-                <div class="empty-text">📭 لسا منزلش محتوى هنا حالياً</div>
-            </div>
-        </section>
-
-        <section class="section-block">
-            <div class="section-header">
-                <h2 class="section-title summaries">📚 الملخصات والمذكرات</h2>
-            </div>
-            <div class="cards-grid" id="summaries-grid">
-                <div class="empty-text">📭 لسا منزلش محتوى هنا حالياً</div>
-            </div>
-        </section>
-
-        <section class="section-block">
-            <div class="section-header">
-                <h2 class="section-title exams">📝 الامتحانات والمراجعات</h2>
-            </div>
-            <div class="cards-grid" id="exams-grid">
-                <div class="empty-text">📭 لسا منزلش محتوى هنا حالياً</div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓
-    </footer>
-
-    <script>
-        function toggleMenu() {
-            document.getElementById('menuDrawer').classList.toggle('open');
-            document.getElementById('overlayBg').classList.toggle('show');
-        }
-
-        function checkLogin() {
-            const name = localStorage.getItem('student_name');
-            const phone = localStorage.getItem('student_phone');
-            const modal = document.getElementById('loginModal');
-
-            if (name && phone) {
-                modal.style.display = 'none';
-                document.getElementById('drawerStudentName').innerText = `👤 ${name}`;
-                loadData();
-            } else {
-                modal.style.display = 'flex';
-            }
-        }
-
-        function loginUser() {
-            const nameInput = document.getElementById('studentName').value.trim();
-            const phoneInput = document.getElementById('studentPhone').value.trim();
-
-            if (!nameInput || !phoneInput) {
-                alert('من فضلك اكتب الاسم ورقم الهاتف!');
-                return;
-            }
-
-            localStorage.setItem('student_name', nameInput);
-            localStorage.setItem('student_phone', phoneInput);
-
-            document.getElementById('loginModal').style.display = 'none';
-            document.getElementById('drawerStudentName').innerText = `👤 ${nameInput}`;
-            loadData();
-        }
-
-        function logout() {
-            localStorage.removeItem('student_name');
-            localStorage.removeItem('student_phone');
-            location.reload();
-        }
-
-        async function loadData() {
-            try {
-                const response = await fetch('data.json?' + new Date().getTime());
-                if (!response.ok) return;
-                const data = await response.json();
-                renderSections(data);
-            } catch (e) {
-                // تظل الرسائل الافتراضية
-            }
-        }
-
-        function renderSections(data) {
-            const courses = data.filter(item => item.type && (item.type.includes('كورس') || item.type.includes('درس')));
-            const summaries = data.filter(item => item.type && item.type.includes('ملخص'));
-            const exams = data.filter(item => item.type && item.type.includes('امتحان'));
-
-            renderGrid('courses-grid', courses);
-            renderGrid('summaries-grid', summaries);
-            renderGrid('exams-grid', exams);
-        }
-
-        function renderGrid(elementId, items) {
-            const container = document.getElementById(elementId);
-            if (!items || items.length === 0) return;
-
-            container.innerHTML = '';
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div>
-                        <span class="subject-tag">📌 ${item.subject || 'عام'}</span>
-                        <div class="card-title">${item.type} في مادة ${item.subject}</div>
-                    </div>
-                    <a href="${item.link}" target="_blank" class="btn-open">فتح المحتوى 🚀</a>
-                `;
-                container.appendChild(card);
+                            return `
+                                <div class="subject-accordion">
+                                    <div class="subject-header" id="header-${subId}" onclick="toggleSubject('${subId}')">
+                                        <span>📌 ${subject}</span>
+                                        <span class="arrow-sub">▼</span>
+                                    </div>
+                                    <div class="subject-body" id="sub-${subId}">
+                                        ${bodyHtml}
+                                    </div>
+                                </div>
+                        tainer.appendChild(card);
             });
         }
 
