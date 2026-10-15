@@ -215,7 +215,7 @@
             display: block;
         }
 
-        /* المحتوى والأقسام */
+        /* الأقسام بالترتيب المطلوب */
         .main-container {
             max-width: 1100px;
             margin: 30px auto;
@@ -223,77 +223,90 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 45px;
+            gap: 40px;
         }
 
         .section-block {
             display: flex;
             flex-direction: column;
-            gap: 20px;
-        }
-
-        .section-header {
-            border-bottom: 2px solid var(--card-border);
-            padding-bottom: 10px;
+            gap: 15px;
         }
 
         .section-title {
-            font-size: 1.35rem;
+            font-size: 1.4rem;
             font-weight: 900;
+            border-bottom: 2px solid var(--card-border);
+            padding-bottom: 8px;
         }
 
-        .section-title.courses { color: #a78bfa; }
-        .section-title.summaries { color: #34d399; }
-        .section-title.exams { color: #f87171; }
+        .section-title.courses { color: #8b5cf6; }
+        .section-title.summaries { color: #10b981; }
+        .section-title.exams { color: #ef4444; }
 
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        /* حاوية المواد لكل قسم */
+        .subjects-container {
+            display: flex;
+            flex-direction: column;
             gap: 20px;
         }
 
-        .card {
-            background-color: var(--card-bg);
+        .subject-group {
+            background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 18px;
-            padding: 20px;
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        .subject-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #60a5fa;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
+            background: #090d16;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 15px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-        }
-
-        .subject-tag {
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: #60a5fa;
-            background: rgba(59, 130, 246, 0.1);
-            padding: 4px 12px;
-            border-radius: 8px;
+            gap: 12px;
         }
 
         .card-title {
-            font-size: 1.15rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            margin: 15px 0;
         }
 
         .btn-open {
             background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
             color: white;
             text-align: center;
-            padding: 10px;
-            border-radius: 10px;
+            padding: 8px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 700;
+            font-size: 0.88rem;
         }
 
-        .empty-text {
+        .empty-box {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            padding: 20px;
-            background: var(--card-bg);
+            font-size: 0.9rem;
+            padding: 12px;
+            background: #090d16;
             border: 1px dashed var(--card-border);
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
         }
 
@@ -345,6 +358,153 @@
         <a href="#" class="menu-item">👤 الحساب الخاص</a>
         <a href="#" class="menu-item">📞 تواصل معنا والدعم</a>
         <button class="menu-item" style="color: #ef4444; border-color: rgba(239, 68, 68, 0.3); width: 100%; cursor: pointer;" onclick="logout()">🚪 تسجيل الخروج</button>
+    </div>
+
+    <!-- المحتوى والأقسام بالترتيب المطلوب -->
+    <main class="main-container">
+
+        <!-- 1️⃣ كورسات ودروس -->
+        <section class="section-block">
+            <h2 class="section-title courses">🎥 الكورسات والدروس التعليمية</h2>
+            <div class="subjects-container" id="courses-section">
+                <!-- يتم تعبئتها تلقائياً -->
+            </div>
+        </section>
+
+        <!-- 2️⃣ ملخصات ومذكرات -->
+        <section class="section-block">
+            <h2 class="section-title summaries">📚 الملخصات والمذكرات</h2>
+            <div class="subjects-container" id="summaries-section">
+                <!-- يتم تعبئتها تلقائياً -->
+            </div>
+        </section>
+
+        <!-- 3️⃣ امتحانات ومراجعات -->
+        <section class="section-block">
+            <h2 class="section-title exams">📝 الامتحانات والمراجعات</h2>
+            <div class="subjects-container" id="exams-section">
+                <!-- يتم تعبئتها تلقائياً -->
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓
+    </footer>
+
+    <script>
+        const subjectsList = [
+            "دراسات اجتماعية",
+            "علوم",
+            "لغة عربية",
+            "لغة إنجليزية",
+            "رياضيات"
+        ];
+
+        function toggleMenu() {
+            document.getElementById('menuDrawer').classList.toggle('open');
+            document.getElementById('overlayBg').classList.toggle('show');
+        }
+
+        function checkLogin() {
+            const name = localStorage.getItem('student_name');
+            const phone = localStorage.getItem('student_phone');
+            const modal = document.getElementById('loginModal');
+
+            if (name && phone) {
+                modal.style.display = 'none';
+                document.getElementById('drawerStudentName').innerText = `👤 ${name}`;
+                loadData();
+            } else {
+                modal.style.display = 'flex';
+            }
+        }
+
+        function loginUser() {
+            const nameInput = document.getElementById('studentName').value.trim();
+            const phoneInput = document.getElementById('studentPhone').value.trim();
+
+            if (!nameInput || !phoneInput) {
+                alert('من فضلك اكتب الاسم ورقم الهاتف!');
+                return;
+            }
+
+            localStorage.setItem('student_name', nameInput);
+            localStorage.setItem('student_phone', phoneInput);
+
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('drawerStudentName').innerText = `👤 ${nameInput}`;
+            loadData();
+        }
+
+        function logout() {
+            localStorage.removeItem('student_name');
+            localStorage.removeItem('student_phone');
+            location.reload();
+        }
+
+        async function loadData() {
+            let allData = [];
+            try {
+                const response = await fetch('data.json?' + new Date().getTime());
+                if (response.ok) {
+                    allData = await response.json();
+                }
+            } catch (e) {
+                // لو مفيش ملف أو خطأ
+            }
+            renderPlatform(allData);
+        }
+
+        function renderPlatform(data) {
+            // تقسيم البيانات حسب النوع الرئيسي
+            const coursesData = data.filter(item => item.type && (item.type.includes('كورس') || item.type.includes('درس')));
+            const summariesData = data.filter(item => item.type && item.type.includes('ملخص'));
+            const examsData = data.filter(item => item.type && item.type.includes('امتحان'));
+
+            buildCategorySection('courses-section', coursesData);
+            buildCategorySection('summaries-section', summariesData);
+            buildCategorySection('exams-section', examsData);
+        }
+
+        function buildCategorySection(containerId, categoryItems) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+
+            subjectsList.forEach(subject => {
+                // تصفية العناصر الخاصة بهذه المادة داخل هذا القسم
+                const matchedItems = categoryItems.filter(item => item.subject === subject);
+
+                const subGroup = document.createElement('div');
+                subGroup.className = 'subject-group';
+
+                let contentHtml = '';
+                if (matchedItems.length === 0) {
+                    contentHtml = `<div class="empty-box">📭 لسا منزلش</div>`;
+                } else {
+                    contentHtml = `<div class="cards-grid">` + matchedItems.map(item => `
+                        <div class="card">
+                            <div class="card-title">${item.type}</div>
+                            <a href="${item.link}" target="_blank" class="btn-open">فتح المحتوى 🚀</a>
+                        </div>
+                    `).join('') + `</div>`;
+                }
+
+                subGroup.innerHTML = `
+                    <div class="subject-name">📌 ${subject}</div>
+                    ${contentHtml}
+                `;
+
+                container.appendChild(subGroup);
+            });
+        }
+
+        checkLogin();
+    </script>
+</body>
+</html>
+">🚪 تسجيل الخروج</button>
     </div>
 
     <!-- الأقسام الرئيسية -->
