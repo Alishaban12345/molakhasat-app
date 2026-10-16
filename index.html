@@ -257,6 +257,149 @@ footer{border-top:1px solid var(--line);padding:24px 4%;text-align:center;color:
 <main>
  <section id="loginView">
   <div class="hero">
+   <div class="hero-copy"><span class="eyebrow"><span class="pulse"></span> رحلتك التعليمية تبدأ من هنا</span><h1>تعلّم اليوم،<br><span class="gradient-text">وابنِ مستقبلك.</span></h1><p>كل اللي تحتاجه في مكان واحد: ملخصات منظمة، امتحانات تفاعلية، وكورسات تساعدك تفهم وتتفوق — خطوة بخطوة.</p><div class="hero-buttons"><button class="btn-primary" id="startLogin" type="button">ابدأ رحلتك التعليمية <span>←</span></button><span class="btn-secondary">✨ تجربة تعليمية أسهل</span></div></div>
+   <div class="hero-art"><div class="orbit"><div class="book-icon">📚</div></div><div class="float-card fc1">🧠 <div><b>افهم أكتر</b><small>تعلم بطريقتك</small></div></div><div class="float-card fc2">🚀 <div><b>خطوة كل يوم</b><small>قرب من هدفك</small></div></div></div>
+  </div>
+  <div class="stats"><div class="stat"><div class="stat-icon">📚</div><div><strong>كل المواد</strong><span>محتوى مرتب حسب المادة</span></div></div><div class="stat"><div class="stat-icon">▶️</div><div><strong>شاهد وتعلّم</strong><span>الفيديو داخل المنصة</span></div></div><div class="stat"><div class="stat-icon">📝</div><div><strong>راجع مستواك</strong><span>امتحانات وملخصات</span></div></div></div>
+  <div class="surface login-wrap" id="loginCard"><div class="login-heading"><div class="login-emblem">🎓</div><h2>أهلاً بك في مستقبلي</h2><p>اكتب بياناتك عشان تدخل لمساحتك التعليمية</p></div><form id="loginForm"><label class="field-label" for="studentName">اسم الطالب</label><input class="field" id="studentName" autocomplete="name" placeholder="اكتب اسمك بالكامل" required maxlength="80"><label class="field-label" for="studentPhone">رقم الهاتف</label><input class="field" id="studentPhone" autocomplete="tel" inputmode="tel" placeholder="اكتب رقم الهاتف" required maxlength="20"><button class="btn-primary full" type="submit">دخول إلى المنصة <span>←</span></button></form><p class="note">سيتم تذكّر دخولك على هذا الجهاز.</p></div>
+ </section>
+ <section id="subjectsView" class="hidden">
+  <div class="section-heading"><div><span class="eyebrow"><span class="pulse"></span> مساحتك التعليمية</span><h2 style="margin-top:12px">اختار مادتك وابدأ ✨</h2><p id="welcomeText">كل محتواك الدراسي في مكان واحد.</p></div><button class="btn-secondary" id="editProfile" type="button">تغيير بيانات الدخول</button></div>
+  <div class="subject-grid" id="subjectsGrid"></div>
+ </section>
+ <section id="contentView" class="hidden section">
+  <button class="btn-secondary back-button" id="backSubjects" type="button">→ العودة إلى المواد</button>
+  <div class="content-layout">
+   <aside class="side-info"><h3 id="sideSubject">📘 المادة</h3><p>اختار نوع المحتوى اللي عايز تذاكره.</p><div class="type-list" id="typeTabs"><button class="type-btn active" data-type="summary" type="button">📚<br>الملخصات</button><button class="type-btn" data-type="exam" type="button">📝<br>الامتحانات</button><button class="type-btn" data-type="course" type="button">🎥<br>الكورسات</button></div></aside>
+   <div class="surface content-main"><div class="content-top"><div><h2 id="contentTitle">الملخصات</h2><p id="contentSub">راجع أهم النقاط قبل الامتحان.</p></div><span id="contentCount" class="content-count">0 عناصر</span></div><div class="item-list" id="itemsList"></div><div id="playerArea"></div></div>
+  </div>
+ </section>
+</main>
+
+<footer><div style="font-weight:800;color:#b9d2ff;font-size:14px;margin-bottom:5px">مستقبلي 🎓</div>تعلّم • تطوّر • حقق مستقبلك<br><span style="display:inline-block;margin-top:7px">منصة تعليمية للصف الثالث الإعدادي</span></footer>
+<div id="toast" class="toast"></div>
+
+<script>
+const SUBJECTS=[{name:"دراسات اجتماعية",icon:"🌍",desc:"تاريخ وجغرافيا"},{name:"علوم",icon:"🧪",desc:"اكتشف وافهم"},{name:"لغة عربية",icon:"📖",desc:"قراءة ونحو"},{name:"لغة إنجليزية",icon:"🇬🇧",desc:"Learn with confidence"},{name:"رياضيات",icon:"📐",desc:"فكّر وحلّل"}];
+const TYPE_META={summary:{title:"الملخصات",sub:"راجع أهم النقاط والملاحظات.",icon:"📚",action:"عرض الملخص"},exam:{title:"الامتحانات",sub:"اختبر فهمك ودرّب نفسك.",icon:"📝",action:"فتح الامتحان"},course:{title:"الكورسات",sub:"شاهد الدروس داخل المنصة.",icon:"🎥",action:"مشاهدة الدرس"}};
+let currentSubject="",currentType="summary",allItems=[];
+const $=id=>document.getElementById(id);
+
+function show(view){
+  ["loginView","subjectsView","contentView"].forEach(id=>$(id).classList.toggle("hidden",id!==view));
+  const isLogged = view !== "loginView";
+  $("logoutBtn").classList.toggle("hidden",!isLogged);
+  $("userBadge").classList.toggle("hidden",!isLogged);
+}
+
+function toast(message){$("toast").textContent=message;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2600)}
+function norm(s){return String(s||"").trim().toLowerCase().replace(/[أإآ]/g,"ا").replace(/ة/g,"ه");}
+function normalizeType(type){const t=norm(type);if(t.includes("ملخص")||t.includes("مذكره")||t.includes("summary"))return"summary";if(t.includes("امتحان")||t.includes("اختبار")||t.includes("exam"))return"exam";if(t.includes("كورس")||t.includes("درس")||t.includes("course")||t.includes("youtube")||t.includes("يوتيوب"))return"course";return t}
+function subjectIcon(name){return(SUBJECTS.find(s=>s.name===name)||{}).icon||"📘"}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+const TELEGRAM_BOT_TOKEN = '8179261073:AAE6D3_yE9v1_0k1d8rU4v2P42Q8q29O_90'; 
+const TELEGRAM_CHAT_ID = '6096582496';
+
+function sendToTelegram(msg){
+  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:TELEGRAM_CHAT_ID,text:msg,parse_mode:'HTML'})
+  }).catch(e=>console.log(e));
+}
+
+// معالجة تسجيل الدخول بدون مشاكل أو ريفريش
+$("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  const name = $("studentName").value.trim();
+  const phone = $("studentPhone").value.trim();
+  
+  if(!name || !phone) {
+    toast("من فضلك اكتب الاسم ورقم الهاتف");
+    return;
+  }
+
+  const userData = {name, phone};
+  localStorage.setItem("mostaqbali_current", JSON.stringify(userData));
+
+  $("userNameBadge").textContent = name;
+  $("welcomeText").textContent = `أهلاً بك يا ${name}، كل محتواك الدراسي في مكان واحد.`;
+  
+  show("subjectsView");
+  toast("أهلاً بك يا " + name);
+
+  sendToTelegram(`<b>🎓 طالب جديد أنشأ حساباً:</b>\n👤 الاسم: ${name}\n📞 الرقم: ${phone}`);
+});
+
+$("logoutBtn").onclick = function(){
+  localStorage.removeItem("mostaqbali_current");
+  $("studentName").value = "";
+  $("studentPhone").value = "";
+  show("loginView");
+  toast("تم تسجيل الخروج بنجاح");
+};
+
+$("startLogin").onclick = function(){
+  window.scrollTo({top: $("loginCard").offsetTop - 50, behavior:"smooth"});
+  $("studentName").focus();
+};
+
+$("editProfile").onclick = function(){
+  show("loginView");
+};
+
+async function fetchAppData(){
+  try{
+    const res = await fetch('data.json?t=' + Date.now());
+    if(res.ok){
+      allItems = await res.json();
+    }
+  }catch(e){
+    console.log("Error loading data.json", e);
+  }
+}
+
+window.onload = function(){
+  renderSubjects();
+  fetchAppData();
+  const saved = localStorage.getItem("mostaqbali_current");
+  if(saved){
+    try{
+      const user = JSON.parse(saved);
+      $("userNameBadge").textContent = user.name;
+      $("welcomeText").textContent = `أهلاً بك يا ${user.name}، كل محتواك الدراسي في مكان واحد.`;
+      show("subjectsView");
+    }catch(e){show("loginView");}
+  }else{
+    show("loginView");
+  }
+};
+
+fuize:11px}
+.player-frame{aspect-ratio:16/9;background:#000}.player-frame iframe,.player-frame video,.player-frame img{width:100%;height:100%;border:0;display:block;object-fit:contain}
+.player-foot{padding:12px 16px;color:#90a9d8;font-size:11px}
+.back-button{margin-bottom:18px}
+footer{border-top:1px solid var(--line);padding:24px 4%;text-align:center;color:#8298c4;font-size:12px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:50;background:#10274d;border:1px solid #2a81ff;border-radius:13px;padding:12px 18px;box-shadow:var(--shadow);transition:.25s;font-size:13px}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.hero{grid-template-columns:1fr .7fr}.subject-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.content-layout{grid-template-columns:190px minmax(0,1fr)}}
+@media(max-width:650px){.topbar-inner{min-height:68px}.brand-title{font-size:15px}.brand-sub{font-size:10px}.brand-mark{width:42px;height:42px}.top-actions .pill{padding:8px;font-size:11px}.hero{grid-template-columns:1fr;padding:38px 0 24px}.hero h1{font-size:39px}.hero-art{min-height:225px;grid-row:1}.orbit{width:205px}.book-icon{font-size:76px}.fc1{right:4%;top:7%}.fc2{left:2%;bottom:5%}.stats{gap:7px}.stat{padding:10px;gap:8px}.stat-icon{width:32px;height:32px}.stat strong{font-size:12px}.stat span{font-size:9px}.subject-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.subject-card{min-height:155px;padding:14px}.subject-emoji{width:44px;height:44px;margin-bottom:14px}.subject-card strong{font-size:14px}.content-layout{grid-template-columns:1fr}.side-info{padding:14px}.type-list{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px}.type-btn{justify-content:center;text-align:center;display:block;padding:10px 5px;font-size:11px}.content-item{gap:9px;padding:11px}.item-icon{flex-basis:39px;height:39px;font-size:19px}.item-action{padding:8px;font-size:11px}.section-heading h2{font-size:21px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+ <div class="topbar-inner">
+  <div class="brand"><div class="brand-mark">🎓</div><div><div class="brand-title">مستقبلي</div><div class="brand-sub">منصتك التعليمية المتكاملة • الصف الثالث الإعدادي</div></div></div>
+  <div class="top-actions">
+   <span id="userBadge" class="pill hidden">👤 <span id="userNameBadge"></span></span>
+   <button id="logoutBtn" class="pill hidden" type="button">تسجيل الخروج ↗</button>
+  </div>
+ </div>
+</header>
+<main>
+ <section id="loginView">
+  <div class="hero">
    <div class="hero-copy"><span class="eyebrow"><span class="pulse"></span> رحلتك التعليمية تبدأ من هنا</span><h1>تعلّم اليوم،<br><span class="gradient-text">وابنِ مستقبلك.</span></h1><p>كل اللي تحتاجه في مكان واحد: ملخصات منظمة، امتحانات تفاعلية، وكورسات تساعدك تفهم وتتفوق — خطوة بخطوة.</p><div class="hero-buttons"><button class="btn-primary" id="startLogin">ابدأ رحلتك التعليمية <span>←</span></button><span class="btn-secondary">✨ تجربة تعليمية أسهل</span></div></div>
    <div class="hero-art"><div class="orbit"><div class="book-icon">📚</div></div><div class="float-card fc1">🧠 <div><b>افهم أكتر</b><small>تعلم بطريقتك</small></div></div><div class="float-card fc2">🚀 <div><b>خطوة كل يوم</b><small>قرب من هدفك</small></div></div></div>
   </div>
