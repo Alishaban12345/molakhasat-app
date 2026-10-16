@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة ملخصات 3 إعدادي</title>
+    <title>الصف الثالث الإعدادي | منصة تعليمية متكاملة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-deep: #090d16;
-            --bg-card: #131c31;
-            --bg-input: #1a2644;
-            --primary: #3b82f6;
-            --primary-hover: #60a5fa;
+            --bg-deep: #05080f;
+            --bg-card: rgba(13, 22, 38, 0.75);
+            --bg-input: #101c33;
+            --primary: #0070f3;
+            --primary-hover: #3b82f6;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            --border-color: #1e293b;
+            --border-color: rgba(59, 130, 246, 0.25);
             --success: #22c55e;
             --danger-bg: #450a0a;
             --danger-text: #fca5a5;
@@ -29,16 +29,17 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
-            background-image: radial-gradient(circle at top right, #1e1b4b 0%, transparent 50%),
-                              radial-gradient(circle at bottom left, #0f172a 0%, transparent 50%);
+            background-image: radial-gradient(circle at top, #0f1d3a 0%, var(--bg-deep) 70%);
+            overflow-x: hidden;
         }
 
+        /* نافذة تسجيل الدخول الفخمة */
         .auth-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(5, 8, 15, 0.98);
-            backdrop-filter: blur(15px);
+            background: rgba(5, 8, 15, 0.92);
+            backdrop-filter: blur(12px);
             display: flex; 
             justify-content: center;
             align-items: center;
@@ -46,115 +47,153 @@
             padding: 20px;
         }
 
-        .auth-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-top: 6px solid var(--primary);
-            border-radius: 20px;
-            padding: 40px 30px;
+        .auth-container {
             width: 100%;
-            max-width: 440px;
+            max-width: 420px;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .auth-box h2 {
+        .app-logo-badge {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #1e3a8a, #0284c7);
+            border: 2px solid #60a5fa;
+            border-radius: 26px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            margin-bottom: 18px;
+            box-shadow: 0 0 30px rgba(0, 112, 243, 0.4);
+        }
+
+        .auth-container h1 {
             font-size: 1.8rem;
-            margin-bottom: 8px;
-            color: var(--text-main);
             font-weight: 900;
+            color: var(--text-main);
+            margin-bottom: 6px;
         }
 
-        .auth-box p {
+        .auth-container h2 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #60a5fa;
+            margin-bottom: 4px;
+        }
+
+        .auth-container p {
             color: var(--text-muted);
-            font-size: 0.95rem;
+            font-size: 0.88rem;
             margin-bottom: 25px;
             font-weight: 600;
         }
 
-        .input-group {
-            margin-bottom: 18px;
-            text-align: right;
+        .auth-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 30px 24px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(59, 130, 246, 0.05);
         }
 
-        .input-group label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            font-weight: 700;
+        .input-group {
+            margin-bottom: 16px;
+            text-align: right;
+            position: relative;
         }
 
         .input-group input {
             width: 100%;
-            padding: 13px 16px;
-            border-radius: 12px;
+            padding: 14px 45px 14px 16px;
+            border-radius: 14px;
             background-color: var(--bg-input) !important;
-            border: 2px solid var(--border-color);
+            border: 1px solid var(--border-color);
             color: var(--text-main) !important;
             font-family: 'Cairo', sans-serif;
             outline: none;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             transition: all 0.3s;
             -webkit-text-fill-color: var(--text-main) !important;
         }
 
         .input-group input:focus {
-            background-color: #1e293b !important;
             border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.2);
+            box-shadow: 0 0 0 4px rgba(0, 112, 243, 0.25);
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
         }
 
         .btn-auth {
             width: 100%;
             padding: 14px;
-            background: linear-gradient(135deg, var(--primary) 0%, #2563eb 100%);
+            background: linear-gradient(135deg, #0070f3 0%, #2563eb 100%);
             border: none;
-            border-radius: 12px;
+            border-radius: 14px;
             color: white;
             font-family: 'Cairo', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
+            box-shadow: 0 8px 20px rgba(0, 112, 243, 0.4);
             transition: all 0.3s;
         }
 
         .btn-auth:hover {
-            background: linear-gradient(135deg, var(--primary-hover) 0%, var(--primary) 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
             transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(0, 112, 243, 0.6);
         }
 
-        .switch-auth {
+        .auth-footer-links {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-top: 20px;
-            font-size: 0.95rem;
-            color: var(--text-muted);
+            font-size: 0.88rem;
             font-weight: 600;
         }
 
-        .switch-auth span {
-            color: var(--primary-hover);
+        .auth-footer-links span {
+            color: #60a5fa;
             cursor: pointer;
-            font-weight: 900;
+            transition: color 0.2s;
+        }
+
+        .auth-footer-links span:hover {
+            color: #93c5fd;
             text-decoration: underline;
         }
 
+        /* الشريط العلوي للمنصة */
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 18px 35px;
-            background-color: var(--bg-card);
+            padding: 16px 35px;
+            background-color: rgba(13, 22, 38, 0.9);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-color);
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.2);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
             position: relative;
         }
 
         .nav-brand {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #60a5fa, #06b6d4);
+            background: linear-gradient(135deg, #60a5fa, #38bdf8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             cursor: pointer;
@@ -169,24 +208,24 @@
 
         .student-badge {
             background: rgba(59, 130, 246, 0.15);
-            color: var(--primary-hover);
+            color: #60a5fa;
             border: 1px solid rgba(59, 130, 246, 0.3);
             padding: 6px 14px;
             border-radius: 20px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
         }
 
         .menu-btn {
             background: var(--bg-input);
             border: 1px solid var(--border-color);
             color: var(--text-main);
-            width: 40px; height: 40px;
+            width: 38px; height: 38px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 900;
             cursor: pointer;
             transition: all 0.3s;
@@ -200,12 +239,12 @@
 
         .dropdown-menu {
             position: absolute;
-            top: 60px; left: 0;
-            background: var(--bg-card);
+            top: 55px; left: 0;
+            background: #101c33;
             border: 1px solid var(--border-color);
             border-radius: 14px;
-            width: 230px;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            width: 220px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
             display: none;
             flex-direction: column;
             z-index: 999;
@@ -214,20 +253,20 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
+            from { opacity: 0; transform: translateY(-8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         .dropdown-item {
-            padding: 12px 18px;
+            padding: 12px 16px;
             color: var(--text-main);
             text-decoration: none;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-bottom: 1px solid var(--border-color);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             transition: background 0.2s;
             cursor: pointer;
             background: none;
@@ -237,7 +276,7 @@
         }
 
         .dropdown-item:last-child { border-bottom: none; }
-        .dropdown-item:hover { background: var(--bg-input); color: var(--primary-hover); }
+        .dropdown-item:hover { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
         .dropdown-item.logout { color: var(--danger-text); background: rgba(69, 10, 10, 0.2); }
         .dropdown-item.logout:hover { background: var(--danger-bg); color: white; }
 
@@ -250,7 +289,7 @@
         }
 
         .welcome-card {
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            background: linear-gradient(135deg, #101c33 0%, #090d16 100%);
             border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 35px;
@@ -261,19 +300,19 @@
 
         .welcome-card h3 {
             color: var(--text-main);
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 900;
             margin-bottom: 10px;
         }
 
         .welcome-card p {
             color: var(--text-muted);
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 600;
         }
 
         .section-title {
-            font-size: 1.35rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: var(--text-main);
             margin-bottom: 20px;
@@ -292,18 +331,18 @@
         .subject-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 24px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
         .subject-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 15px 30px rgba(0, 112, 243, 0.2);
             border-color: var(--primary);
         }
 
@@ -311,11 +350,11 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .subject-title {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 900;
             color: var(--text-main);
         }
@@ -324,13 +363,240 @@
             background: rgba(34, 197, 94, 0.15);
             color: var(--success);
             border: 1px solid rgba(34, 197, 94, 0.3);
-            padding: 5px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 900;
         }
 
         .subject-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .subject-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 112, 243, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(0, 112, 243, 0.3);
+            border-radius: 12px;
+            font-family: 'Cairo';
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .subject-btn:hover { background: var(--primary); color: white; }
+
+        .content-view {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .back-btn {
+            background: var(--bg-input);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-family: 'Cairo';
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover { background: #1e293b; }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            background: #1e293b;
+            transform: translateY(-3px);
+        }
+
+        .option-card h4 { font-size: 1.15rem; font-weight: 900; color: var(--text-main); margin-bottom: 8px; }
+        .option-card p { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+
+        .dynamic-items-container {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .item-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .item-card:hover { border-color: var(--primary); }
+        .item-info h5 { font-size: 1.05rem; color: var(--text-main); font-weight: 900; margin-bottom: 4px; }
+        .item-info span { font-size: 0.85rem; color: var(--text-muted); }
+        .item-link-btn { background: var(--primary); color: white; text-decoration: none; padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; transition: background 0.2s; }
+        .item-link-btn:hover { background: var(--primary-hover); }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            background: rgba(13, 22, 38, 0.9);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- نافذة تسجيل الدخول / إنشاء حساب بالتصميم الفخم -->
+    <div class="auth-overlay" id="authOverlay" style="display: none;">
+        <div class="auth-container">
+            <div class="app-logo-badge">🎓</div>
+            <h1>الصف الثالث الإعدادي</h1>
+            <h2>منصة تعليمية متكاملة</h2>
+            <p id="authSubtitle">تعلم .. طور .. حقق مستقبلك</p>
+            
+            <div class="auth-box">
+                <div class="input-group" id="nameGroup" style="display: none;">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="authName" placeholder="الاسم بالكامل">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-icon">📞</span>
+                    <input type="tel" id="authPhone" placeholder="رقم الهاتف (مثال: 010...)">
+                </div>
+                
+                <div class="input-group">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="authPass" placeholder="كلمة المرور">
+                </div>
+
+                <button class="btn-auth" id="authBtn" onclick="submitAuth()">تسجيل الدخول</button>
+
+                <div class="auth-footer-links">
+                    <span onclick="alert('تواصل مع أدمن المنصة لإعادة تعيين كلمة المرور عبر التليجرام!')">نسيت كلمة المرور؟</span>
+                    <span id="switchText" onclick="toggleAuthMode()">إنشاء حساب جديد</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الشريط العلوي -->
+    <div class="navbar">
+        <div class="nav-brand" onclick="goHome()">🎓 ملخصات 3 إعدادي</div>
+        <div class="user-panel">
+            <span class="student-badge" id="studentBadge">زائر</span>
+            
+            <div style="position: relative;">
+                <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-item" onclick="showProfile()">👤 الحساب الشخصي</div>
+                    <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="dropdown-item">📢 قناة الواتساب</a>
+                    <button class="dropdown-item logout" onclick="logout()">🚪 تسجيل الخروج</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-container">
+        
+        <div id="homeView">
+            <div class="welcome-card">
+                <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
+                <p>اختر المادة الدراسية المطلوبة لاستعراض الملخصات، الكورسات، والامتحانات</p>
+            </div>
+
+            <div class="section-title">📚 المواد الدراسية المقررة</div>
+
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">دراسات اجتماعية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">تاريخ العصور الحديثة، جغرافيا العالم، وتدريبات المنهج.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('دراسات اجتماعية')">دخول المادة 📖</button>
+                </div>
+
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">علوم</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">التفاعلات الكيميائية، السرعة، التجارب، والمعادلات.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('علوم')">دخول المادة 📖</button>
+                </div>
+
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">لغة عربية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">نحو الشهادة الإعدادية، قصة طموح جارية، والنصوص.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('لغة عربية')">دخول المادة 📖</button>
+                </div>
+
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">لغة إنجليزية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">قواعد الوحدات، الكلمات، المحادثات، وبنك الأسئلة.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('لغة إsc {
             color: var(--text-muted);
             font-size: 0.9rem;
             margin-bottom: 20px;
