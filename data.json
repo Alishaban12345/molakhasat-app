@@ -1,5 +1,17 @@
-{
-  "summaries": [],
-  "youtube_videos": [],
-  "exams": []
-}
+[
+    {
+        "subject": "دراسات اجتماعية",
+        "type": "ملخص دراسات اجتماعية",
+        "link": "https://alishaban12345.github.io/molakhasat-app/summaries/sample.jpg"
+    },
+    {
+        "subject": "علوم",
+        "type": "امتحان علوم",
+        "link": "https://alishaban12345.github.io/molakhasat-app/exams/sample.html"
+    },
+    {
+        "subject": "لغة عربية",
+        "type": "كورس لغة عربية",
+        "link": "https://www.youtube.com/watch?v=example"
+    }
+]
