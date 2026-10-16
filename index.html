@@ -138,8 +138,8 @@ const TYPE_META={summary:{title:"الملخصات",sub:"راجع أهم النق
 let currentSubject="",currentType="summary",allItems=[];
 const $=id=>document.getElementById(id);
 
-const TELEGRAM_BOT_TOKEN = '8924810221:AAH5ghkK5lyUkuezQlvQM34fBecueELttb0'; 
-const TELEGRAM_CHAT_ID = '5531994675';
+const TELEGRAM_BOT_TOKEN = '8924810221:AAGz9rlnucHCU8xtpP_duZ7zBk8mwduVd-k'; 
+const TELEGRAM_CHAT_ID = '6096582496';
 
 function sendToTelegram(msg){
   fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,{
@@ -164,4 +164,44 @@ function renderItems(){
  $("playerArea").innerHTML="";const list=$("itemsList");list.innerHTML="";const meta=TYPE_META[currentType];$("contentTitle").textContent=meta.icon+" "+meta.title;$("contentSub").textContent=meta.sub;
  const items=allItems.filter(i=>matchesSubject(i)&&normalizeType(i.type)===currentType);$("contentCount").textContent=items.length+" عناصر";
  if(!items.length){list.innerHTML=`<div class="empty-state"><div class="empty-icon">${meta.icon}</div><h3>المحتوى هينزل هنا قريبًا</h3><p>مفيش محتوى مضاف في القسم ده لسه.<br>أول ما تضيف ${meta.title} من البوت وتحدّث بيانات الموقع، هتظهر هنا.</p></div>`;return}
- items.forEach(item=>{const el=document.createElement("article");el.className="content-item";el.innerHTML=`<div class="item-icon">${meta.icon}</div><div class="item-body"><h3>${esc(itemTitle(item))}</h3><p>${esc
+ items.forEach(item=>{const el=document.createElement("article");el.className="content-item";el.innerHTML=`<div class="item-icon">${meta.icon}</div><div class="item-body"><h3>${esc(itemTitle(item))}</h3><p>${esc(item.description||item.subject||"محتوى تعليمي")}</p></div><button class="item-action" type="button">${meta.action} ←</button>`;el.querySelector("button").onclick=()=>openItem(item);list.appendChild(el)})
+}
+function youtubeId(raw){try{const u=new URL(raw);if(u.hostname==="youtu.be"||u.hostname.endsWith(".youtu.be"))return u.pathname.split("/").filter(Boolean)[0]||"";if(u.searchParams.get("v"))return u.searchParams.get("v");const m=u.pathname.match(/\/(embed|shorts|live|v)\/([^/?]+)/);return m?m[2]:""}catch(e){return""}}
+function openItem(item){
+ const link=getLink(item);const area=$("playerArea");area.innerHTML="";if(!link){toast("الرابط غير موجود للمحتوى ده");return}
+ const player=document.createElement("section");player.className="player";const meta=TYPE_META[currentType];player.innerHTML=`<div class="player-head"><div><h3>${esc(itemTitle(item))}</h3><p>${esc(currentSubject)} · ${meta.title}</p></div><button class="pill closePlayer" type="button">إغلاق ✕</button></div><div class="player-frame" id="activeFrame"></div><div class="player-foot">المحتوى معروض داخل منصة مستقبلي.</div>`;player.querySelector(".closePlayer").onclick=()=>area.innerHTML="";const frame=player.querySelector("#activeFrame");
+ if(currentType==="course"){const id=youtubeId(link);if(id){const iframe=document.createElement("iframe");iframe.src="https://www.youtube-nocookie.com/embed/"+encodeURIComponent(id);iframe.title=itemTitle(item);iframe.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";iframe.allowFullscreen=true;iframe.referrerPolicy="strict-origin-when-cross-origin";frame.appendChild(iframe)}else if(/\.(mp4|webm|ogg)(\?|$)/i.test(link)){const v=document.createElement("video");v.src=link;v.controls=true;v.playsInline=true;frame.appendChild(v)}else{frame.style.display="grid";frame.style.placeItems="center";frame.innerHTML='<div style="padding:25px;text-align:center;color:#c4d5f7">الرابط ده مش رابط YouTube قابل للتضمين.<br>استخدم رابط فيديو YouTube عادي علشان يشتغل داخل المنصة.</div>'}}
+ else if(currentType==="exam"){const iframe=document.createElement("iframe");iframe.src=link;iframe.title=itemTitle(item);iframe.allowFullscreen=true;frame.appendChild(iframe)}
+ else if(/\.(png|jpe?g|webp|gif)(\?|$)/i.test(link)){const img=document.createElement("img");img.src=link;img.alt=itemTitle(item);frame.appendChild(img)}
+ else{const iframe=document.createElement("iframe");iframe.src=link;iframe.title=itemTitle(item);iframe.allowFullscreen=true;frame.appendChild(iframe)}
+ area.appendChild(player);player.scrollIntoView({behavior:"smooth",block:"start"})
+}
+async function loadData(){try{const r=await fetch("data.json",{cache:"no-store"});if(!r.ok)throw Error("data");const data=await r.json();allItems=Array.isArray(data)?data:[]}catch(e){allItems=[]}}
+async function enter(user){$("welcomeText").textContent="أهلاً يا "+user.name+" — اختار مادة وابدأ رحلتك."; $("userNameBadge").textContent=user.name;renderSubjects();await loadData();show("subjectsView")}
+
+$("startLogin").onclick=()=>$("loginCard").scrollIntoView({behavior:"smooth",block:"center"});
+
+$("loginForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const name=$("studentName").value.trim();
+  const phone=$("studentPhone").value.trim();
+  if(!name||!phone){toast("من فضلك اكتب الاسم ورقم الهاتف");return;}
+  
+  const user={name,phone};
+  localStorage.setItem("mustaqbaliStudent",JSON.stringify(user));
+  
+  // إرسال بيانات الطالب للبوت بالتوكن الصحيح
+  sendToTelegram(`<b>🎓 طالب جديد أنشأ حساباً:</b>\n👤 الاسم: ${name}\n📞 الرقم: ${phone}`);
+  
+  await enter(user);
+});
+
+$("backSubjects").onclick=()=>{show("subjectsView");window.scrollTo({top:0,behavior:"smooth"})};
+$("typeTabs").addEventListener("click",e=>{const b=e.target.closest("button[data-type]");if(!b)return;currentType=b.dataset.type;document.querySelectorAll(".type-btn").forEach(t=>t.classList.toggle("active",t===b));renderItems()});
+$("logoutBtn").onclick=()=>{localStorage.removeItem("mustaqbaliStudent");show("loginView");$("studentName").value="";$("studentPhone").value="";window.scrollTo({top:0,behavior:"smooth"})};
+$("editProfile").onclick=()=>{show("loginView");window.scrollTo({top:0,behavior:"smooth"});toast("اكتب بيانات الدخول من جديد")};
+
+(async()=>{const saved=localStorage.getItem("mustaqbaliStudent");if(saved){try{await enter(JSON.parse(saved));return}catch(e){}}show("loginView")})();
+</script>
+</body>
+</html>
