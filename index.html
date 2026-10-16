@@ -33,12 +33,11 @@
             overflow-x: hidden;
         }
 
-        /* نافذة تسجيل الدخول الفخمة */
         .auth-overlay {
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(5, 8, 15, 0.92);
+            background: rgba(5, 8, 15, 0.95);
             backdrop-filter: blur(12px);
             display: flex; 
             justify-content: center;
@@ -177,7 +176,6 @@
             text-decoration: underline;
         }
 
-        /* الشريط العلوي للمنصة */
         .navbar {
             display: flex;
             justify-content: space-between;
@@ -331,6 +329,275 @@
         .subject-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .subject-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 112, 243, 0.2);
+            border-color: var(--primary);
+        }
+
+        .subject-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .subject-title {
+            font-size: 1.15rem;
+            font-weight: 900;
+            color: var(--text-main);
+        }
+
+        .status-badge {
+            background: rgba(34, 197, 94, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 900;
+        }
+
+        .subject-desc {
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            line-height: 1.6;
+        }
+
+        .subject-btn {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 112, 243, 0.15);
+            color: #60a5fa;
+            border: 1px solid rgba(0, 112, 243, 0.3);
+            border-radius: 12px;
+            font-family: 'Cairo';
+            font-weight: 700;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .subject-btn:hover { background: var(--primary); color: white; }
+
+        .content-view {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .content-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .back-btn {
+            background: var(--bg-input);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-family: 'Cairo';
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover { background: #1e293b; }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .option-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .option-card:hover {
+            border-color: var(--primary);
+            background: #1e293b;
+            transform: translateY(-3px);
+        }
+
+        .option-card h4 { font-size: 1.15rem; font-weight: 900; color: var(--text-main); margin-bottom: 8px; }
+        .option-card p { font-size: 0.85rem; color: var(--text-muted); font-weight: 600; }
+
+        .dynamic-items-container {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+        }
+
+        .item-card {
+            background: var(--bg-input);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 18px 20px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s;
+        }
+
+        .item-card:hover { border-color: var(--primary); }
+        .item-info h5 { font-size: 1.05rem; color: var(--text-main); font-weight: 900; margin-bottom: 4px; }
+        .item-info span { font-size: 0.85rem; color: var(--text-muted); }
+        .item-link-btn { background: var(--primary); color: white; text-decoration: none; padding: 8px 18px; border-radius: 10px; font-weight: 700; font-size: 0.88rem; transition: background 0.2s; }
+        .item-link-btn:hover { background: var(--primary-hover); }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            background: rgba(13, 22, 38, 0.9);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- نافذة تسجيل الدخول / إنشاء حساب (تظهر فقط عند عدم التسجيل) -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-container">
+            <div class="app-logo-badge">🎓</div>
+            <h1>الصف الثالث الإعدادي</h1>
+            <h2>منصة تعليمية متكاملة</h2>
+            <p id="authSubtitle">تعلم .. طور .. حقق مستقبلك</p>
+            
+            <div class="auth-box">
+                <div class="input-group" id="nameGroup" style="display: none;">
+                    <span class="input-icon">👤</span>
+                    <input type="text" id="authName" placeholder="الاسم بالكامل">
+                </div>
+
+                <div class="input-group">
+                    <span class="input-icon">📞</span>
+                    <input type="tel" id="authPhone" placeholder="رقم الهاتف (مثال: 010...)">
+                </div>
+                
+                <div class="input-group">
+                    <span class="input-icon">🔒</span>
+                    <input type="password" id="authPass" placeholder="كلمة المرور">
+                </div>
+
+                <button class="btn-auth" id="authBtn" onclick="submitAuth()">تسجيل الدخول</button>
+
+                <div class="auth-footer-links">
+                    <span onclick="alert('تواصل مع أدمن المنصة لإعادة تعيين كلمة المرور عبر التليجرام!')">نسيت كلمة المرور؟</span>
+                    <span id="switchText" onclick="toggleAuthMode()">إنشاء حساب جديد</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الشريط العلوي -->
+    <div class="navbar">
+        <div class="nav-brand" onclick="goHome()">🎓 ملخصات 3 إعدادي</div>
+        <div class="user-panel">
+            <span class="student-badge" id="studentBadge">زائر</span>
+            
+            <div style="position: relative;">
+                <button class="menu-btn" onclick="toggleMenu(event)">⋮</button>
+                <div class="dropdown-menu" id="dropdownMenu">
+                    <div class="dropdown-item" onclick="showProfile()">👤 الحساب الشخصي</div>
+                    <a href="https://whatsapp.com/channel/0029Vb8wKFtEQIalbkPy1s0D" target="_blank" class="dropdown-item">📢 قناة الواتساب</a>
+                    <button class="dropdown-item logout" onclick="logout()">🚪 تسجيل الخروج</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="main-container">
+        
+        <div id="homeView">
+            <div class="welcome-card">
+                <h3 id="userWelcome">أهلاً بك يا بطل! 👋</h3>
+                <p>اختر المادة الدراسية المطلوبة لاستعراض الملخصات، الكورسات، والامتحانات</p>
+            </div>
+
+            <div class="section-title">📚 المواد الدراسية المقررة</div>
+
+            <div class="subjects-grid">
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">دراسات اجتماعية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">تاريخ العصور الحديثة، جغرافيا العالم، وتدريبات المنهج.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('دراسات اجتماعية')">دخول المادة 📖</button>
+                </div>
+
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">علوم</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">التفاعلات الكيميائية، السرعة، التجارب، والمعادلات.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('علوم')">دخول المادة 📖</button>
+                </div>
+
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">لغة عربية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">نحو الشهادة الإعدادية، قصة طموح جارية، والنصوص.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('لغة عربية')">دخول المادة 📖</button>
+                </div>
+
+                <div class="subject-card">
+                    <div>
+                        <div class="subject-header">
+                            <span class="subject-title">لغة إنجليزية</span>
+                            <span class="status-badge">متاح 🔥</span>
+                        </div>
+                        <p class="subject-desc">قواعد الوحدات، الكلمات، المحادثات، وبنك الأسئلة.</p>
+                    </div>
+                    <button class="subject-btn" onclick="openSubject('لغة إنجليزية')">دخول المادة 📖</button>
+                </div>
+
+                <div class=var(--border-color);
             border-radius: 18px;
             padding: 24px;
             display: flex;
